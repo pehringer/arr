@@ -1,6 +1,6 @@
 #include "cds_Array.h"
 
-void* cds_ArrayConstruct(struct cds_Array *a, int sizeOf, int length) {
+struct cds_Array* cds_ArrayConstruct(struct cds_Array *a, int sizeOf, int length) {
     if((a->base = malloc(sizeOf * length)) == 0) {
       return 0;
     }
@@ -9,7 +9,7 @@ void* cds_ArrayConstruct(struct cds_Array *a, int sizeOf, int length) {
     return a;
 }
 
-void* cds_ArrayResizeOf(struct cds_Array *a, int length) {
+struct cds_Array* cds_ArrayResize(struct cds_Array *a, int length) {
     if((a->base = realloc(a->base, a->sizeOf * length)) == 0) {
       return 0;
     }
@@ -32,12 +32,12 @@ void* cds_ArrayAt(struct cds_Array *a, int index) {
     return a->base + a->sizeOf * index;
 }
 
-void* cds_ArrayCopy(struct cds_Array *a, int index, void *values, int length) {
+struct cds_Array* cds_ArrayCopy(struct cds_Array *a, int index, void *values, int length) {
     memcpy(a->base + a->sizeOf * index, values, a->sizeOf * length);
     return a;
 }
 
-void* cds_ArrayFill(struct cds_Array *a, int index, void *value, int length) {
+struct cds_Array* cds_ArrayFill(struct cds_Array *a, int index, void *value, int length) {
     void* element = a->base + a->sizeOf * index;
     while(length > 0) {
         memcpy(element, value, a->sizeOf);
@@ -71,7 +71,7 @@ int cds_ArrayLastIndexOf(struct cds_Array *a, int index, void *value, int (*comp
     return -1;
 }
 
-void* cds_ArraySort(struct cds_Array *a, int (*compare)(const void*, const void*)) {
+struct cds_Array* cds_ArraySort(struct cds_Array *a, int (*compare)(const void*, const void*)) {
     qsort(a->base, a->length, a->sizeOf, compare);
     return a;
 }

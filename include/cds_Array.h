@@ -11,10 +11,10 @@ struct cds_Array {
 };
 
 //System errors return null.
-void* cds_ArrayConstruct(struct cds_Array *a, int sizeOf, int length);
+struct cds_Array* cds_ArrayConstruct(struct cds_Array *a, int sizeOf, int length);
 
 //System errors return null.
-void* cds_ArrayResizeOf(struct cds_Array *a, int length);
+struct cds_Array* cds_ArrayResize(struct cds_Array *a, int length);
 
 void cds_ArrayDestruct(struct cds_Array *a);
 
@@ -22,15 +22,15 @@ int cds_ArrayLength(struct cds_Array *a);
 
 void* cds_ArrayAt(struct cds_Array *a, int index);
 
-void* cds_ArrayCopy(struct cds_Array *a, int index, void *values, int length);
+struct cds_Array* cds_ArrayCopy(struct cds_Array *a, int index, void *values, int length);
 
-void* cds_ArrayFill(struct cds_Array *a, int index, void *value, int length);
+struct cds_Array* cds_ArrayFill(struct cds_Array *a, int index, void *value, int length);
 
 int cds_ArrayFirstIndexOf(struct cds_Array *a, int index, void *value, int (*compare)(const void*, const void*));
 
 int cds_ArrayLastIndexOf(struct cds_Array *a, int index, void *value, int (*compare)(const void*, const void*));
 
-void* cds_ArraySort(struct cds_Array *a, int (*compare)(const void*, const void*));
+struct cds_Array* cds_ArraySort(struct cds_Array *a, int (*compare)(const void*, const void*));
 
 void* cds_ArrayBinarySearch(struct cds_Array *a, void *value, int (*compare)(const void*, const void*));
 
