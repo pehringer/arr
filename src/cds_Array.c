@@ -75,8 +75,3 @@ struct cds_Array* cds_ArraySort(struct cds_Array *a, int (*compare)(const void*,
 void* cds_ArrayBinarySearch(struct cds_Array *a, void *value, int (*compare)(const void*, const void*)) {
     return bsearch(value, a->base, a->length, a->sizeOf, compare);
 }
-
-#include<stdio.h>
-void main() {
-    printf("Hello, friend.\n");
-}
