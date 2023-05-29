@@ -17,11 +17,22 @@ struct cds_Array* cds_ArrayResize(struct cds_Array *a, int length) {
     return a;
 }
 
-void cds_ArrayDestruct(struct cds_Array *a) {
+struct cds_Array* cds_ArrayDestruct(struct cds_Array *a) {
     free(a->base);
     a->base = 0;
     a->length = 0;
     a->sizeOf = 0;
+    return a;
+}
+
+struct cds_Array* cds_ArrayFromArray(struct cds_Array *a, int index, void *array, int length) {
+    memcpy(a->base + a->sizeOf * index, array, a->sizeOf * length);
+    return a;
+}
+
+struct cds_Array* cds_ArrayToArray(struct cds_Array *a, int index, void *array, int length) {
+    memcpy(array, a->base + a->sizeOf * index, a->sizeOf * length);
+    return a;
 }
 
 int cds_ArrayLength(struct cds_Array *a) {
@@ -30,21 +41,6 @@ int cds_ArrayLength(struct cds_Array *a) {
 
 void* cds_ArrayAt(struct cds_Array *a, int index) {
     return a->base + a->sizeOf * index;
-}
-
-struct cds_Array* cds_ArrayCopy(struct cds_Array *a, int index, void *values, int length) {
-    memcpy(a->base + a->sizeOf * index, values, a->sizeOf * length);
-    return a;
-}
-
-struct cds_Array* cds_ArrayFill(struct cds_Array *a, int index, void *value, int length) {
-    void* element = a->base + a->sizeOf * index;
-    while(length > 0) {
-        memcpy(element, value, a->sizeOf);
-        element += a->sizeOf;
-        length--;
-    }
-    return a;
 }
 
 int cds_ArrayFirstIndexOf(struct cds_Array *a, int index, void *value, int (*compare)(const void*, const void*)) {
