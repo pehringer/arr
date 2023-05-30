@@ -8,6 +8,6 @@ struct Test {
     char *name;
 };
 
-void RunTests(struct Test *tests, int length);
+void RunTests(int number, struct Test *tests);
 
 #endif
