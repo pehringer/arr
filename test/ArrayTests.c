@@ -358,8 +358,128 @@ int At() {
     return failed;
 }
 
+int intCompare(const void *left, const void *right) {
+	return *((int*) left) - *((int*) right);
+}
+
+int FirstIndexNone() {
+    int failed = 0;
+    struct cds_Array array;
+    cds_ArrayConstruct(&array, sizeof(int), 8);
+    int initArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    cds_ArrayFromArray(&array, 0, initArray, 8);
+    int value = 128;
+    if(cds_ArrayFirstIndexOf(&array, 0, &value, intCompare) != -1)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int FirstIndexStart() {
+    int failed = 0;
+    struct cds_Array array;
+    cds_ArrayConstruct(&array, sizeof(int), 8);
+    int initArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    cds_ArrayFromArray(&array, 0, initArray, 8);
+    int value = 0;
+    if(cds_ArrayFirstIndexOf(&array, 0, &value, intCompare) != 0)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int FirstIndexMiddle() {
+    int failed = 0;
+    struct cds_Array array;
+    cds_ArrayConstruct(&array, sizeof(int), 8);
+    int initArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    cds_ArrayFromArray(&array, 0, initArray, 8);
+    int value = 4;
+    if(cds_ArrayFirstIndexOf(&array, 0, &value, intCompare) != 3)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int FirstIndexEnd() {
+    int failed = 0;
+    struct cds_Array array;
+    cds_ArrayConstruct(&array, sizeof(int), 8);
+    int initArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    cds_ArrayFromArray(&array, 0, initArray, 8);
+    int value = 64;
+    if(cds_ArrayFirstIndexOf(&array, 0, &value, intCompare) != 7)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int FirstIndexOffsetNone() {
+    int failed = 0;
+    struct cds_Array array;
+    cds_ArrayConstruct(&array, sizeof(int), 8);
+    int initArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    cds_ArrayFromArray(&array, 0, initArray, 8);
+    int value = 128;
+    if(cds_ArrayFirstIndexOf(&array, 4, &value, intCompare) != -1)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int FirstIndexOffsetStart() {
+    int failed = 0;
+    struct cds_Array array;
+    cds_ArrayConstruct(&array, sizeof(int), 8);
+    int initArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    cds_ArrayFromArray(&array, 0, initArray, 8);
+    int value = 8;
+    if(cds_ArrayFirstIndexOf(&array, 4, &value, intCompare) != 4)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int FirstIndexOffsetMiddle() {
+    int failed = 0;
+    struct cds_Array array;
+    cds_ArrayConstruct(&array, sizeof(int), 8);
+    int initArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    cds_ArrayFromArray(&array, 0, initArray, 8);
+    int value = 32;
+    if(cds_ArrayFirstIndexOf(&array, 4, &value, intCompare) != 6)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int FirstIndexOffsetEnd() {
+    int failed = 0;
+    struct cds_Array array;
+    cds_ArrayConstruct(&array, sizeof(int), 8);
+    int initArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    cds_ArrayFromArray(&array, 0, initArray, 8);
+    int value = 64;
+    if(cds_ArrayFirstIndexOf(&array, 4, &value, intCompare) != 7)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int LastIndexNone();
+int LastIndexStart();
+int LastIndexMiddle();
+int LastIndexEnd();
+int LastIndexOffsetNone();
+int LastIndexOffsetStart();
+int LastIndexOffsetMiddle();
+int LastIndexOffsetEnd();
+
+
+
+
 int main() {
-    RunTests(16, (struct Test[16]) {
+    RunTests(24, (struct Test[24]) {
         (struct Test) {ConstructDestructLengthZero, "ConstructDestructLengthZero"},
         (struct Test) {ConstructDestructLengthNonZero, "ConstructDestructLengthNonZero"},
         (struct Test) {FromArrayToArrayAll, "FromArrayToArrayAll"},
@@ -375,7 +495,15 @@ int main() {
         (struct Test) {LengthZero, "LengthZero"},
         (struct Test) {LengthNonZero, "LengthNonZero"},
         (struct Test) {LengthResize, "LengthResize"},
-        (struct Test) {At, "At"}
+        (struct Test) {At, "At"},
+        (struct Test) {FirstIndexNone, "FirstIndexNone"},
+	(struct Test) {FirstIndexStart, "FirstIndexStart"},
+	(struct Test) {FirstIndexMiddle, "FirstIndexMiddle"},
+	(struct Test) {FirstIndexEnd, "FirstIndexEnd"},
+	(struct Test) {FirstIndexOffsetNone, "FirstIndexOffsetNone"},
+	(struct Test) {FirstIndexOffsetStart, "FirstIndexOffsetStart"},
+	(struct Test) {FirstIndexOffsetMiddle, "FirstIndexOffsetMiddle"},
+	(struct Test) {FirstIndexOffsetEnd, "FirstIndexOffsetEnd"}
     });
     return 0;
 }
