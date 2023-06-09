@@ -5,7 +5,7 @@
 #include <string.h>
 
 struct cds_Array {
-    void *base;
+    void *first;
     int length;
     int sizeOf;
 };
