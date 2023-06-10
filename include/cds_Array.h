@@ -32,6 +32,6 @@ int cds_ArrayLastIndexOf(struct cds_Array *a, int index, void *value, int (*comp
 
 struct cds_Array* cds_ArraySort(struct cds_Array *a, int (*compare)(const void*, const void*));
 
-void* cds_ArrayBinarySearch(struct cds_Array *a, void *value, int (*compare)(const void*, const void*));
+int cds_ArrayBinarySearch(struct cds_Array *a, void *value, int (*compare)(const void*, const void*));
 
 #endif

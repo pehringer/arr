@@ -630,8 +630,88 @@ int SortManyUnsorted() {
     return failed;
 }
 
+int SearchNone() {
+    int failed = 0;
+    struct cds_Array array;
+    int value = 0;
+    if(cds_ArrayBinarySearch(cds_ArrayConstruct(&array, sizeof(int), 0), &value, helperCompare) != -1)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int SearchOne() {
+    int failed = 0;
+    struct cds_Array array;
+    *((int*) cds_ArrayAt(cds_ArrayConstruct(&array, sizeof(int), 1), 0)) = 42;
+    int value = 42;
+    if(cds_ArrayBinarySearch(&array, &value, helperCompare) != 0)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int SearchOneNot() {
+    int failed = 0;
+    struct cds_Array array;
+    *((int*) cds_ArrayAt(cds_ArrayConstruct(&array, sizeof(int), 1), 0)) = 42;
+    int value = 21;
+    if(cds_ArrayBinarySearch(&array, &value, helperCompare) != -1)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int SearchManyNot() {
+    int failed = 0;
+    int from[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    struct cds_Array array;
+    int value = 42;
+    cds_ArrayFromArray(cds_ArrayConstruct(&array, sizeof(int), 8), 0, from, 8);
+    if(cds_ArrayBinarySearch(&array, &value, helperCompare) != -1)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int SearchManyStart() {
+    int failed = 0;
+    int from[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    struct cds_Array array;
+    int value = 0;
+    cds_ArrayFromArray(cds_ArrayConstruct(&array, sizeof(int), 8), 0, from, 8);
+    if(cds_ArrayBinarySearch(&array, &value, helperCompare) != 0)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int SearchManyMiddle() {
+    int failed = 0;
+    int from[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    struct cds_Array array;
+    int value = 8;
+    cds_ArrayFromArray(cds_ArrayConstruct(&array, sizeof(int), 8), 0, from, 8);
+    if(cds_ArrayBinarySearch(&array, &value, helperCompare) != 4)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int SearchManyEnd() {
+    int failed = 0;
+    int from[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    struct cds_Array array;
+    int value = 64;
+    cds_ArrayFromArray(cds_ArrayConstruct(&array, sizeof(int), 8), 0, from, 8);
+    if(cds_ArrayBinarySearch(&array, &value, helperCompare) != 7)
+        failed++;
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
 int main() {
-    RunTests(37, (struct Test[37]) {
+    RunTests(44, (struct Test[44]) {
         (struct Test) {ConstructDestructLengthZero, "ConstructDestructLengthZero"},
         (struct Test) {ConstructDestructLengthNonZero, "ConstructDestructLengthNonZero"},
         (struct Test) {FromArrayToArrayAll, "FromArrayToArrayAll"},
@@ -665,10 +745,17 @@ int main() {
         (struct Test) {LastIndexOffsetMiddle, "LastIndexOffsetMiddle"},
         (struct Test) {LastIndexOffsetEnd, "LastIndexOffsetEnd"},
         (struct Test) {SortNone, "SortNone"},
-        (struct Test) {SortNone, "SortOne"},
+        (struct Test) {SortOne, "SortOne"},
         (struct Test) {SortManySame, "SortManySame"},
         (struct Test) {SortManySorted, "SortManySorted"},
-        (struct Test) {SortManyUnsorted, "SortManyUnsorted"}
+        (struct Test) {SortManyUnsorted, "SortManyUnsorted"},
+        (struct Test) {SearchNone, "SearchNone"},
+        (struct Test) {SearchOne, "SearchOne"},
+        (struct Test) {SearchOneNot, "SearchOneNot"},
+        (struct Test) {SearchManyNot, "SearchManyNot"},
+        (struct Test) {SearchManyStart, "SearchManyStart"},
+        (struct Test) {SearchManyMiddle, "SearchManyMiddle"},
+        (struct Test) {SearchManyEnd, "SearchManyEnd"},
     });
     return 0;
 }

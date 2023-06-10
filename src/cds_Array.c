@@ -1,7 +1,8 @@
 #include "cds_Array.h"
 
 struct cds_Array* cds_ArrayConstruct(struct cds_Array *a, int sizeOf, int length) {
-    if((a->first = malloc(sizeOf * length)) == 0) {
+    a->first = malloc(sizeOf * length);
+    if(a->first == 0) {
       return 0;
     }
     a->length = length;
@@ -10,7 +11,8 @@ struct cds_Array* cds_ArrayConstruct(struct cds_Array *a, int sizeOf, int length
 }
 
 struct cds_Array* cds_ArrayResize(struct cds_Array *a, int length) {
-    if((a->first = realloc(a->first, a->sizeOf * length)) == 0) {
+    a->first = realloc(a->first, a->sizeOf * length);
+    if(a->first == 0) {
       return 0;
     }
     a->length = length;
@@ -44,7 +46,7 @@ void* cds_ArrayAt(struct cds_Array *a, int index) {
 }
 
 int cds_ArrayFirstIndexOf(struct cds_Array *a, int index, void *value, int (*compare)(const void*, const void*)) {
-    void* element = a->first + a->sizeOf * index;
+    void *element = a->first + a->sizeOf * index;
     while(index < a->length) {
         if(compare(element, value) == 0) {
             return index;
@@ -72,6 +74,10 @@ struct cds_Array* cds_ArraySort(struct cds_Array *a, int (*compare)(const void*,
     return a;
 }
 
-void* cds_ArrayBinarySearch(struct cds_Array *a, void *value, int (*compare)(const void*, const void*)) {
-    return bsearch(value, a->first, a->length, a->sizeOf, compare);
+int cds_ArrayBinarySearch(struct cds_Array *a, void *value, int (*compare)(const void*, const void*)) {
+    value = bsearch(value, a->first, a->length, a->sizeOf, compare);
+    if(value > 0) {
+        return (value - a->first) / a->sizeOf;
+    }
+    return -1;
 }
