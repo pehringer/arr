@@ -17,7 +17,7 @@ struct cds_Stack* cds_StackConstruct(struct cds_Stack *s, int sizeOf, int capaci
 //System errors return null.
 struct cds_Stack* cds_StackResize(struct cds_Stack *s, int capacity);
 
-struct cds_Stack*  cds_StackDestruct(struct cds_Stack *s);
+struct cds_Stack* cds_StackDestruct(struct cds_Stack *s);
 
 struct cds_Stack* cds_StackFromArray(struct cds_Stack *s, void *array, int length);
 
