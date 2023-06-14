@@ -1,14 +1,25 @@
 #include "Test.h"
 
 void RunTests(int number, struct Test *tests) {
-    int failures = 0;
+    int failed = 0;
+    int passed = 0;
+    printf("--------------------------------------\n");
     for(int index = 0; index < number; index++) {
+	printf("%s: ", tests[index].name);
+        fflush(stdout);
         if(tests[index].function()) {
-            printf("Test failed: %s\n", tests[index].name);
-            failures++;
+            printf("FAILED\n");
+            failed++;
+        } else {
+            printf("PASSED\n");
+            passed++;
         }
     }
-    if(failures == 0) {
-        printf("All tests passed.\n");
+    printf("--------------------------------------\n");
+    if(failed) {
+        printf("Tests Failed: %d Tests Passed: %d\n", failed, passed);
+    } else {
+        printf("All Tests Passed.\n");
     }
+    printf("--------------------------------------\n");
 }
