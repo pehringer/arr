@@ -22,6 +22,8 @@ struct cds_Array* cds_ArrayFromArray(struct cds_Array *a, int index, void *array
 
 struct cds_Array* cds_ArrayToArray(struct cds_Array *a, int index, void *array, int length);
 
+struct cds_Array* cds_ArrayFill(struct cds_Array *a, int index, void *value, int length);
+
 int cds_ArrayLength(struct cds_Array *a);
 
 void* cds_ArrayAt(struct cds_Array *a, int index);

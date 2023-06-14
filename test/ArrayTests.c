@@ -710,8 +710,63 @@ int SearchManyEnd() {
     return failed;
 }
 
+
+
+
+
+
+
+
+
+
+int FillNone() {
+    int failed = 0;
+    int from[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    struct cds_Array array;
+    int value = 42;
+    cds_ArrayFromArray(cds_ArrayConstruct(&array, sizeof(int), 8), 0, from, 8);
+    cds_ArrayFill(&array, 0, &value, 0);
+    if(((int*) array.first)[0] != 0 ||
+        ((int*) array.first)[1] != 1 ||
+        ((int*) array.first)[2] != 2 ||
+        ((int*) array.first)[3] != 4 ||
+        ((int*) array.first)[4] != 8 ||
+        ((int*) array.first)[5] != 16 ||
+        ((int*) array.first)[6] != 32 ||
+        ((int*) array.first)[7] != 64) {
+        failed++;
+    }
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int FillAll() {
+    int failed = 0;
+    int from[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    struct cds_Array array;
+    int value = 42;
+    cds_ArrayFromArray(cds_ArrayConstruct(&array, sizeof(int), 8), 0, from, 8);
+    cds_ArrayFill(&array, 0, &value, cds_ArrayLength(&array));
+    if(((int*) array.first)[0] != 42 ||
+        ((int*) array.first)[1] != 42 ||
+        ((int*) array.first)[2] != 42 ||
+        ((int*) array.first)[3] != 42 ||
+        ((int*) array.first)[4] != 42 ||
+        ((int*) array.first)[5] != 42 ||
+        ((int*) array.first)[6] != 42 ||
+        ((int*) array.first)[7] != 42) {
+        failed++;
+    }
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int FillFirstHalf();
+int FillMiddle();
+int FillSecondHalf();
+
 int main() {
-    RunTests(44, (struct Test[44]) {
+    RunTests(46, (struct Test[46]) {
         (struct Test) {ConstructDestructLengthZero, "ConstructDestructLengthZero"},
         (struct Test) {ConstructDestructLengthNonZero, "ConstructDestructLengthNonZero"},
         (struct Test) {FromArrayToArrayAll, "FromArrayToArrayAll"},
@@ -756,6 +811,8 @@ int main() {
         (struct Test) {SearchManyStart, "SearchManyStart"},
         (struct Test) {SearchManyMiddle, "SearchManyMiddle"},
         (struct Test) {SearchManyEnd, "SearchManyEnd"},
+        (struct Test) {FillNone, "FillNone"},
+        (struct Test) {FillAll, "FillAll"},
     });
     return 0;
 }

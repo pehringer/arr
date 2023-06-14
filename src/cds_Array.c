@@ -37,6 +37,16 @@ struct cds_Array* cds_ArrayToArray(struct cds_Array *a, int index, void *array, 
     return a;
 }
 
+struct cds_Array* cds_ArrayFill(struct cds_Array *a, int index, void *value, int length) {
+    void *element = a->first + a->sizeOf * index;
+    while(length > 0) {
+        memcpy(element, value, a->sizeOf);
+        element += a->sizeOf;
+        length--;
+    }
+    return a;
+}
+
 int cds_ArrayLength(struct cds_Array *a) {
     return a->length;
 }
