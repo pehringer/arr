@@ -761,12 +761,71 @@ int FillAll() {
     return failed;
 }
 
-int FillFirstHalf();
-int FillMiddle();
-int FillSecondHalf();
+int FillFirstHalf() {
+    int failed = 0;
+    int from[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    struct cds_Array array;
+    int value = 42;
+    cds_ArrayFromArray(cds_ArrayConstruct(&array, sizeof(int), 8), 0, from, 8);
+    cds_ArrayFill(&array, 0, &value, 4);
+    if(((int*) array.first)[0] != 42 ||
+        ((int*) array.first)[1] != 42 ||
+        ((int*) array.first)[2] != 42 ||
+        ((int*) array.first)[3] != 42 ||
+        ((int*) array.first)[4] != 8 ||
+        ((int*) array.first)[5] != 16 ||
+        ((int*) array.first)[6] != 32 ||
+        ((int*) array.first)[7] != 64) {
+        failed++;
+    }
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int FillMiddle() {
+    int failed = 0;
+    int from[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    struct cds_Array array;
+    int value = 42;
+    cds_ArrayFromArray(cds_ArrayConstruct(&array, sizeof(int), 8), 0, from, 8);
+    cds_ArrayFill(&array, 2, &value, 4);
+    if(((int*) array.first)[0] != 0 ||
+        ((int*) array.first)[1] != 1 ||
+        ((int*) array.first)[2] != 42 ||
+        ((int*) array.first)[3] != 42 ||
+        ((int*) array.first)[4] != 42 ||
+        ((int*) array.first)[5] != 42 ||
+        ((int*) array.first)[6] != 32 ||
+        ((int*) array.first)[7] != 64) {
+        failed++;
+    }
+    cds_ArrayDestruct(&array);
+    return failed;
+}
+
+int FillSecondHalf() {
+    int failed = 0;
+    int from[8] = {0, 1, 2, 4, 8, 16, 32, 64};
+    struct cds_Array array;
+    int value = 42;
+    cds_ArrayFromArray(cds_ArrayConstruct(&array, sizeof(int), 8), 0, from, 8);
+    cds_ArrayFill(&array, 4, &value, 4);
+    if(((int*) array.first)[0] != 0 ||
+        ((int*) array.first)[1] != 1 ||
+        ((int*) array.first)[2] != 2 ||
+        ((int*) array.first)[3] != 4 ||
+        ((int*) array.first)[4] != 42 ||
+        ((int*) array.first)[5] != 42 ||
+        ((int*) array.first)[6] != 42 ||
+        ((int*) array.first)[7] != 42) {
+        failed++;
+    }
+    cds_ArrayDestruct(&array);
+    return failed;
+}
 
 int main() {
-    RunTests(46, (struct Test[46]) {
+    RunTests(49, (struct Test[49]) {
         (struct Test) {ConstructDestructLengthZero, "ConstructDestructLengthZero"},
         (struct Test) {ConstructDestructLengthNonZero, "ConstructDestructLengthNonZero"},
         (struct Test) {FromArrayToArrayAll, "FromArrayToArrayAll"},
@@ -813,6 +872,9 @@ int main() {
         (struct Test) {SearchManyEnd, "SearchManyEnd"},
         (struct Test) {FillNone, "FillNone"},
         (struct Test) {FillAll, "FillAll"},
+        (struct Test) {FillFirstHalf, "FillFirstHalf"},
+        (struct Test) {FillMiddle, "FillMiddle"},
+        (struct Test) {FillSecondHalf, "FillSecondHalf"},
     });
     return 0;
 }
