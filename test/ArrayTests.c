@@ -5,13 +5,13 @@ int ConstructDestructLengthZero() {
     int failed = 0;
     struct cds_Array array;
     if(cds_ArrayConstruct(&array, sizeof(int), 0) == 0 ||
-        array.length != 0 || array.sizeOf != sizeof(int)) {
+        array.length != 0 || array.size != sizeof(int)) {
         failed++;
     }
     cds_ArrayDestruct(&array);
     if(array.first != 0 ||
         array.length != 0 ||
-        array.sizeOf != 0) {
+        array.size != 0) {
         failed++;
     }
     return failed;
@@ -21,13 +21,13 @@ int ConstructDestructLengthNonZero() {
     int failed = 0;
     struct cds_Array array;
     if(cds_ArrayConstruct(&array, sizeof(int), 8) == 0 ||
-        array.length != 8 || array.sizeOf != sizeof(int)) {
+        array.length != 8 || array.size != sizeof(int)) {
         failed++;
     }
     cds_ArrayDestruct(&array);
     if(array.first != 0 ||
         array.length != 0 ||
-        array.sizeOf != 0) {
+        array.size != 0) {
         failed++;
     }
     return failed;
@@ -40,7 +40,7 @@ int FromArrayToArrayAll() {
     cds_ArrayConstruct(&array, sizeof(int), 8);
     int oldArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
     cds_ArrayFromArray(&array, 0, oldArray, 8);
-    if(array.length != 8 || array.sizeOf != sizeof(int) ||
+    if(array.length != 8 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != 0 || oldArray[0] != 0 ||
         ((int*) array.first)[1] != 1 || oldArray[1] != 1 ||
         ((int*) array.first)[2] != 2 || oldArray[2] != 2 ||
@@ -53,7 +53,7 @@ int FromArrayToArrayAll() {
     }
     int newArray[8];
     cds_ArrayToArray(&array, 0, newArray, 8);
-    if(array.length != 8 || array.sizeOf != sizeof(int) ||
+    if(array.length != 8 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != 0 || newArray[0] != 0 ||
         ((int*) array.first)[1] != 1 || newArray[1] != 1 ||
         ((int*) array.first)[2] != 2 || newArray[2] != 2 ||
@@ -76,7 +76,7 @@ int FromArrayToArrayFirstHalf() {
     cds_ArrayFromArray(&array, 0, initArray, 8);
     int oldArray[4] = {-8, -4, -2, -1};
     cds_ArrayFromArray(&array, 0, oldArray, 4);
-    if(array.length != 8 || array.sizeOf != sizeof(int) ||
+    if(array.length != 8 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != -8 || oldArray[0] != -8 ||
         ((int*) array.first)[1] != -4 || oldArray[1] != -4 ||
         ((int*) array.first)[2] != -2 || oldArray[2] != -2 ||
@@ -89,7 +89,7 @@ int FromArrayToArrayFirstHalf() {
     }
     int newArray[4];
     cds_ArrayToArray(&array, 0, newArray, 4);
-    if(array.length != 8 || array.sizeOf != sizeof(int) ||
+    if(array.length != 8 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != -8 || newArray[0] != -8 ||
         ((int*) array.first)[1] != -4 || newArray[1] != -4 ||
         ((int*) array.first)[2] != -2 || newArray[2] != -2 ||
@@ -112,7 +112,7 @@ int FromArrayToArraySecondHalf() {
     cds_ArrayFromArray(&array, 0, initArray, 8);
     int oldArray[4] = {-8, -4, -2, -1};
     cds_ArrayFromArray(&array, 4, oldArray, 4);
-    if(array.length != 8 || array.sizeOf != sizeof(int) ||
+    if(array.length != 8 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != 0 || initArray[0] != 0 ||
         ((int*) array.first)[1] != 1 || initArray[1] != 1 ||
         ((int*) array.first)[2] != 2 || initArray[2] != 2 ||
@@ -125,7 +125,7 @@ int FromArrayToArraySecondHalf() {
     }
     int newArray[4];
     cds_ArrayToArray(&array, 4, newArray, 4);
-    if(array.length != 8 || array.sizeOf != sizeof(int) ||
+    if(array.length != 8 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != 0 || initArray[0] != 0 ||
         ((int*) array.first)[1] != 1 || initArray[1] != 1 ||
         ((int*) array.first)[2] != 2 || initArray[2] != 2 ||
@@ -148,7 +148,7 @@ int FromArrayToArrayMiddle() {
     cds_ArrayFromArray(&array, 0, initArray, 8);
     int oldArray[4] = {-8, -4, -2, -1};
     cds_ArrayFromArray(&array, 2, oldArray, 4);
-    if(array.length != 8 || array.sizeOf != sizeof(int) ||
+    if(array.length != 8 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != 0 || initArray[0] != 0 ||
         ((int*) array.first)[1] != 1 || initArray[1] != 1 ||
         ((int*) array.first)[2] != -8 || oldArray[0] != -8 ||
@@ -161,7 +161,7 @@ int FromArrayToArrayMiddle() {
     }
     int newArray[4];
     cds_ArrayToArray(&array, 2, newArray, 4);
-    if(array.length != 8 || array.sizeOf != sizeof(int) ||
+    if(array.length != 8 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != 0 || initArray[0] != 0 ||
         ((int*) array.first)[1] != 1 || initArray[1] != 1 ||
         ((int*) array.first)[2] != -8 || newArray[0] != -8 ||
@@ -184,7 +184,7 @@ int FromArrayToArrayNone() {
     cds_ArrayFromArray(&array, 0, initArray, 8);
     int oldArray[4] = {1, 1, 1, 1};
     cds_ArrayFromArray(&array, 2, oldArray, 0);
-    if(array.length != 8 || array.sizeOf != sizeof(int) ||
+    if(array.length != 8 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != 0 ||
         ((int*) array.first)[1] != 1 ||
         ((int*) array.first)[2] != 2 || oldArray[0] != 1 ||
@@ -197,7 +197,7 @@ int FromArrayToArrayNone() {
     }
     int newArray[4] = {0, 0, 0, 0};
     cds_ArrayToArray(&array, 2, newArray, 0);
-    if(array.length != 8 || array.sizeOf != sizeof(int) ||
+    if(array.length != 8 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != 0 ||
         ((int*) array.first)[1] != 1 ||
         ((int*) array.first)[2] != 2 || newArray[0] != 0 ||
@@ -217,7 +217,7 @@ int ResizeFromZero() {
     struct cds_Array array;
     cds_ArrayConstruct(&array, sizeof(int), 0);
     if(cds_ArrayResize(&array, 8) == 0 ||
-        array.length != 8 || array.sizeOf != sizeof(int)) {
+        array.length != 8 || array.size != sizeof(int)) {
         failed++;
     }
     cds_ArrayDestruct(&array);
@@ -229,7 +229,7 @@ int ResizeToZero(){
     struct cds_Array array;
     cds_ArrayConstruct(&array, sizeof(int), 8);
     if(cds_ArrayResize(&array, 0) == 0 ||
-        array.length != 0 || array.sizeOf != sizeof(int)) {
+        array.length != 0 || array.size != sizeof(int)) {
         failed++;
     }
     cds_ArrayDestruct(&array);
@@ -243,7 +243,7 @@ int ResizeSameSize(){
     int initArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
     cds_ArrayFromArray(&array, 0, initArray, 8);
     if(cds_ArrayResize(&array, 8) == 0 ||
-        array.length != 8 || array.sizeOf != sizeof(int) ||
+        array.length != 8 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != 0 ||
         ((int*) array.first)[1] != 1 ||
         ((int*) array.first)[2] != 2 ||
@@ -265,7 +265,7 @@ int ResizeBiggerSize(){
     int initArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
     cds_ArrayFromArray(&array, 0, initArray, 8);
     if(cds_ArrayResize(&array, 16) == 0 ||
-        array.length != 16 || array.sizeOf != sizeof(int) ||
+        array.length != 16 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != 0 ||
         ((int*) array.first)[1] != 1 ||
         ((int*) array.first)[2] != 2 ||
@@ -287,7 +287,7 @@ int ResizeSmallerSize(){
     int initArray[8] = {0, 1, 2, 4, 8, 16, 32, 64};
     cds_ArrayFromArray(&array, 0, initArray, 8);
     if(cds_ArrayResize(&array, 4) == 0 ||
-        array.length != 4 || array.sizeOf != sizeof(int) ||
+        array.length != 4 || array.size != sizeof(int) ||
         ((int*) array.first)[0] != 0 ||
         ((int*) array.first)[1] != 1 ||
         ((int*) array.first)[2] != 2 ||

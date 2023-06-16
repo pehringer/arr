@@ -7,11 +7,11 @@
 struct cds_Array {
     void *first;
     int length;
-    int sizeOf;
+    int size;
 };
 
 //System errors return null.
-struct cds_Array* cds_ArrayConstruct(struct cds_Array *a, int sizeOf, int length);
+struct cds_Array* cds_ArrayConstruct(struct cds_Array *a, int size, int length);
 
 //System errors return null.
 struct cds_Array* cds_ArrayResize(struct cds_Array *a, int length);

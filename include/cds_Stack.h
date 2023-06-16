@@ -8,11 +8,11 @@ struct cds_Stack {
     void *top
     int capacity;
     int length;
-    int sizeOf;
+    int size;
 };
 
 //System errors return null.
-struct cds_Stack* cds_StackConstruct(struct cds_Stack *s, int sizeOf, int capacity);
+struct cds_Stack* cds_StackConstruct(struct cds_Stack *s, int size, int capacity);
 
 //System errors return null.
 struct cds_Stack* cds_StackResize(struct cds_Stack *s, int capacity);
