@@ -5,7 +5,8 @@
 #include <string.h>
 
 struct cds_Stack {
-    void *top
+    void *first;
+    void *top;
     int capacity;
     int length;
     int size;
@@ -22,6 +23,10 @@ struct cds_Stack* cds_StackDestruct(struct cds_Stack *s);
 struct cds_Stack* cds_StackFromArray(struct cds_Stack *s, void *array, int length);
 
 struct cds_Stack* cds_StackToArray(struct cds_Stack *s, void *array, int length);
+
+int cds_StackCapacity(struct cds_Stack *s);
+
+int cds_StackLength(struct cds_Stack *s);
 
 int cds_StackEmpty(struct cds_Stack *s);
 

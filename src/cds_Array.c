@@ -3,7 +3,7 @@
 struct cds_Array* cds_ArrayConstruct(struct cds_Array *a, int size, int length) {
     a->first = malloc(size * length);
     if(a->first == 0) {
-      return 0;
+        return 0;
     }
     a->length = length;
     a->size = size;
@@ -45,6 +45,7 @@ struct cds_Array* cds_ArrayFill(struct cds_Array *a, int index, void *value, int
         length--;
     }
     return a;
+
 }
 
 int cds_ArrayLength(struct cds_Array *a) {
@@ -68,7 +69,7 @@ int cds_ArrayFirstIndexOf(struct cds_Array *a, int index, void *value, int (*com
 }
 
 int cds_ArrayLastIndexOf(struct cds_Array *a, int index, void *value, int (*compare)(const void*, const void*)) {
-    void* element = a->first + a->size * index;
+    void *element = a->first + a->size * index;
     while(index >= 0) {
         if(compare(element, value) == 0) {
             return index;
