@@ -16,10 +16,6 @@ void RunTests(int number, struct Test *tests) {
         }
     }
     printf("--------------------------------------\n");
-    if(failed) {
-        printf("Tests Failed: %d Tests Passed: %d\n", failed, passed);
-    } else {
-        printf("All Tests Passed.\n");
-    }
+    printf("Tests Failed: %d Tests Passed: %d\n", failed, passed);
     printf("--------------------------------------\n");
 }

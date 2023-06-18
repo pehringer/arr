@@ -7,10 +7,10 @@ if [ $# -eq 0 ]; then
 fi
 
 if [ $1 = 'Array' ]; then
-	gcc -shared -lm -I ./include ./src/cds_Array.c -o ./bin/cds_Array.so
+	gcc -shared -lm -I ./include ./src/CDS_Array.c -o ./bin/CDS_Array.so
 	echo "Check bin directory."
 elif [ $1 = 'Stack' ]; then
-	gcc -shared -lm -I ./include ./src/cds_Stack.c -o ./bin/cds_Stack.so
+	gcc -shared -lm -I ./include ./src/CDS_Stack.c -o ./bin/CDS_Stack.so
 	echo "Check bin directory."
 else
 	echo "Unknow command: $1"

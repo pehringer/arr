@@ -7,11 +7,11 @@ if [ $# -eq 0 ]; then
 fi
 
 if [ $1 = 'Array' ]; then
-	gcc -I ./include ./src/cds_Array.c ./test/Test.c ./test/ArrayTests.c -o ./bin/ArrayTests
+	gcc -I ./include ./src/CDS_Array.c ./test/Test.c ./test/ArrayTests.c -o ./bin/ArrayTests
 	./bin/ArrayTests
 	rm ./bin/ArrayTests
 elif [ $1 = 'Stack' ]; then
-	gcc -I ./include ./src/cds_Stack.c ./test/Test.c ./test/StackTests.c -o ./bin/StackTests
+	gcc -I ./include ./src/CDS_Stack.c ./test/Test.c ./test/StackTests.c -o ./bin/StackTests
 	./bin/StackTests
 	rm ./bin/StackTests
 else
