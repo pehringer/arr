@@ -5,9 +5,9 @@ struct cds_Stack* cds_StackConstruct(struct cds_Stack *s, int size, int capacity
     if(s->first == 0) {
       return 0;
     }
-    s->top -= s->first - s->size;
+    s->top = s->first - s->size;
     s->capacity = capacity;
-    s->length = length;
+    s->length = 0;
     s->size = size;
     return s;
 }
@@ -18,9 +18,9 @@ struct cds_Stack* cds_StackResize(struct cds_Stack *s, int capacity) {
       return 0;
     }
     if(s->length > capacity) {
-        s->length = capacity
+        s->length = capacity;
     }
-    s->top = a->first + (s->length - 1) * s->size;
+    s->top = s->first + (s->length - 1) * s->size;
     s->capacity = capacity;
     return s;
 }
@@ -37,7 +37,7 @@ struct cds_Stack* cds_StackDestruct(struct cds_Stack *s) {
 
 struct cds_Stack* cds_StackFromArray(struct cds_Stack *s, void *array, int length) {
     memcpy(s->first, array, s->size * length);
-    s->top = a->first + (length - 1) * s->size;
+    s->top = s->first + (length - 1) * s->size;
     s->length = length;
     return s;
 }
