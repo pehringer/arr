@@ -63,8 +63,9 @@ int CDS_StackFull(struct CDS_Stack *s) {
     return s->length == s->capacity;
 }
 
-void* CDS_StackPeek(struct CDS_Stack *s) {
-    return s->top;
+void* CDS_StackTop(struct CDS_Stack *s, void *value) {
+    memcpy(value, s->top, s->size);
+    return value;
 }
 
 struct CDS_Stack* CDS_StackPush(struct CDS_Stack *s, void *value) {
@@ -78,7 +79,7 @@ void* CDS_StackPop(struct CDS_Stack *s, void *value) {
     memcpy(value, s->top, s->size);
     s->top -= s->size;
     s->length--;
-    return s;
+    return value;
 }
 
 int CDS_StackContains(struct CDS_Stack *s, void *value, int (*compare)(const void*, const void*)) {

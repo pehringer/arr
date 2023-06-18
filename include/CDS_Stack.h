@@ -32,7 +32,7 @@ int CDS_StackEmpty(struct CDS_Stack *s);
 
 int CDS_StackFull(struct CDS_Stack *s);
 
-void* CDS_StackPeek(struct CDS_Stack *s);
+void* CDS_StackTop(struct CDS_Stack *s, void *value);
 
 struct CDS_Stack* CDS_StackPush(struct CDS_Stack *s, void *value);
 
