@@ -356,8 +356,38 @@ int ResizeSmallerSize() {
     return failed;
 }
 
+int CapacityZeroToNonZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    CDS_StackConstruct(&stack, sizeof(int), 0);
+    if(CDS_StackCapacity(&stack) != 0) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 4);
+    if(CDS_StackCapacity(&stack) != 4) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int CapacityNonZeroToZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    CDS_StackConstruct(&stack, sizeof(int), 4);
+    if(CDS_StackCapacity(&stack) != 4) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 0);
+    if(CDS_StackCapacity(&stack) != 0) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
 int main() {
-    RunTests(11, (struct Test[11]) {
+    RunTests(13, (struct Test[13]) {
         (struct Test) {ConstructDestructCapacityZero, "ConstructDestructCapacityZero"},
         (struct Test) {ConstructDestructCapacityNonZero, "ConstructDestructCapacityNonZero"},
         (struct Test) {FromArrayToArrayAll, "FromArrayToArrayAll"},
@@ -367,8 +397,16 @@ int main() {
         (struct Test) {ResizeFromZero, "ResizeFromZero"},
         (struct Test) {ResizeFromZero, "ResizeToZero"},
         (struct Test) {ResizeSameSize, "ResizeSameSize"},
-        (struct Test) {ResizeSameSize, "ResizeBiggerSize"},
-        (struct Test) {ResizeSameSize, "ResizeSmallerSize"},
+        (struct Test) {ResizeBiggerSize, "ResizeBiggerSize"},
+        (struct Test) {ResizeSmallerSize, "ResizeSmallerSize"},
+        (struct Test) {CapacityZeroToNonZero, "CapacityZeroToNonZero"},
+        (struct Test) {CapacityNonZeroToZero, "CapacityNonZeroToZero"},
+        //(struct Test) {CapacityResizeSmaller, "CapacityResizeSmaller"},
+        //(struct Test) {CapacityResizeBigger, "CapacityResizeBigger"},
+        //(struct Test) {LengthZero, "LengthZero"},
+        //(struct Test) {LengthNonZero, "LengthNonZero"},
+        //(struct Test) {LengthResizeSmaller, "LengthResizeSmaller"},
+        //(struct Test) {LengthResizeBigger, "LengthResizeBigger"},
     });
     return 0;
 }

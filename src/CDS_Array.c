@@ -1,8 +1,12 @@
 #include "CDS_Array.h"
 
 struct CDS_Array* CDS_ArrayConstruct(struct CDS_Array *a, int size, int length) {
-    a->first = malloc(size * length);
-    if(a->first == 0) {
+    if(length) {
+        a->first = malloc(size * length);
+    } else {
+	a->first = 0;
+    }
+    if(length && !a->first) {
         return 0;
     }
     a->length = length;
@@ -11,9 +15,16 @@ struct CDS_Array* CDS_ArrayConstruct(struct CDS_Array *a, int size, int length) 
 }
 
 struct CDS_Array* CDS_ArrayResize(struct CDS_Array *a, int length) {
-    a->first = realloc(a->first, a->size * length);
-    if(a->first == 0) {
-      return 0;
+    if(length && a->length) {
+        a->first = realloc(a->first, a->size * length);
+    } else if(length) {
+        a->first = malloc(a->size * length);
+    } else if(a->length) {
+	free(a->first);
+        a->first = 0;
+    }
+    if(length && !a->first) {
+        return 0;
     }
     a->length = length;
     return a;
@@ -58,26 +69,20 @@ void* CDS_ArrayAt(struct CDS_Array *a, int index) {
 
 int CDS_ArrayFirstIndexOf(struct CDS_Array *a, int index, void *value, int (*compare)(const void*, const void*)) {
     void *element = a->first + a->size * index;
-    while(index < a->length) {
-        if(compare(element, value) == 0) {
-            return index;
-        }
+    while(index < a->length && compare(element, value)) {
         element += a->size;
         index++;
     }
-    return -1;
+    return (index < a->length) ? index : -1;
 }
 
 int CDS_ArrayLastIndexOf(struct CDS_Array *a, int index, void *value, int (*compare)(const void*, const void*)) {
     void *element = a->first + a->size * index;
-    while(index >= 0) {
-        if(compare(element, value) == 0) {
-            return index;
-        }
+    while(index >= 0 && compare(element, value)) {
         element -= a->size;
         index--;
     }
-    return -1;
+    return (index >= 0) ? index : -1;
 }
 
 struct CDS_Array* CDS_ArraySort(struct CDS_Array *a, int (*compare)(const void*, const void*)) {
@@ -87,8 +92,6 @@ struct CDS_Array* CDS_ArraySort(struct CDS_Array *a, int (*compare)(const void*,
 
 int CDS_ArrayBinarySearch(struct CDS_Array *a, void *value, int (*compare)(const void*, const void*)) {
     value = bsearch(value, a->first, a->length, a->size, compare);
-    if(value > 0) {
-        return (value - a->first) / a->size;
-    }
-    return -1;
+    return (value > 0) ? (value - a->first) / a->size : -1;
 }
+

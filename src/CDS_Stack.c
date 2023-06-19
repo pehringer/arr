@@ -1,9 +1,13 @@
 #include "CDS_Stack.h"
 
 struct CDS_Stack* CDS_StackConstruct(struct CDS_Stack *s, int size, int capacity) {
-    s->first = malloc(size * capacity);
-    if(s->first == 0) {
-      return 0;
+    if(capacity) {
+        s->first = malloc(size * capacity);
+    } else {
+        s->first = 0;
+    }
+    if(capacity && !s->first) {
+        return 0;
     }
     s->top = s->first - s->size;
     s->capacity = capacity;
@@ -13,9 +17,16 @@ struct CDS_Stack* CDS_StackConstruct(struct CDS_Stack *s, int size, int capacity
 }
 
 struct CDS_Stack* CDS_StackResize(struct CDS_Stack *s, int capacity) {
-    s->first = realloc(s->first, s->size * capacity);
-    if(s->first == 0) {
-      return 0;
+    if(capacity && s->capacity) {
+        s->first = realloc(s->first, s->size * capacity);
+    } else if(capacity) {
+        s->first = malloc(s->size * capacity);
+    } else if(s->capacity) {
+        free(s->first);
+        s->first = 0;
+    }
+    if(capacity && !s->first) {
+        return 0;
     }
     if(s->length > capacity) {
         s->length = capacity;
@@ -84,13 +95,10 @@ void* CDS_StackPop(struct CDS_Stack *s, void *value) {
 
 int CDS_StackContains(struct CDS_Stack *s, void *value, int (*compare)(const void*, const void*)) {
     void *element = s->top;
-    while(element >= s->first) {
-        if(compare(element, value) == 0) {
-            return 1;
-        }
+    while(element >= s->first && compare(element, value)) {
 	element -= s->size;
     }
-    return 0;
+    return element >= s->first;
 }
 
 
