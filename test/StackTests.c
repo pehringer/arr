@@ -359,11 +359,16 @@ int ResizeSmallerSize() {
 int CapacityZeroToNonZero() {
     int failed = 0;
     struct CDS_Stack stack;
+    int from[4] = {1, 2, 4, 8};
     CDS_StackConstruct(&stack, sizeof(int), 0);
     if(CDS_StackCapacity(&stack) != 0) {
         failed++;
     }
     CDS_StackResize(&stack, 4);
+    if(CDS_StackCapacity(&stack) != 4) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 4);
     if(CDS_StackCapacity(&stack) != 4) {
         failed++;
     }
@@ -374,7 +379,12 @@ int CapacityZeroToNonZero() {
 int CapacityNonZeroToZero() {
     int failed = 0;
     struct CDS_Stack stack;
+    int from[4] = {1, 2, 4, 8};
     CDS_StackConstruct(&stack, sizeof(int), 4);
+    if(CDS_StackCapacity(&stack) != 4) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 4);
     if(CDS_StackCapacity(&stack) != 4) {
         failed++;
     }
@@ -386,8 +396,358 @@ int CapacityNonZeroToZero() {
     return failed;
 }
 
+int CapacityResizeBigger() {
+   int failed = 0;
+    struct CDS_Stack stack;
+    int from[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+    CDS_StackConstruct(&stack, sizeof(int), 8);
+    if(CDS_StackCapacity(&stack) != 8) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 8);
+    if(CDS_StackCapacity(&stack) != 8) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 16);
+    if(CDS_StackCapacity(&stack) != 16) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int CapacityResizeSmaller() {
+   int failed = 0;
+    struct CDS_Stack stack;
+    int from[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+    CDS_StackConstruct(&stack, sizeof(int), 8);
+    if(CDS_StackCapacity(&stack) != 8) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 8);
+    if(CDS_StackCapacity(&stack) != 8) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 4);
+    if(CDS_StackCapacity(&stack) != 4) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int LengthZeroToNonZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[4] = {1, 2, 4, 8};
+    CDS_StackConstruct(&stack, sizeof(int), 0);
+    if(CDS_StackLength(&stack) != 0) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 4);
+    if(CDS_StackLength(&stack) != 0) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 4);
+    if(CDS_StackLength(&stack) != 4) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int LengthNonZeroToZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[4] = {1, 2, 4, 8};
+    CDS_StackConstruct(&stack, sizeof(int), 4);
+    if(CDS_StackLength(&stack) != 0) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 4);
+    if(CDS_StackLength(&stack) != 4) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 0);
+    if(CDS_StackLength(&stack) != 0) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int LengthResizeBigger() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+    CDS_StackConstruct(&stack, sizeof(int), 8);
+    if(CDS_StackLength(&stack) != 0) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 8);
+    if(CDS_StackLength(&stack) != 8) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 16);
+    if(CDS_StackLength(&stack) != 8) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int LengthResizeSmaller() {
+   int failed = 0;
+    struct CDS_Stack stack;
+    int from[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+    CDS_StackConstruct(&stack, sizeof(int), 8);
+    if(CDS_StackLength(&stack) != 0) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 8);
+    if(CDS_StackLength(&stack) != 8) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 4);
+    if(CDS_StackLength(&stack) != 4) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int EmptyCapacityZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    CDS_StackConstruct(&stack, sizeof(int), 0);
+    if(!CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int EmptyCapacityNonZeroLengthZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    CDS_StackConstruct(&stack, sizeof(int), 8);
+    if(!CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int EmptyLengthNonZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+    CDS_StackFromArray(CDS_StackConstruct(&stack, sizeof(int), 8), from, 8);
+    if(CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int EmptyZeroToNonZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[4] = {1, 2, 4, 8};
+    CDS_StackConstruct(&stack, sizeof(int), 0);
+    if(!CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 4);
+    if(!CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 4);
+    if(CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int EmptyNonZeroToZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[4] = {1, 2, 4, 8};
+    CDS_StackConstruct(&stack, sizeof(int), 4);
+    if(!CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 4);
+    if(CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 0);
+    if(!CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int EmptyResizeBigger() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+    CDS_StackConstruct(&stack, sizeof(int), 8);
+    if(!CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 8);
+    if(CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 16);
+    if(CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int EmptyResizeSmaller() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+    CDS_StackConstruct(&stack, sizeof(int), 8);
+    if(!CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 8);
+    if(CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 4);
+    if(CDS_StackEmpty(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int FullCapacityZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    CDS_StackConstruct(&stack, sizeof(int), 0);
+    if(!CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int FullCapacityNonZeroLengthZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    CDS_StackConstruct(&stack, sizeof(int), 8);
+    if(CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int FullLengthNonZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+    CDS_StackFromArray(CDS_StackConstruct(&stack, sizeof(int), 8), from, 8);
+    if(!CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int FullZeroToNonZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[4] = {1, 2, 4, 8};
+    CDS_StackConstruct(&stack, sizeof(int), 0);
+    if(!CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 4);
+    if(CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 4);
+    if(!CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int FullNonZeroToZero() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[4] = {1, 2, 4, 8};
+    CDS_StackConstruct(&stack, sizeof(int), 4);
+    if(CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 4);
+    if(!CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 0);
+    if(!CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int FullResizeBigger() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+    CDS_StackConstruct(&stack, sizeof(int), 8);
+    if(CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 8);
+    if(!CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 16);
+    if(CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+int FullResizeSmaller() {
+    int failed = 0;
+    struct CDS_Stack stack;
+    int from[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+    CDS_StackConstruct(&stack, sizeof(int), 8);
+    if(CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackFromArray(&stack, from, 8);
+    if(!CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackResize(&stack, 4);
+    if(!CDS_StackFull(&stack)) {
+        failed++;
+    }
+    CDS_StackDestruct(&stack);
+    return failed;
+}
+
+
+
 int main() {
-    RunTests(13, (struct Test[13]) {
+    RunTests(33, (struct Test[33]) {
         (struct Test) {ConstructDestructCapacityZero, "ConstructDestructCapacityZero"},
         (struct Test) {ConstructDestructCapacityNonZero, "ConstructDestructCapacityNonZero"},
         (struct Test) {FromArrayToArrayAll, "FromArrayToArrayAll"},
@@ -401,12 +761,26 @@ int main() {
         (struct Test) {ResizeSmallerSize, "ResizeSmallerSize"},
         (struct Test) {CapacityZeroToNonZero, "CapacityZeroToNonZero"},
         (struct Test) {CapacityNonZeroToZero, "CapacityNonZeroToZero"},
-        //(struct Test) {CapacityResizeSmaller, "CapacityResizeSmaller"},
-        //(struct Test) {CapacityResizeBigger, "CapacityResizeBigger"},
-        //(struct Test) {LengthZero, "LengthZero"},
-        //(struct Test) {LengthNonZero, "LengthNonZero"},
-        //(struct Test) {LengthResizeSmaller, "LengthResizeSmaller"},
-        //(struct Test) {LengthResizeBigger, "LengthResizeBigger"},
+        (struct Test) {CapacityResizeBigger, "CapacityResizeBigger"},
+        (struct Test) {CapacityResizeSmaller, "CapacityResizeSmaller"},
+        (struct Test) {LengthZeroToNonZero, "LengthZeroToNonZero"},
+        (struct Test) {LengthNonZeroToZero, "LengthNonZeroToZero"},
+        (struct Test) {LengthResizeBigger, "LengthResizeBigger"},
+        (struct Test) {LengthResizeSmaller, "LengthResizeSmaller"},
+        (struct Test) {EmptyCapacityZero, "EmptyCapacityZero"},
+        (struct Test) {EmptyCapacityNonZeroLengthZero, "EmptyCapacityNonZeroLengthZero"},
+        (struct Test) {EmptyLengthNonZero, "EmptyLengthNonZero"},
+        (struct Test) {EmptyZeroToNonZero, "EmptyZeroToNonZero"},
+        (struct Test) {EmptyNonZeroToZero, "EmptyNonZeroToZero"},
+        (struct Test) {EmptyResizeBigger, "EmptyResizeBigger"},
+        (struct Test) {EmptyResizeSmaller, "EmptyResizeSmaller"},
+        (struct Test) {FullCapacityZero, "FullCapacityZero"},
+        (struct Test) {FullCapacityNonZeroLengthZero, "FullCapacityNonZeroLengthZero"},
+        (struct Test) {FullLengthNonZero, "FullLengthNonZero"},
+        (struct Test) {FullZeroToNonZero, "FullZeroToNonZero"},
+        (struct Test) {FullNonZeroToZero, "FullNonZeroToZero"},
+        (struct Test) {FullResizeBigger, "FullResizeBigger"},
+        (struct Test) {FullResizeSmaller, "FullResizeSmaller"},
     });
     return 0;
 }
