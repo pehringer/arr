@@ -2,54 +2,56 @@
 
 struct CDS_Stack* CDS_StackConstruct(struct CDS_Stack *s, int size, int capacity) {
     if(capacity) {
-        s->first = malloc(size * capacity);
+        s->base = malloc(size * capacity);
     } else {
-        s->first = 0;
+        s->base = s;
     }
-    if(capacity && !s->first) {
+    if(s->base == 0) {
         return 0;
     }
-    s->top = s->first - s->size;
     s->capacity = capacity;
     s->length = 0;
     s->size = size;
+    s->top = s->base - size;
     return s;
 }
 
 struct CDS_Stack* CDS_StackResize(struct CDS_Stack *s, int capacity) {
     if(capacity && s->capacity) {
-        s->first = realloc(s->first, s->size * capacity);
+        s->base = realloc(s->base, s->size * capacity);
     } else if(capacity) {
-        s->first = malloc(s->size * capacity);
+        s->base = malloc(s->size * capacity);
     } else if(s->capacity) {
-        free(s->first);
-        s->first = 0;
+        free(s->base);
+        s->base = s;
     }
-    if(capacity && !s->first) {
+    if(s->base == 0) {
         return 0;
     }
+    s->capacity = capacity;
     if(s->length > capacity) {
         s->length = capacity;
     }
-    s->top = s->first + (s->length - 1) * s->size;
-    s->capacity = capacity;
+    s->top = s->base + (s->length - 1) * s->size;
     return s;
 }
 
 struct CDS_Stack* CDS_StackDestruct(struct CDS_Stack *s) {
-    free(s->first);
-    s->first = 0;
-    s->top = 0;
+    if(a->capacity) {
+        free(s->base);
+    }
+    s->base = 0;
     s->capacity = 0;
     s->length = 0;
     s->size = 0;
+    s->top = 0;
     return s;
 }
 
 struct CDS_Stack* CDS_StackFromArray(struct CDS_Stack *s, void *array, int length) {
-    memcpy(s->first, array, s->size * length);
-    s->top = s->first + (length - 1) * s->size;
+    memcpy(s->base, array, s->size * length);
     s->length = length;
+    s->top = s->base + (length - 1) * s->size;
     return s;
 }
 
@@ -80,25 +82,25 @@ void* CDS_StackTop(struct CDS_Stack *s, void *value) {
 }
 
 struct CDS_Stack* CDS_StackPush(struct CDS_Stack *s, void *value) {
+    s->length++;
     s->top += s->size;
     memcpy(s->top, value, s->size);
-    s->length++;
     return s;
 }
 
 void* CDS_StackPop(struct CDS_Stack *s, void *value) {
     memcpy(value, s->top, s->size);
-    s->top -= s->size;
     s->length--;
+    s->top -= s->size;
     return value;
 }
 
 int CDS_StackContains(struct CDS_Stack *s, void *value, int (*compare)(const void*, const void*)) {
     void *element = s->top;
-    while(element >= s->first && compare(element, value)) {
+    while(element >= s->base && compare(element, value)) {
 	element -= s->size;
     }
-    return element >= s->first;
+    return element >= s->base;
 }
 
 

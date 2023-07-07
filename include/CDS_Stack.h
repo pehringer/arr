@@ -5,11 +5,11 @@
 #include <string.h>
 
 struct CDS_Stack {
-    void *first;
-    void *top;
+    void *base;
     int capacity;
     int length;
     int size;
+    void *top;
 };
 
 //System errors return null.

@@ -11,7 +11,7 @@ int ConstructDestructCapacityZero() {
         failed++;
     }
     CDS_StackDestruct(&stack);
-    if(stack.first != 0 ||
+    if(stack.base != 0 ||
         stack.top != 0 ||
         stack.capacity != 0 ||
         stack.length != 0 ||
@@ -31,7 +31,7 @@ int ConstructDestructCapacityNonZero() {
         failed++;
     }
     CDS_StackDestruct(&stack);
-    if(stack.first != 0 ||
+    if(stack.base != 0 ||
         stack.top != 0 ||
         stack.capacity != 0 ||
         stack.length != 0 ||
@@ -51,7 +51,7 @@ int FromArrayToArrayNone() {
     if(stack.capacity != 8 ||
         stack.length != 0 ||
         stack.size != sizeof(int) ||
-        stack.top != stack.first - stack.size) {
+        stack.top != stack.base - stack.size) {
         failed++;
     }
     if(from[0] != 1 ||
@@ -98,14 +98,14 @@ int FromArrayToArrayAll() {
     printf("siz: %d\n", stack.size);
     printf("top: %d\n", *((int*) stack.top));
 */
-    if(((int*) stack.first)[0] != 1 ||
-        ((int*) stack.first)[1] != 2 ||
-        ((int*) stack.first)[2] != 4 ||
-        ((int*) stack.first)[3] != 8 ||
-        ((int*) stack.first)[4] != 16 ||
-        ((int*) stack.first)[5] != 32 ||
-        ((int*) stack.first)[6] != 64 ||
-        ((int*) stack.first)[7] != 128) {
+    if(((int*) stack.base)[0] != 1 ||
+        ((int*) stack.base)[1] != 2 ||
+        ((int*) stack.base)[2] != 4 ||
+        ((int*) stack.base)[3] != 8 ||
+        ((int*) stack.base)[4] != 16 ||
+        ((int*) stack.base)[5] != 32 ||
+        ((int*) stack.base)[6] != 64 ||
+        ((int*) stack.base)[7] != 128) {
         failed++;
     }
     if(from[0] != 1 ||
@@ -145,10 +145,10 @@ int FromArrayHalfToArrayAll() {
         *((int*) stack.top) != 8) {
         failed++;
     }
-    if(((int*) stack.first)[0] != 1 ||
-        ((int*) stack.first)[1] != 2 ||
-        ((int*) stack.first)[2] != 4 ||
-        ((int*) stack.first)[3] != 8) {
+    if(((int*) stack.base)[0] != 1 ||
+        ((int*) stack.base)[1] != 2 ||
+        ((int*) stack.base)[2] != 4 ||
+        ((int*) stack.base)[3] != 8) {
         failed++;
     }
     if(from[0] != 1 ||
@@ -188,14 +188,14 @@ int FromArrayAllToArrayHalf() {
         *((int*) stack.top) != 128) {
         failed++;
     }
-    if(((int*) stack.first)[0] != 1 ||
-        ((int*) stack.first)[1] != 2 ||
-        ((int*) stack.first)[2] != 4 ||
-        ((int*) stack.first)[3] != 8 ||
-        ((int*) stack.first)[4] != 16 ||
-        ((int*) stack.first)[5] != 32 ||
-        ((int*) stack.first)[6] != 64 ||
-        ((int*) stack.first)[7] != 128) {
+    if(((int*) stack.base)[0] != 1 ||
+        ((int*) stack.base)[1] != 2 ||
+        ((int*) stack.base)[2] != 4 ||
+        ((int*) stack.base)[3] != 8 ||
+        ((int*) stack.base)[4] != 16 ||
+        ((int*) stack.base)[5] != 32 ||
+        ((int*) stack.base)[6] != 64 ||
+        ((int*) stack.base)[7] != 128) {
         failed++;
     }
     if(from[0] != 1 ||
@@ -227,7 +227,7 @@ int ResizeFromZero() {
     struct CDS_Stack stack;
     CDS_StackConstruct(&stack, sizeof(int), 0);
     if(CDS_StackResize(&stack, 8) == 0 ||
-        stack.top != stack.first - stack.size ||
+        stack.top != stack.base - stack.size ||
         stack.capacity != 8 ||
         stack.length != 0 ||
         stack.size != sizeof(int)) {
@@ -242,7 +242,7 @@ int ResizeToZero() {
     struct CDS_Stack stack;
     CDS_StackConstruct(&stack, sizeof(int), 8);
     if(CDS_StackResize(&stack, 0) == 0 ||
-        stack.top != stack.first - stack.size ||
+        stack.top != stack.base - stack.size ||
         stack.capacity != 0 ||
         stack.length != 0 ||
         stack.size != sizeof(int)) {
@@ -264,14 +264,14 @@ int ResizeSameSize() {
         *((int*) stack.top) != 128) {
         failed++;
     }
-    if(((int*) stack.first)[0] != 1 ||
-        ((int*) stack.first)[1] != 2 ||
-        ((int*) stack.first)[2] != 4 ||
-        ((int*) stack.first)[3] != 8 ||
-        ((int*) stack.first)[4] != 16 ||
-        ((int*) stack.first)[5] != 32 ||
-        ((int*) stack.first)[6] != 64 ||
-        ((int*) stack.first)[7] != 128) {
+    if(((int*) stack.base)[0] != 1 ||
+        ((int*) stack.base)[1] != 2 ||
+        ((int*) stack.base)[2] != 4 ||
+        ((int*) stack.base)[3] != 8 ||
+        ((int*) stack.base)[4] != 16 ||
+        ((int*) stack.base)[5] != 32 ||
+        ((int*) stack.base)[6] != 64 ||
+        ((int*) stack.base)[7] != 128) {
         failed++;
     }
     if(from[0] != 1 ||
@@ -300,14 +300,14 @@ int ResizeBiggerSize() {
         *((int*) stack.top) != 128) {
         failed++;
     }
-    if(((int*) stack.first)[0] != 1 ||
-        ((int*) stack.first)[1] != 2 ||
-        ((int*) stack.first)[2] != 4 ||
-        ((int*) stack.first)[3] != 8 ||
-        ((int*) stack.first)[4] != 16 ||
-        ((int*) stack.first)[5] != 32 ||
-        ((int*) stack.first)[6] != 64 ||
-        ((int*) stack.first)[7] != 128) {
+    if(((int*) stack.base)[0] != 1 ||
+        ((int*) stack.base)[1] != 2 ||
+        ((int*) stack.base)[2] != 4 ||
+        ((int*) stack.base)[3] != 8 ||
+        ((int*) stack.base)[4] != 16 ||
+        ((int*) stack.base)[5] != 32 ||
+        ((int*) stack.base)[6] != 64 ||
+        ((int*) stack.base)[7] != 128) {
         failed++;
     }
     if(from[0] != 1 ||
@@ -336,10 +336,10 @@ int ResizeSmallerSize() {
         *((int*) stack.top) != 8) {
         failed++;
     }
-    if(((int*) stack.first)[0] != 1 ||
-        ((int*) stack.first)[1] != 2 ||
-        ((int*) stack.first)[2] != 4 ||
-        ((int*) stack.first)[3] != 8) {
+    if(((int*) stack.base)[0] != 1 ||
+        ((int*) stack.base)[1] != 2 ||
+        ((int*) stack.base)[2] != 4 ||
+        ((int*) stack.base)[3] != 8) {
         failed++;
     }
     if(from[0] != 1 ||
