@@ -41,7 +41,7 @@ void DS_ArrayCopy(struct DS_Array *a, int start, int end, const void *array) {
 }
 
 int DS_ArrayCount(struct DS_Array *a, int start, int end, const void *value) {
-    void *element = a->base + start + a->size;
+    void *element = a->base + start * a->size;
     int count = 0;
     while(start < end) {
         if(a->compare(element, value) == 0) {
@@ -67,7 +67,7 @@ int DS_ArrayIndex(struct DS_Array *a, int start, int end, const void *value) {
     if(index >= start && index < end) {
         return index;
     }
-    void *element = a->base + start + a->size;
+    void *element = a->base + start * a->size;
     while(start < end) {
         if(a->compare(element, value) == 0) {
             return start;
