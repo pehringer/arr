@@ -425,6 +425,16 @@ int FillAll() {
     return failed;
 }
 
+int IndexZero() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    int val = 42;
+    if(DS_ArrayIndex(arr, 0, 0, &val) != -1) failed++;
+    failed += ArrChk(arr, sizeof(int), 0, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
 int IndexOneNone() {
     int failed = 0;
     struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
@@ -522,8 +532,160 @@ int length() {
     return failed;
 }
 
+int MaxZero() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    if(DS_ArrayMax(arr, 0, 0) != 0) failed++;
+    failed += ArrChk(arr, sizeof(int), 0, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int MaxOneNone() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    *((int*) arr->base + 0) = 0;
+    if(DS_ArrayMax(arr, 0, 0) != 0) failed++;
+    if(*((int*) arr->base + 0) != 0) failed++;
+    failed += ArrChk(arr, sizeof(int), 1, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int MaxOne() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    *((int*) arr->base + 0) = 0;
+    if(*((int*) DS_ArrayMax(arr, 0, 1)) != 0) failed++;
+    if(*((int*) arr->base + 0) != 0) failed++;
+    failed += ArrChk(arr, sizeof(int), 1, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int MaxNone() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 4, IntCmp);
+    *((int*) arr->base + 0) = 0;
+    *((int*) arr->base + 1) = 1;
+    *((int*) arr->base + 2) = 2;
+    *((int*) arr->base + 3) = 3;
+    if(DS_ArrayMax(arr, 2, 2) != 0) failed++;
+    if(*((int*) arr->base + 0) != 0) failed++;
+    if(*((int*) arr->base + 1) != 1) failed++;
+    if(*((int*) arr->base + 2) != 2) failed++;
+    if(*((int*) arr->base + 3) != 3) failed++;
+    failed += ArrChk(arr, sizeof(int), 4, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int Max() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    *((int*) arr->base + 0) = 16;
+    *((int*) arr->base + 1) = 0;
+    *((int*) arr->base + 2) = 1;
+    *((int*) arr->base + 3) = 2;
+    *((int*) arr->base + 4) = 32;
+    *((int*) arr->base + 5) = 4;
+    *((int*) arr->base + 6) = 8;
+    *((int*) arr->base + 7) = 64;
+    if(*((int*) DS_ArrayMax(arr, 0, 4)) != 16) failed++;
+    if(*((int*) DS_ArrayMax(arr, 4, 8)) != 64) failed++;
+    if(*((int*) DS_ArrayMax(arr, 2, 6)) != 32) failed++;
+    if(*((int*) DS_ArrayMax(arr, 0, 8)) != 64) failed++;
+    if(*((int*) arr->base + 0) != 16) failed++;
+    if(*((int*) arr->base + 1) != 0) failed++;
+    if(*((int*) arr->base + 2) != 1) failed++;
+    if(*((int*) arr->base + 3) != 2) failed++;
+    if(*((int*) arr->base + 4) != 32) failed++;
+    if(*((int*) arr->base + 5) != 4) failed++;
+    if(*((int*) arr->base + 6) != 8) failed++;
+    if(*((int*) arr->base + 7) != 64) failed++;
+    failed += ArrChk(arr, sizeof(int), 8, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int MinZero() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    if(DS_ArrayMin(arr, 0, 0) != 0) failed++;
+    failed += ArrChk(arr, sizeof(int), 0, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int MinOneNone() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    *((int*) arr->base + 0) = 0;
+    if(DS_ArrayMin(arr, 0, 0) != 0) failed++;
+    if(*((int*) arr->base + 0) != 0) failed++;
+    failed += ArrChk(arr, sizeof(int), 1, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int MinOne() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    *((int*) arr->base + 0) = 0;
+    if(*((int*) DS_ArrayMin(arr, 0, 1)) != 0) failed++;
+    if(*((int*) arr->base + 0) != 0) failed++;
+    failed += ArrChk(arr, sizeof(int), 1, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int MinNone() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 4, IntCmp);
+    *((int*) arr->base + 0) = 0;
+    *((int*) arr->base + 1) = 1;
+    *((int*) arr->base + 2) = 2;
+    *((int*) arr->base + 3) = 3;
+    if(DS_ArrayMin(arr, 2, 2) != 0) failed++;
+    if(*((int*) arr->base + 0) != 0) failed++;
+    if(*((int*) arr->base + 1) != 1) failed++;
+    if(*((int*) arr->base + 2) != 2) failed++;
+    if(*((int*) arr->base + 3) != 3) failed++;
+    failed += ArrChk(arr, sizeof(int), 4, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int Min() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    *((int*) arr->base + 0) = 2;
+    *((int*) arr->base + 1) = 4;
+    *((int*) arr->base + 2) = 8;
+    *((int*) arr->base + 3) = 16;
+    *((int*) arr->base + 4) = 1;
+    *((int*) arr->base + 5) = 32;
+    *((int*) arr->base + 6) = 64;
+    *((int*) arr->base + 7) = 0;
+    if(*((int*) DS_ArrayMin(arr, 0, 4)) != 2) failed++;
+    if(*((int*) DS_ArrayMin(arr, 4, 8)) != 0) failed++;
+    if(*((int*) DS_ArrayMin(arr, 2, 6)) != 1) failed++;
+    if(*((int*) DS_ArrayMin(arr, 0, 8)) != 0) failed++;
+    if(*((int*) arr->base + 0) != 2) failed++;
+    if(*((int*) arr->base + 1) != 4) failed++;
+    if(*((int*) arr->base + 2) != 8) failed++;
+    if(*((int*) arr->base + 3) != 16) failed++;
+    if(*((int*) arr->base + 4) != 1) failed++;
+    if(*((int*) arr->base + 5) != 32) failed++;
+    if(*((int*) arr->base + 6) != 64) failed++;
+    if(*((int*) arr->base + 7) != 0) failed++;
+    failed += ArrChk(arr, sizeof(int), 8, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
 int main() {
-    RunTests(25, (struct Test[25]) {
+    RunTests(36, (struct Test[36]) {
         (struct Test) {NewDeleteZero, "NewDeleteZero"},
         (struct Test) {NewDeleteMany, "NewDeleteMany"},
         (struct Test) {ResizeBigger, "ResizeBigger"},
@@ -544,11 +706,22 @@ int main() {
         (struct Test) {FillSecondHalf, "FillSecondHalf"},
         (struct Test) {FillMiddle, "FillMiddle"},
         (struct Test) {FillAll, "FillAll"},
+        (struct Test) {IndexZero, "IndexZero"},
         (struct Test) {IndexOneNone, "IndexOneNone"},
         (struct Test) {IndexOne, "IndexOne"},
         (struct Test) {IndexNone, "IndexNone"},
         (struct Test) {Index, "Index"},
         (struct Test) {length, "length"},
+        (struct Test) {MaxZero, "MaxZero"},
+        (struct Test) {MaxOneNone, "MaxOneNone"},
+        (struct Test) {MaxOne, "MaxOne"},
+        (struct Test) {MaxNone, "MaxNone"},
+        (struct Test) {Max, "Max"},
+        (struct Test) {MinZero, "MinZero"},
+        (struct Test) {MinOneNone, "MinOneNone"},
+        (struct Test) {MinOne, "MinOne"},
+        (struct Test) {MinNone, "MinNone"},
+        (struct Test) {Min, "Min"},
     });
     return 0;
 }

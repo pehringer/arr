@@ -11,7 +11,7 @@ if [ $1 = 'Array' ]; then
 	./bin/ArrayTests
 	rm ./bin/ArrayTests
 elif [ $1 = 'Stack' ]; then
-	gcc -fsanitize=undefined -I ./include ./src/CDS_Stack.c ./test/Test.c ./test/StackTests.c -o ./bin/StackTests
+	gcc -fsanitize=undefined -I ./include ./src/DS_Stack.c ./test/Test.c ./test/StackTests.c -o ./bin/StackTests
 	./bin/StackTests
 	rm ./bin/StackTests
 else

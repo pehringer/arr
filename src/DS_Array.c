@@ -84,9 +84,9 @@ int DS_ArrayLength(struct DS_Array *a) {
 
 void* DS_ArrayMax(struct DS_Array *a, int start, int end) {
     void *element = a->base + start * a->size;
-    void *max = element;
+    void *max = 0;
     while(start < end) {
-        if(a->compare(element, max) < 0) {
+        if(max == 0 || a->compare(element, max) > 0) {
             max = element;
         }
         element += a->size;
@@ -97,9 +97,9 @@ void* DS_ArrayMax(struct DS_Array *a, int start, int end) {
 
 void* DS_ArrayMin(struct DS_Array *a, int start, int end) {
     void *element = a->base + start * a->size;
-    void *min = element;
+    void *min = 0;
     while(start < end) {
-        if(a->compare(element, min) > 0) {
+        if(min == 0 || a->compare(element, min) < 0) {
             min = element;
         }
         element += a->size;
