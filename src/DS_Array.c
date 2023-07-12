@@ -121,6 +121,8 @@ void* DS_ArrayMin(struct DS_Array *a, int start, int end) {
     return min;
 }
 
+struct DS_Array* DS_ArraySort(struct DS_Array *a, int start, int end) {
+    qsort(a->base + start * a->size, end - start, a->size, a->compare);
+    return a;
 
-
-
+}

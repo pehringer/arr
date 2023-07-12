@@ -35,4 +35,6 @@ void* DS_ArrayMax(struct DS_Array *a, int start, int end);
 
 void* DS_ArrayMin(struct DS_Array *a, int start, int end);
 
+struct DS_Array* DS_ArraySort(struct DS_Array *a, int start, int end);
+
 #endif
