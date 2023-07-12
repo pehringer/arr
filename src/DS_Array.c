@@ -30,7 +30,7 @@ void* DS_ArrayAt(struct DS_Array *a, int index) {
     return a->base + index * a->size;
 }
 
-void DS_ArrayCopy(struct DS_Array *a, int start, int end, const void *array) {
+struct DS_Array* DS_ArrayCopyFrom(struct DS_Array *a, int start, int end, const void *array) {
     void *element = a->base + start * a->size;
     while(start < end) {
         memcpy(element, array, a->size);
@@ -38,6 +38,18 @@ void DS_ArrayCopy(struct DS_Array *a, int start, int end, const void *array) {
         element += a->size;
         start++;
     }
+    return a;
+}
+
+struct DS_Array* DS_ArrayCopyTo(struct DS_Array *a, int start, int end, void *array) {
+    void *element = a->base + start * a->size;
+    while(start < end) {
+        memcpy(array, element, a->size);
+        array += a->size;
+        element += a->size;
+        start++;
+    }
+    return a;
 }
 
 int DS_ArrayCount(struct DS_Array *a, int start, int end, const void *value) {
@@ -53,13 +65,14 @@ int DS_ArrayCount(struct DS_Array *a, int start, int end, const void *value) {
     return count;
 }
 
-void DS_ArrayFill(struct DS_Array *a, int start, int end, const void *value) {
+struct DS_Array* DS_ArrayFill(struct DS_Array *a, int start, int end, const void *value) {
     void *element = a->base + start * a->size;
     while(start < end) {
         memcpy(element, value, a->size);
         element += a->size;
         start++;
     }
+    return a;
 }
 
 int DS_ArrayIndex(struct DS_Array *a, int start, int end, const void *value) {

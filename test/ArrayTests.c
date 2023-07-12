@@ -105,17 +105,17 @@ int AtAll() {
     return failed;
 }
 
-int CopyZero() {
+int CopyFromZero() {
     int failed = 0;
     struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
     int copy[0] = {};
-    DS_ArrayCopy(arr, 0, 0, copy);
+    DS_ArrayCopyFrom(arr, 0, 0, copy);
     failed += ArrChk(arr, sizeof(int), 0, 1);
     DS_ArrayDelete(arr);
     return failed;
 }
 
-int CopyFirstHalf() {
+int CopyFromFirstHalf() {
     int failed = 0;
     struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
@@ -127,7 +127,7 @@ int CopyFirstHalf() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    DS_ArrayCopy(arr, 0, 4, copy);
+    DS_ArrayCopyFrom(arr, 0, 4, copy);
     if(*((int*) arr->base + 0) != 8) failed++;
     if(*((int*) arr->base + 1) != 9) failed++;
     if(*((int*) arr->base + 2) != 10) failed++;
@@ -141,7 +141,7 @@ int CopyFirstHalf() {
     return failed;
 }
 
-int CopySecondHalf() {
+int CopyFromSecondHalf() {
     int failed = 0;
     struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
@@ -153,7 +153,7 @@ int CopySecondHalf() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    DS_ArrayCopy(arr, 4, 8, copy);
+    DS_ArrayCopyFrom(arr, 4, 8, copy);
     if(*((int*) arr->base + 0) != 0) failed++;
     if(*((int*) arr->base + 1) != 1) failed++;
     if(*((int*) arr->base + 2) != 2) failed++;
@@ -167,7 +167,7 @@ int CopySecondHalf() {
     return failed;
 }
 
-int CopyMiddle() {
+int CopyFromMiddle() {
     int failed = 0;
     struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
@@ -179,7 +179,7 @@ int CopyMiddle() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    DS_ArrayCopy(arr, 2, 6, copy);
+    DS_ArrayCopyFrom(arr, 2, 6, copy);
     if(*((int*) arr->base + 0) != 0) failed++;
     if(*((int*) arr->base + 1) != 1) failed++;
     if(*((int*) arr->base + 2) != 8) failed++;
@@ -193,7 +193,7 @@ int CopyMiddle() {
     return failed;
 }
 
-int CopyAll() {
+int CopyFromAll() {
     int failed = 0;
     struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
@@ -205,7 +205,7 @@ int CopyAll() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[8] = {8, 9, 10, 11, 12, 13, 14, 15};
-    DS_ArrayCopy(arr, 0, 8, copy);
+    DS_ArrayCopyFrom(arr, 0, 8, copy);
     if(*((int*) arr->base + 0) != 8) failed++;
     if(*((int*) arr->base + 1) != 9) failed++;
     if(*((int*) arr->base + 2) != 10) failed++;
@@ -214,6 +214,140 @@ int CopyAll() {
     if(*((int*) arr->base + 5) != 13) failed++;
     if(*((int*) arr->base + 6) != 14) failed++;
     if(*((int*) arr->base + 7) != 15) failed++;
+    failed += ArrChk(arr, sizeof(int), 8, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int CopyToZero() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    int copy[0] = {};
+    DS_ArrayCopyTo(arr, 0, 0, copy);
+    failed += ArrChk(arr, sizeof(int), 0, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int CopyToFirstHalf() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    *((int*) arr->base + 0) = 0;
+    *((int*) arr->base + 1) = 1;
+    *((int*) arr->base + 2) = 2;
+    *((int*) arr->base + 3) = 3;
+    *((int*) arr->base + 4) = 4;
+    *((int*) arr->base + 5) = 5;
+    *((int*) arr->base + 6) = 6;
+    *((int*) arr->base + 7) = 7;
+    int copy[4] = {8, 9, 10, 11};
+    DS_ArrayCopyTo(arr, 0, 4, copy);
+    if(*((int*) arr->base + 0) != 0) failed++;
+    if(*((int*) arr->base + 1) != 1) failed++;
+    if(*((int*) arr->base + 2) != 2) failed++;
+    if(*((int*) arr->base + 3) != 3) failed++;
+    if(*((int*) arr->base + 4) != 4) failed++;
+    if(*((int*) arr->base + 5) != 5) failed++;
+    if(*((int*) arr->base + 6) != 6) failed++;
+    if(*((int*) arr->base + 7) != 7) failed++;
+    if(copy[0] != 0) failed++;
+    if(copy[1] != 1) failed++;
+    if(copy[2] != 2) failed++;
+    if(copy[3] != 3) failed++;
+    failed += ArrChk(arr, sizeof(int), 8, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int CopyToSecondHalf() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    *((int*) arr->base + 0) = 0;
+    *((int*) arr->base + 1) = 1;
+    *((int*) arr->base + 2) = 2;
+    *((int*) arr->base + 3) = 3;
+    *((int*) arr->base + 4) = 4;
+    *((int*) arr->base + 5) = 5;
+    *((int*) arr->base + 6) = 6;
+    *((int*) arr->base + 7) = 7;
+    int copy[4] = {8, 9, 10, 11};
+    DS_ArrayCopyTo(arr, 4, 8, copy);
+    if(*((int*) arr->base + 0) != 0) failed++;
+    if(*((int*) arr->base + 1) != 1) failed++;
+    if(*((int*) arr->base + 2) != 2) failed++;
+    if(*((int*) arr->base + 3) != 3) failed++;
+    if(*((int*) arr->base + 4) != 4) failed++;
+    if(*((int*) arr->base + 5) != 5) failed++;
+    if(*((int*) arr->base + 6) != 6) failed++;
+    if(*((int*) arr->base + 7) != 7) failed++;
+    if(copy[0] != 4) failed++;
+    if(copy[1] != 5) failed++;
+    if(copy[2] != 6) failed++;
+    if(copy[3] != 7) failed++;
+    failed += ArrChk(arr, sizeof(int), 8, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int CopyToMiddle() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    *((int*) arr->base + 0) = 0;
+    *((int*) arr->base + 1) = 1;
+    *((int*) arr->base + 2) = 2;
+    *((int*) arr->base + 3) = 3;
+    *((int*) arr->base + 4) = 4;
+    *((int*) arr->base + 5) = 5;
+    *((int*) arr->base + 6) = 6;
+    *((int*) arr->base + 7) = 7;
+    int copy[4] = {8, 9, 10, 11};
+    DS_ArrayCopyTo(arr, 2, 6, copy);
+    if(*((int*) arr->base + 0) != 0) failed++;
+    if(*((int*) arr->base + 1) != 1) failed++;
+    if(*((int*) arr->base + 2) != 2) failed++;
+    if(*((int*) arr->base + 3) != 3) failed++;
+    if(*((int*) arr->base + 4) != 4) failed++;
+    if(*((int*) arr->base + 5) != 5) failed++;
+    if(*((int*) arr->base + 6) != 6) failed++;
+    if(*((int*) arr->base + 7) != 7) failed++;
+    if(copy[0] != 2) failed++;
+    if(copy[1] != 3) failed++;
+    if(copy[2] != 4) failed++;
+    if(copy[3] != 5) failed++;
+    failed += ArrChk(arr, sizeof(int), 8, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int CopyToAll() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    *((int*) arr->base + 0) = 0;
+    *((int*) arr->base + 1) = 1;
+    *((int*) arr->base + 2) = 2;
+    *((int*) arr->base + 3) = 3;
+    *((int*) arr->base + 4) = 4;
+    *((int*) arr->base + 5) = 5;
+    *((int*) arr->base + 6) = 6;
+    *((int*) arr->base + 7) = 7;
+    int copy[8] = {8, 9, 10, 11, 12, 13, 14, 15};
+    DS_ArrayCopyTo(arr, 0, 8, copy);
+    if(*((int*) arr->base + 0) != 0) failed++;
+    if(*((int*) arr->base + 1) != 1) failed++;
+    if(*((int*) arr->base + 2) != 2) failed++;
+    if(*((int*) arr->base + 3) != 3) failed++;
+    if(*((int*) arr->base + 4) != 4) failed++;
+    if(*((int*) arr->base + 5) != 5) failed++;
+    if(*((int*) arr->base + 6) != 6) failed++;
+    if(*((int*) arr->base + 7) != 7) failed++;
+    if(copy[0] != 0) failed++;
+    if(copy[1] != 1) failed++;
+    if(copy[2] != 2) failed++;
+    if(copy[3] != 3) failed++;
+    if(copy[4] != 4) failed++;
+    if(copy[5] != 5) failed++;
+    if(copy[6] != 6) failed++;
+    if(copy[7] != 7) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
     DS_ArrayDelete(arr);
     return failed;
@@ -685,17 +819,22 @@ int Min() {
 }
 
 int main() {
-    RunTests(36, (struct Test[36]) {
+    RunTests(41, (struct Test[41]) {
         (struct Test) {NewDeleteZero, "NewDeleteZero"},
         (struct Test) {NewDeleteMany, "NewDeleteMany"},
         (struct Test) {ResizeBigger, "ResizeBigger"},
         (struct Test) {ResizeSmaller, "ResizeSmaller"},
         (struct Test) {AtAll, "AtAll"},
-        (struct Test) {CopyZero, "CopyZero"},
-        (struct Test) {CopyFirstHalf, "CopyFirstHalf"},
-        (struct Test) {CopySecondHalf, "CopySecondHalf"},
-        (struct Test) {CopyMiddle, "CopyMiddle"},
-        (struct Test) {CopyAll, "CopyAll"},
+        (struct Test) {CopyFromZero, "CopyFromZero"},
+        (struct Test) {CopyFromFirstHalf, "CopyFromFirstHalf"},
+        (struct Test) {CopyFromSecondHalf, "CopyFromSecondHalf"},
+        (struct Test) {CopyFromMiddle, "CopyFromMiddle"},
+        (struct Test) {CopyFromAll, "CopyFromAll"},
+        (struct Test) {CopyToZero, "CopyToZero"},
+        (struct Test) {CopyToFirstHalf, "CopyToFirstHalf"},
+        (struct Test) {CopyToSecondHalf, "CopyToSecondHalf"},
+        (struct Test) {CopyToMiddle, "CopyToMiddle"},
+        (struct Test) {CopyToAll, "CopyToAll"},
         (struct Test) {CountZero, "CountZero"},
         (struct Test) {CountOneNone, "CountOneNone"},
         (struct Test) {CountOne, "CountOne"},

@@ -19,11 +19,13 @@ struct DS_Array* DS_ArrayResize(struct DS_Array *a, int length);
 
 void* DS_ArrayAt(struct DS_Array *a, int index);
 
-void DS_ArrayCopy(struct DS_Array *a, int start, int end, const void *array);
+struct DS_Array* DS_ArrayCopyFrom(struct DS_Array *a, int start, int end, const void *array);
+
+struct DS_Array* DS_ArrayCopyTo(struct DS_Array *a, int start, int end, void *array);
 
 int DS_ArrayCount(struct DS_Array *a, int start, int end, const void *value);
 
-void DS_ArrayFill(struct DS_Array *a, int start, int end, const void *value);
+struct DS_Array* DS_ArrayFill(struct DS_Array *a, int start, int end, const void *value);
 
 int DS_ArrayIndex(struct DS_Array *a, int start, int end, const void *value);
 
