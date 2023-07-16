@@ -105,6 +105,98 @@ int AtAll() {
     return failed;
 }
 
+int BinarySearchZero() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    int value = 42;
+    if(DS_ArrayBinarySearch(arr, 0, 0, &value) != 0) failed++;
+    failed += ArrChk(arr, sizeof(int), 0, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int BinarySearchOneNone() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    *((int*) arr->base + 0) = 0;
+    int value = 42;
+    if(DS_ArrayBinarySearch(arr, 0, 0, &value) != 0) failed++;
+    if(*((int*) arr->base + 0) != 0) failed++;
+    failed += ArrChk(arr, sizeof(int), 1, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int BinarySearchOne() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    *((int*) arr->base + 0) = 42;
+    int value = 42;
+    if(*((int*) DS_ArrayBinarySearch(arr, 0, 1, &value)) != 42) failed++;
+    if(*((int*) arr->base + 0) != 42) failed++;
+    failed += ArrChk(arr, sizeof(int), 1, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int BinarySearchNone() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    *((int*) arr->base + 0) = 1;
+    *((int*) arr->base + 1) = 2;
+    *((int*) arr->base + 2) = 4;
+    *((int*) arr->base + 3) = 8;
+    *((int*) arr->base + 4) = 16;
+    *((int*) arr->base + 5) = 32;
+    *((int*) arr->base + 6) = 64;
+    *((int*) arr->base + 7) = 128;
+    int value = 42;
+    if(DS_ArrayBinarySearch(arr, 0, 8, &value) != 0) failed++;
+    if(*((int*) arr->base + 0) != 1) failed++;
+    if(*((int*) arr->base + 1) != 2) failed++;
+    if(*((int*) arr->base + 2) != 4) failed++;
+    if(*((int*) arr->base + 3) != 8) failed++;
+    if(*((int*) arr->base + 4) != 16) failed++;
+    if(*((int*) arr->base + 5) != 32) failed++;
+    if(*((int*) arr->base + 6) != 64) failed++;
+    if(*((int*) arr->base + 7) != 128) failed++;
+    failed += ArrChk(arr, sizeof(int), 8, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
+int BinarySearch() {
+    int failed = 0;
+    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    *((int*) arr->base + 0) = 1;
+    *((int*) arr->base + 1) = 2;
+    *((int*) arr->base + 2) = 4;
+    *((int*) arr->base + 3) = 8;
+    *((int*) arr->base + 4) = 16;
+    *((int*) arr->base + 5) = 32;
+    *((int*) arr->base + 6) = 64;
+    *((int*) arr->base + 7) = 128;
+    int value = 1;
+    if(*((int*) DS_ArrayBinarySearch(arr, 0, 4, &value)) != 1) failed++;
+    value = 128;
+    if(*((int*) DS_ArrayBinarySearch(arr, 4, 8, &value)) != 128) failed++;
+    value = 8;
+    if(*((int*) DS_ArrayBinarySearch(arr, 2, 6, &value)) != 8) failed++;
+    value = 32;
+    if(*((int*) DS_ArrayBinarySearch(arr, 0, 8, &value)) != 32) failed++;
+    if(*((int*) arr->base + 0) != 1) failed++;
+    if(*((int*) arr->base + 1) != 2) failed++;
+    if(*((int*) arr->base + 2) != 4) failed++;
+    if(*((int*) arr->base + 3) != 8) failed++;
+    if(*((int*) arr->base + 4) != 16) failed++;
+    if(*((int*) arr->base + 5) != 32) failed++;
+    if(*((int*) arr->base + 6) != 64) failed++;
+    if(*((int*) arr->base + 7) != 128) failed++;
+    failed += ArrChk(arr, sizeof(int), 8, 1);
+    DS_ArrayDelete(arr);
+    return failed;
+}
+
 int CopyFromZero() {
     int failed = 0;
     struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
@@ -919,12 +1011,17 @@ int Sort() {
 }
 
 int main() {
-    RunTests(46, (struct Test[46]) {
+    RunTests(51, (struct Test[51]) {
         (struct Test) {NewDeleteZero, "NewDeleteZero"},
         (struct Test) {NewDeleteMany, "NewDeleteMany"},
         (struct Test) {ResizeBigger, "ResizeBigger"},
         (struct Test) {ResizeSmaller, "ResizeSmaller"},
         (struct Test) {AtAll, "AtAll"},
+        (struct Test) {BinarySearchZero, "BinarySearchZero"},
+        (struct Test) {BinarySearchOneNone, "BinarySearchOneNone"},
+        (struct Test) {BinarySearchOne, "BinarySearchOne"},
+        (struct Test) {BinarySearchNone, "BinarySearchNone"},
+        (struct Test) {BinarySearch, "BinarySearch"},
         (struct Test) {CopyFromZero, "CopyFromZero"},
         (struct Test) {CopyFromFirstHalf, "CopyFromFirstHalf"},
         (struct Test) {CopyFromSecondHalf, "CopyFromSecondHalf"},

@@ -30,6 +30,11 @@ void* DS_ArrayAt(struct DS_Array *a, int index) {
     return a->base + index * a->size;
 }
 
+void* DS_ArrayBinarySearch(struct DS_Array *a, int start, int end, const void *value) {
+    end -= start;
+    return bsearch(value, a->base + start * a->size, end, a->size, a->compare);
+}
+
 struct DS_Array* DS_ArrayCopyFrom(struct DS_Array *a, int start, int end, const void *array) {
     void *element = a->base + start * a->size;
     while(start < end) {
