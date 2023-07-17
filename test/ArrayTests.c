@@ -15,37 +15,37 @@ int ArrChk(struct DS_Array *arr, size_t size, int len, int hasCmp) {
 
 int NewDeleteZero() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 0, IntCmp);
     if(arr == 0) return ++failed;
     failed += ArrChk(arr, sizeof(int), 0, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int NewDeleteMany() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 4, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 4, IntCmp);
     if(arr == 0) return ++failed;
     failed += ArrChk(arr, sizeof(int), 4, 1);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
     *((int*) arr->base + 3) = 3;
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int ResizeBigger() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
-    arr = DS_ArrayResize(arr, 4);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 0, IntCmp);
+    arr = DS_ArrayRestruct(arr, 4);
     if(arr == 0) return ++failed;
     failed += ArrChk(arr, sizeof(int), 4, 1);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
     *((int*) arr->base + 3) = 3;
-    arr = DS_ArrayResize(arr, 8);
+    arr = DS_ArrayRestruct(arr, 8);
     if(arr == 0) return ++failed;
     failed += ArrChk(arr, sizeof(int), 8, 1);
     *((int*) arr->base + 4) = 4;
@@ -60,13 +60,13 @@ int ResizeBigger() {
     if(*((int*) arr->base + 5) != 5) failed++;
     if(*((int*) arr->base + 6) != 6) failed++;
     if(*((int*) arr->base + 7) != 7) failed++;
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int ResizeSmaller() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -75,23 +75,23 @@ int ResizeSmaller() {
     *((int*) arr->base + 5) = 5;
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
-    arr = DS_ArrayResize(arr, 4);
+    arr = DS_ArrayRestruct(arr, 4);
     if(arr == 0) failed++;
     failed += ArrChk(arr, sizeof(int), 4, 1);
     if(*((int*) arr->base + 0) != 0) failed++;
     if(*((int*) arr->base + 1) != 1) failed++;
     if(*((int*) arr->base + 2) != 2) failed++;
     if(*((int*) arr->base + 3) != 3) failed++;
-    arr = DS_ArrayResize(arr, 0);
+    arr = DS_ArrayRestruct(arr, 0);
     if(arr == 0) return ++failed;
     failed += ArrChk(arr, sizeof(int), 0, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int AtAll() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 4, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 4, IntCmp);
     *((int*) DS_ArrayAt(arr, 0)) = 0;
     *((int*) DS_ArrayAt(arr, 1)) = 1;
     *((int*) DS_ArrayAt(arr, 2)) = 2;
@@ -101,115 +101,23 @@ int AtAll() {
     if(*((int*) DS_ArrayAt(arr, 2)) != 2) failed++;
     if(*((int*) DS_ArrayAt(arr, 3)) != 3) failed++;
     failed += ArrChk(arr, sizeof(int), 4, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
-int BinarySearchZero() {
+int FromZero() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
-    int value = 42;
-    if(DS_ArrayBinarySearch(arr, 0, 0, &value) != 0) failed++;
-    failed += ArrChk(arr, sizeof(int), 0, 1);
-    DS_ArrayDelete(arr);
-    return failed;
-}
-
-int BinarySearchOneNone() {
-    int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
-    *((int*) arr->base + 0) = 0;
-    int value = 42;
-    if(DS_ArrayBinarySearch(arr, 0, 0, &value) != 0) failed++;
-    if(*((int*) arr->base + 0) != 0) failed++;
-    failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
-    return failed;
-}
-
-int BinarySearchOne() {
-    int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
-    *((int*) arr->base + 0) = 42;
-    int value = 42;
-    if(*((int*) DS_ArrayBinarySearch(arr, 0, 1, &value)) != 42) failed++;
-    if(*((int*) arr->base + 0) != 42) failed++;
-    failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
-    return failed;
-}
-
-int BinarySearchNone() {
-    int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
-    *((int*) arr->base + 0) = 1;
-    *((int*) arr->base + 1) = 2;
-    *((int*) arr->base + 2) = 4;
-    *((int*) arr->base + 3) = 8;
-    *((int*) arr->base + 4) = 16;
-    *((int*) arr->base + 5) = 32;
-    *((int*) arr->base + 6) = 64;
-    *((int*) arr->base + 7) = 128;
-    int value = 42;
-    if(DS_ArrayBinarySearch(arr, 0, 8, &value) != 0) failed++;
-    if(*((int*) arr->base + 0) != 1) failed++;
-    if(*((int*) arr->base + 1) != 2) failed++;
-    if(*((int*) arr->base + 2) != 4) failed++;
-    if(*((int*) arr->base + 3) != 8) failed++;
-    if(*((int*) arr->base + 4) != 16) failed++;
-    if(*((int*) arr->base + 5) != 32) failed++;
-    if(*((int*) arr->base + 6) != 64) failed++;
-    if(*((int*) arr->base + 7) != 128) failed++;
-    failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
-    return failed;
-}
-
-int BinarySearch() {
-    int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
-    *((int*) arr->base + 0) = 1;
-    *((int*) arr->base + 1) = 2;
-    *((int*) arr->base + 2) = 4;
-    *((int*) arr->base + 3) = 8;
-    *((int*) arr->base + 4) = 16;
-    *((int*) arr->base + 5) = 32;
-    *((int*) arr->base + 6) = 64;
-    *((int*) arr->base + 7) = 128;
-    int value = 1;
-    if(*((int*) DS_ArrayBinarySearch(arr, 0, 4, &value)) != 1) failed++;
-    value = 128;
-    if(*((int*) DS_ArrayBinarySearch(arr, 4, 8, &value)) != 128) failed++;
-    value = 8;
-    if(*((int*) DS_ArrayBinarySearch(arr, 2, 6, &value)) != 8) failed++;
-    value = 32;
-    if(*((int*) DS_ArrayBinarySearch(arr, 0, 8, &value)) != 32) failed++;
-    if(*((int*) arr->base + 0) != 1) failed++;
-    if(*((int*) arr->base + 1) != 2) failed++;
-    if(*((int*) arr->base + 2) != 4) failed++;
-    if(*((int*) arr->base + 3) != 8) failed++;
-    if(*((int*) arr->base + 4) != 16) failed++;
-    if(*((int*) arr->base + 5) != 32) failed++;
-    if(*((int*) arr->base + 6) != 64) failed++;
-    if(*((int*) arr->base + 7) != 128) failed++;
-    failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
-    return failed;
-}
-
-int CopyFromZero() {
-    int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 0, IntCmp);
     int copy[0] = {};
-    if(DS_ArrayCopyFrom(arr, 0, 0, copy) != arr) failed++;
+    if(DS_ArrayFrom(arr, 0, 0, copy) != arr) failed++;
     failed += ArrChk(arr, sizeof(int), 0, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
-int CopyFromFirstHalf() {
+int FromFirstHalf() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -219,7 +127,7 @@ int CopyFromFirstHalf() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    if(DS_ArrayCopyFrom(arr, 0, 4, copy) != arr) failed++;
+    if(DS_ArrayFrom(arr, 0, 4, copy) != arr) failed++;
     if(*((int*) arr->base + 0) != 8) failed++;
     if(*((int*) arr->base + 1) != 9) failed++;
     if(*((int*) arr->base + 2) != 10) failed++;
@@ -229,13 +137,13 @@ int CopyFromFirstHalf() {
     if(*((int*) arr->base + 6) != 6) failed++;
     if(*((int*) arr->base + 7) != 7) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
-int CopyFromSecondHalf() {
+int FromSecondHalf() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -245,7 +153,7 @@ int CopyFromSecondHalf() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    if(DS_ArrayCopyFrom(arr, 4, 8, copy) != arr) failed++;
+    if(DS_ArrayFrom(arr, 4, 8, copy) != arr) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     if(*((int*) arr->base + 1) != 1) failed++;
     if(*((int*) arr->base + 2) != 2) failed++;
@@ -255,13 +163,13 @@ int CopyFromSecondHalf() {
     if(*((int*) arr->base + 6) != 10) failed++;
     if(*((int*) arr->base + 7) != 11) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
-int CopyFromMiddle() {
+int FromMiddle() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -271,7 +179,7 @@ int CopyFromMiddle() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    if(DS_ArrayCopyFrom(arr, 2, 6, copy) != arr) failed++;
+    if(DS_ArrayFrom(arr, 2, 6, copy) != arr) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     if(*((int*) arr->base + 1) != 1) failed++;
     if(*((int*) arr->base + 2) != 8) failed++;
@@ -281,13 +189,13 @@ int CopyFromMiddle() {
     if(*((int*) arr->base + 6) != 6) failed++;
     if(*((int*) arr->base + 7) != 7) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
-int CopyFromAll() {
+int FromAll() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -297,7 +205,7 @@ int CopyFromAll() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[8] = {8, 9, 10, 11, 12, 13, 14, 15};
-    if(DS_ArrayCopyFrom(arr, 0, 8, copy) != arr) failed++;
+    if(DS_ArrayFrom(arr, 0, 8, copy) != arr) failed++;
     if(*((int*) arr->base + 0) != 8) failed++;
     if(*((int*) arr->base + 1) != 9) failed++;
     if(*((int*) arr->base + 2) != 10) failed++;
@@ -307,23 +215,23 @@ int CopyFromAll() {
     if(*((int*) arr->base + 6) != 14) failed++;
     if(*((int*) arr->base + 7) != 15) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
-int CopyToZero() {
+int ToZero() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 0, IntCmp);
     int copy[0] = {};
-    if(DS_ArrayCopyTo(arr, 0, 0, copy) != arr) failed++;
+    if(DS_ArrayTo(arr, 0, 0, copy) != arr) failed++;
     failed += ArrChk(arr, sizeof(int), 0, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
-int CopyToFirstHalf() {
+int ToFirstHalf() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -333,7 +241,7 @@ int CopyToFirstHalf() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    if(DS_ArrayCopyTo(arr, 0, 4, copy) != arr) failed++;
+    if(DS_ArrayTo(arr, 0, 4, copy) != arr) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     if(*((int*) arr->base + 1) != 1) failed++;
     if(*((int*) arr->base + 2) != 2) failed++;
@@ -347,13 +255,13 @@ int CopyToFirstHalf() {
     if(copy[2] != 2) failed++;
     if(copy[3] != 3) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
-int CopyToSecondHalf() {
+int ToSecondHalf() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -363,7 +271,7 @@ int CopyToSecondHalf() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    if(DS_ArrayCopyTo(arr, 4, 8, copy) != arr) failed++;
+    if(DS_ArrayTo(arr, 4, 8, copy) != arr) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     if(*((int*) arr->base + 1) != 1) failed++;
     if(*((int*) arr->base + 2) != 2) failed++;
@@ -377,13 +285,13 @@ int CopyToSecondHalf() {
     if(copy[2] != 6) failed++;
     if(copy[3] != 7) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
-int CopyToMiddle() {
+int ToMiddle() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -393,7 +301,7 @@ int CopyToMiddle() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    if(DS_ArrayCopyTo(arr, 2, 6, copy) != arr) failed++;
+    if(DS_ArrayTo(arr, 2, 6, copy) != arr) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     if(*((int*) arr->base + 1) != 1) failed++;
     if(*((int*) arr->base + 2) != 2) failed++;
@@ -407,13 +315,13 @@ int CopyToMiddle() {
     if(copy[2] != 4) failed++;
     if(copy[3] != 5) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
-int CopyToAll() {
+int ToAll() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -423,7 +331,7 @@ int CopyToAll() {
     *((int*) arr->base + 6) = 6;
     *((int*) arr->base + 7) = 7;
     int copy[8] = {8, 9, 10, 11, 12, 13, 14, 15};
-    if(DS_ArrayCopyTo(arr, 0, 8, copy) != arr) failed++;
+    if(DS_ArrayTo(arr, 0, 8, copy) != arr) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     if(*((int*) arr->base + 1) != 1) failed++;
     if(*((int*) arr->base + 2) != 2) failed++;
@@ -441,47 +349,47 @@ int CopyToAll() {
     if(copy[6] != 6) failed++;
     if(copy[7] != 7) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int CountZero() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 0, IntCmp);
     int val = 42;
     if(DS_ArrayCount(arr, 0, 0, &val) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 0, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int CountOneNone() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 1, IntCmp);
     *((int*) arr->base + 0) = 0;
     int val = 42;
     if(DS_ArrayCount(arr, 0, 1, &val) != 0) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int CountOne() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 1, IntCmp);
     *((int*) arr->base + 0) = 42;
     int val = 42;
     if(DS_ArrayCount(arr, 0, 1, &val) != 1) failed++;
     if(*((int*) arr->base + 0) != 42) failed++;
     failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int CountNone() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -504,13 +412,13 @@ int CountNone() {
     if(*((int*) arr->base + 6) != 6) failed++;
     if(*((int*) arr->base + 7) != 7) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int Count() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 42;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -533,23 +441,23 @@ int Count() {
     if(*((int*) arr->base + 6) != 6) failed++;
     if(*((int*) arr->base + 7) != 42) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int FillZero() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 0, IntCmp);
     int value = 0;
     if(DS_ArrayFill(arr, 0, 0, &value) != arr) failed++;
     failed += ArrChk(arr, sizeof(int), 0, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int FillFirstHalf() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -569,13 +477,13 @@ int FillFirstHalf() {
     if(*((int*) arr->base + 6) != 6) failed++;
     if(*((int*) arr->base + 7) != 7) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int FillSecondHalf() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -595,13 +503,13 @@ int FillSecondHalf() {
     if(*((int*) arr->base + 6) != 8) failed++;
     if(*((int*) arr->base + 7) != 8) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int FillMiddle() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -621,13 +529,13 @@ int FillMiddle() {
     if(*((int*) arr->base + 6) != 6) failed++;
     if(*((int*) arr->base + 7) != 7) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int FillAll() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -647,47 +555,47 @@ int FillAll() {
     if(*((int*) arr->base + 6) != 8) failed++;
     if(*((int*) arr->base + 7) != 8) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int IndexZero() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 0, IntCmp);
     int val = 42;
     if(DS_ArrayIndex(arr, 0, 0, &val) != -1) failed++;
     failed += ArrChk(arr, sizeof(int), 0, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int IndexOneNone() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 1, IntCmp);
     *((int*) arr->base + 0) = 0;
     int val = 42;
     if(DS_ArrayIndex(arr, 0, 1, &val) != -1) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int IndexOne() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 1, IntCmp);
     *((int*) arr->base + 0) = 42;
     int val = 42;
     if(DS_ArrayIndex(arr, 0, 1, &val) != 0) failed++;
     if(*((int*) arr->base + 0) != 42) failed++;
     failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int IndexNone() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -710,13 +618,13 @@ int IndexNone() {
     if(*((int*) arr->base + 6) != 6) failed++;
     if(*((int*) arr->base + 7) != 7) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int Index() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 42;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -739,59 +647,59 @@ int Index() {
     if(*((int*) arr->base + 6) != 6) failed++;
     if(*((int*) arr->base + 7) != 42) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int length() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
-    if(DS_ArrayLength(arr) != 0) failed++;
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 0, IntCmp);
+    if(DS_ArrayLen(arr) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 0, 1);
-    arr = DS_ArrayResize(arr, 4);
-    if(DS_ArrayLength(arr) != 4) failed++;
+    arr = DS_ArrayRestruct(arr, 4);
+    if(DS_ArrayLen(arr) != 4) failed++;
     failed += ArrChk(arr, sizeof(int), 4, 1);
-    arr = DS_ArrayResize(arr, 8);
-    if(DS_ArrayLength(arr) != 8) failed++;
+    arr = DS_ArrayRestruct(arr, 8);
+    if(DS_ArrayLen(arr) != 8) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int MaxZero() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 0, IntCmp);
     if(DS_ArrayMax(arr, 0, 0) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 0, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int MaxOneNone() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 1, IntCmp);
     *((int*) arr->base + 0) = 0;
     if(DS_ArrayMax(arr, 0, 0) != 0) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int MaxOne() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 1, IntCmp);
     *((int*) arr->base + 0) = 0;
     if(*((int*) DS_ArrayMax(arr, 0, 1)) != 0) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int MaxNone() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 4, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 4, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -802,13 +710,13 @@ int MaxNone() {
     if(*((int*) arr->base + 2) != 2) failed++;
     if(*((int*) arr->base + 3) != 3) failed++;
     failed += ArrChk(arr, sizeof(int), 4, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int Max() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 16;
     *((int*) arr->base + 1) = 0;
     *((int*) arr->base + 2) = 1;
@@ -830,44 +738,44 @@ int Max() {
     if(*((int*) arr->base + 6) != 8) failed++;
     if(*((int*) arr->base + 7) != 64) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int MinZero() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 0, IntCmp);
     if(DS_ArrayMin(arr, 0, 0) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 0, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int MinOneNone() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 1, IntCmp);
     *((int*) arr->base + 0) = 0;
     if(DS_ArrayMin(arr, 0, 0) != 0) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int MinOne() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 1, IntCmp);
     *((int*) arr->base + 0) = 0;
     if(*((int*) DS_ArrayMin(arr, 0, 1)) != 0) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int MinNone() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 4, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 4, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -878,13 +786,13 @@ int MinNone() {
     if(*((int*) arr->base + 2) != 2) failed++;
     if(*((int*) arr->base + 3) != 3) failed++;
     failed += ArrChk(arr, sizeof(int), 4, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int Min() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 2;
     *((int*) arr->base + 1) = 4;
     *((int*) arr->base + 2) = 8;
@@ -906,44 +814,44 @@ int Min() {
     if(*((int*) arr->base + 6) != 64) failed++;
     if(*((int*) arr->base + 7) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int SortZero() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 0, IntCmp);
     if(DS_ArraySort(arr, 0, 0) != arr) failed++;
     failed += ArrChk(arr, sizeof(int), 0, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int SortOneNone() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 1, IntCmp);
     *((int*) arr->base + 0) = 0;
     if(DS_ArraySort(arr, 0, 0) != arr) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int SortOne() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 1, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 1, IntCmp);
     *((int*) arr->base + 0) = 0;
     if(DS_ArraySort(arr, 0, 1) != arr) failed++;
     if(*((int*) arr->base + 0) != 0) failed++;
     failed += ArrChk(arr, sizeof(int), 1, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int SortNone() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 4, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 4, IntCmp);
     *((int*) arr->base + 0) = 0;
     *((int*) arr->base + 1) = 1;
     *((int*) arr->base + 2) = 2;
@@ -954,13 +862,13 @@ int SortNone() {
     if(*((int*) arr->base + 2) != 2) failed++;
     if(*((int*) arr->base + 3) != 3) failed++;
     failed += ArrChk(arr, sizeof(int), 4, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int Sort() {
     int failed = 0;
-    struct DS_Array *arr = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    struct DS_Array *arr = DS_ArrayConstruct(sizeof(int), 8, IntCmp);
     *((int*) arr->base + 0) = 8;
     *((int*) arr->base + 1) = 4;
     *((int*) arr->base + 2) = 2;
@@ -1006,32 +914,27 @@ int Sort() {
     if(*((int*) arr->base + 6) != 32) failed++;
     if(*((int*) arr->base + 7) != 64) failed++;
     failed += ArrChk(arr, sizeof(int), 8, 1);
-    DS_ArrayDelete(arr);
+    DS_ArrayDestruct(arr);
     return failed;
 }
 
 int main() {
-    RunTests(51, (struct Test[51]) {
+    RunTests(46, (struct Test[46]) {
         (struct Test) {NewDeleteZero, "NewDeleteZero"},
         (struct Test) {NewDeleteMany, "NewDeleteMany"},
         (struct Test) {ResizeBigger, "ResizeBigger"},
         (struct Test) {ResizeSmaller, "ResizeSmaller"},
         (struct Test) {AtAll, "AtAll"},
-        (struct Test) {BinarySearchZero, "BinarySearchZero"},
-        (struct Test) {BinarySearchOneNone, "BinarySearchOneNone"},
-        (struct Test) {BinarySearchOne, "BinarySearchOne"},
-        (struct Test) {BinarySearchNone, "BinarySearchNone"},
-        (struct Test) {BinarySearch, "BinarySearch"},
-        (struct Test) {CopyFromZero, "CopyFromZero"},
-        (struct Test) {CopyFromFirstHalf, "CopyFromFirstHalf"},
-        (struct Test) {CopyFromSecondHalf, "CopyFromSecondHalf"},
-        (struct Test) {CopyFromMiddle, "CopyFromMiddle"},
-        (struct Test) {CopyFromAll, "CopyFromAll"},
-        (struct Test) {CopyToZero, "CopyToZero"},
-        (struct Test) {CopyToFirstHalf, "CopyToFirstHalf"},
-        (struct Test) {CopyToSecondHalf, "CopyToSecondHalf"},
-        (struct Test) {CopyToMiddle, "CopyToMiddle"},
-        (struct Test) {CopyToAll, "CopyToAll"},
+        (struct Test) {FromZero, "FromZero"},
+        (struct Test) {FromFirstHalf, "FromFirstHalf"},
+        (struct Test) {FromSecondHalf, "FromSecondHalf"},
+        (struct Test) {FromMiddle, "FromMiddle"},
+        (struct Test) {FromAll, "FromAll"},
+        (struct Test) {ToZero, "ToZero"},
+        (struct Test) {ToFirstHalf, "ToFirstHalf"},
+        (struct Test) {ToSecondHalf, "ToSecondHalf"},
+        (struct Test) {ToMiddle, "ToMiddle"},
+        (struct Test) {ToAll, "ToAll"},
         (struct Test) {CountZero, "CountZero"},
         (struct Test) {CountOneNone, "CountOneNone"},
         (struct Test) {CountOne, "CountOne"},

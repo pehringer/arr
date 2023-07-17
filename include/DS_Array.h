@@ -11,32 +11,30 @@ struct DS_Array {
     size_t size;
 };
 
-struct DS_Array* DS_ArrayNew(size_t size, int length, int (*compare)(const void*, const void*));
+struct DS_Array* DS_ArrayConstruct(size_t size, int length, int (*compare)(const void*, const void*));
 
-void DS_ArrayDelete(struct DS_Array *a);
+void DS_ArrayDestruct(struct DS_Array *a);
 
-struct DS_Array* DS_ArrayResize(struct DS_Array *a, int length);
+struct DS_Array* DS_ArrayRestruct(struct DS_Array *a, int length);
 
 void* DS_ArrayAt(struct DS_Array *a, int index);
-
-void* DS_ArrayBinarySearch(struct DS_Array *a, int start, int end, const void *value);
-
-struct DS_Array* DS_ArrayCopyFrom(struct DS_Array *a, int start, int end, const void *array);
-
-struct DS_Array* DS_ArrayCopyTo(struct DS_Array *a, int start, int end, void *array);
 
 int DS_ArrayCount(struct DS_Array *a, int start, int end, const void *value);
 
 struct DS_Array* DS_ArrayFill(struct DS_Array *a, int start, int end, const void *value);
 
+struct DS_Array* DS_ArrayFrom(struct DS_Array *a, int start, int end, const void *array);
+
 int DS_ArrayIndex(struct DS_Array *a, int start, int end, const void *value);
 
-int DS_ArrayLength(struct DS_Array *a);
+int DS_ArrayLen(struct DS_Array *a);
 
 void* DS_ArrayMax(struct DS_Array *a, int start, int end);
 
 void* DS_ArrayMin(struct DS_Array *a, int start, int end);
 
 struct DS_Array* DS_ArraySort(struct DS_Array *a, int start, int end);
+
+struct DS_Array* DS_ArrayTo(struct DS_Array *a, int start, int end, void *array);
 
 #endif
