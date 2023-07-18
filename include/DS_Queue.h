@@ -5,13 +5,12 @@
 #include <string.h>
 
 struct DS_Queue {
-    void *back;
-    void *base;
+    int back;
     int capacity;
-    void *front;
+    int front;
     int length;
     size_t size;
-    void *wrap;
+    int wrap;
 }
 
 struct DS_Queue* DS_QueueConstruct(int size, int capacity);
@@ -20,7 +19,7 @@ void DS_QueueDestruct(struct DS_Queue *q);
 
 struct DS_Queue* DS_QueueRestruct(struct DS_Queue *q, int capacity);
 
-void* DS_QueueFront(struct DS_Queue *s, void *value);
+void* DS_QueueBack(struct DS_Queue *q, void *value);
 
 int DS_QueueCap(struct DS_Queue *q);
 
@@ -28,7 +27,7 @@ int DS_QueueEmpty(struct DS_Queue *q);
 
 struct DS_Queue* DS_QueueFrom(struct DS_Queue *q, int length, void *array);
 
-void* DS_QueueFront(struct DS_Queue *s, void *value);
+void* DS_QueueFront(struct DS_Queue *q, void *value);
 
 int DS_QueueFull(struct DS_Queue *q);
 

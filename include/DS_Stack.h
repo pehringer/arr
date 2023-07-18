@@ -5,11 +5,10 @@
 #include <string.h>
 
 struct DS_Stack {
-    void *base;
     int capacity;
     int length;
     size_t size;
-    void *top;
+    int top;
 };
 
 struct DS_Stack* DS_StackConstruct(int size, int capacity);
