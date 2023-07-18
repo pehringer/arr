@@ -5,7 +5,6 @@ struct DS_Array* DS_ArrayConstruct(size_t size, int length, int (*compare)(const
     if(a == 0) {
         return 0;
     }
-    a->base = a + 1;
     a->compare = compare;
     a->length = length;
     a->size = size;
@@ -21,7 +20,6 @@ struct DS_Array* DS_ArrayRestruct(struct DS_Array *a, int length) {
     if(a == 0) {
         return 0;
     }
-    a->base = a + 1;
     a->length = length;
     return a;
 }

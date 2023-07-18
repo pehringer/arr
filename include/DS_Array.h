@@ -5,7 +5,6 @@
 #include <string.h>
 
 struct DS_Array {
-    void *base;
     int (*compare)(const void*, const void*);
     int length;
     size_t size;
