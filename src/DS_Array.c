@@ -28,52 +28,53 @@ void* DS_ArrayAt(struct DS_Array *a, int index) {
     return (void*) (a + 1) + index * a->size;
 }
 
-int DS_ArrayCount(struct DS_Array *a, int start, int end, const void *value) {
+int DS_ArrayCount(struct DS_Array *a, int index, int length, const void *target) {
     void *element = a + 1;
-    element += start * a->size;
+    element += index * a->size;
     int count = 0;
-    while(start < end) {
-        if(a->compare(element, value) == 0) {
+    while(length > 0) {
+        if(a->compare(element, target) == 0) {
             count++;
         }
         element += a->size;
-        start++;
+        length--;
     }
     return count;
 }
 
-struct DS_Array* DS_ArrayFill(struct DS_Array *a, int start, int end, const void *value) {
+struct DS_Array* DS_ArrayFill(struct DS_Array *a, int index, int length, const void *source) {
     void *element = a + 1;
-    element += start * a->size;
-    while(start < end) {
-        memcpy(element, value, a->size);
+    element += index * a->size;
+    while(length > 0) {
+        memcpy(element, source, a->size);
         element += a->size;
-        start++;
+        length--;
     }
     return a;
 }
 
-struct DS_Array* DS_ArrayFrom(struct DS_Array *a, int start, int end, const void *array) {
+struct DS_Array* DS_ArrayFrom(struct DS_Array *a, int index, int length, const void *source) {
     void *element = a + 1;
-    element += start * a->size;
-    while(start < end) {
-        memcpy(element, array, a->size);
-        array += a->size;
+    element += index * a->size;
+    while(length > 0) {
+        memcpy(element, source, a->size);
         element += a->size;
-        start++;
+        source += a->size;
+        length--;
     }
     return a;
 }
 
-int DS_ArrayIndex(struct DS_Array *a, int start, int end, const void *value) {
+int DS_ArrayIndex(struct DS_Array *a, int index, int length, const void *target) {
     void *element = a + 1;
-    element += start * a->size;
-    while(start < end) {
-        if(a->compare(element, value) == 0) {
-            return start;
+    element += index * a->size;
+    while(length > 0) {
+        if(a->compare(element, target) == 0) {
+            return index;
         }
         element += a->size;
-        start++;
+        index++;
+        length--;
     }
     return -1;
 }
@@ -82,50 +83,50 @@ int DS_ArrayLen(struct DS_Array *a) {
     return a->length;
 }
 
-void* DS_ArrayMax(struct DS_Array *a, int start, int end) {
+void* DS_ArrayMax(struct DS_Array *a, int index, int length) {
     void *element = a + 1;
-    element += start * a->size;
+    element += index * a->size;
     void *max = 0;
-    while(start < end) {
+    while(length > 0) {
         if(max == 0 || a->compare(element, max) > 0) {
             max = element;
         }
         element += a->size;
-        start++;
+        length--;
     }
     return max;
 }
 
-void* DS_ArrayMin(struct DS_Array *a, int start, int end) {
+void* DS_ArrayMin(struct DS_Array *a, int index, int length) {
     void *element = a + 1;
-    element += start * a->size;
+    element += index * a->size;
     void *min = 0;
-    while(start < end) {
+    while(length > 0) {
         if(min == 0 || a->compare(element, min) < 0) {
             min = element;
         }
         element += a->size;
-        start++;
+        length--;
     }
     return min;
 }
 
-struct DS_Array* DS_ArraySort(struct DS_Array *a, int start, int end) {
+struct DS_Array* DS_ArraySort(struct DS_Array *a, int index, int length) {
     void *base = a + 1;
-    base += start * a->size;
-    qsort(base, end - start, a->size, a->compare);
+    base += index * a->size;
+    qsort(base, length, a->size, a->compare);
     return a;
 
 }
 
-struct DS_Array* DS_ArrayTo(struct DS_Array *a, int start, int end, void *array) {
+struct DS_Array* DS_ArrayTo(struct DS_Array *a, int index, int length, void *destination) {
     void *element = a + 1;
-    element += start * a->size;
-    while(start < end) {
-        memcpy(array, element, a->size);
-        array += a->size;
+    element += index * a->size;
+    while(length > 0) {
+        memcpy(destination, element, a->size);
+        destination += a->size;
         element += a->size;
-        start++;
+        length--;
     }
     return a;
 }

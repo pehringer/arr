@@ -153,7 +153,7 @@ int FromSecondHalf() {
     *((int*) (arr + 1) + 6) = 6;
     *((int*) (arr + 1) + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    if(DS_ArrayFrom(arr, 4, 8, copy) != arr) failed++;
+    if(DS_ArrayFrom(arr, 4, 4, copy) != arr) failed++;
     if(*((int*) (arr + 1) + 0) != 0) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
     if(*((int*) (arr + 1) + 2) != 2) failed++;
@@ -179,7 +179,7 @@ int FromMiddle() {
     *((int*) (arr + 1) + 6) = 6;
     *((int*) (arr + 1) + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    if(DS_ArrayFrom(arr, 2, 6, copy) != arr) failed++;
+    if(DS_ArrayFrom(arr, 2, 4, copy) != arr) failed++;
     if(*((int*) (arr + 1) + 0) != 0) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
     if(*((int*) (arr + 1) + 2) != 8) failed++;
@@ -271,7 +271,7 @@ int ToSecondHalf() {
     *((int*) (arr + 1) + 6) = 6;
     *((int*) (arr + 1) + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    if(DS_ArrayTo(arr, 4, 8, copy) != arr) failed++;
+    if(DS_ArrayTo(arr, 4, 4, copy) != arr) failed++;
     if(*((int*) (arr + 1) + 0) != 0) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
     if(*((int*) (arr + 1) + 2) != 2) failed++;
@@ -301,7 +301,7 @@ int ToMiddle() {
     *((int*) (arr + 1) + 6) = 6;
     *((int*) (arr + 1) + 7) = 7;
     int copy[4] = {8, 9, 10, 11};
-    if(DS_ArrayTo(arr, 2, 6, copy) != arr) failed++;
+    if(DS_ArrayTo(arr, 2, 4, copy) != arr) failed++;
     if(*((int*) (arr + 1) + 0) != 0) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
     if(*((int*) (arr + 1) + 2) != 2) failed++;
@@ -400,8 +400,8 @@ int CountNone() {
     *((int*) (arr + 1) + 7) = 7;
     int val = 42;
     if(DS_ArrayCount(arr, 0, 4, &val) != 0) failed++;
-    if(DS_ArrayCount(arr, 2, 6, &val) != 0) failed++;
-    if(DS_ArrayCount(arr, 4, 8, &val) != 0) failed++;
+    if(DS_ArrayCount(arr, 2, 4, &val) != 0) failed++;
+    if(DS_ArrayCount(arr, 4, 4, &val) != 0) failed++;
     if(DS_ArrayCount(arr, 0, 8, &val) != 0) failed++;
     if(*((int*) (arr + 1) + 0) != 0) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
@@ -429,8 +429,8 @@ int Count() {
     *((int*) (arr + 1) + 7) = 42;
     int val = 42;
     if(DS_ArrayCount(arr, 0, 4, &val) != 2) failed++;
-    if(DS_ArrayCount(arr, 2, 6, &val) != 1) failed++;
-    if(DS_ArrayCount(arr, 4, 8, &val) != 1) failed++;
+    if(DS_ArrayCount(arr, 2, 4, &val) != 1) failed++;
+    if(DS_ArrayCount(arr, 4, 4, &val) != 1) failed++;
     if(DS_ArrayCount(arr, 0, 8, &val) != 3) failed++;
     if(*((int*) (arr + 1) + 0) != 42) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
@@ -493,7 +493,7 @@ int FillSecondHalf() {
     *((int*) (arr + 1) + 6) = 6;
     *((int*) (arr + 1) + 7) = 7;
     int value = 8;
-    if(DS_ArrayFill(arr, 4, 8, &value) != arr) failed++;
+    if(DS_ArrayFill(arr, 4, 4, &value) != arr) failed++;
     if(*((int*) (arr + 1) + 0) != 0) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
     if(*((int*) (arr + 1) + 2) != 2) failed++;
@@ -519,7 +519,7 @@ int FillMiddle() {
     *((int*) (arr + 1) + 6) = 6;
     *((int*) (arr + 1) + 7) = 7;
     int value = 8;
-    if(DS_ArrayFill(arr, 2, 6, &value) != arr) failed++;
+    if(DS_ArrayFill(arr, 2, 4, &value) != arr) failed++;
     if(*((int*) (arr + 1) + 0) != 0) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
     if(*((int*) (arr + 1) + 2) != 8) failed++;
@@ -606,8 +606,8 @@ int IndexNone() {
     *((int*) (arr + 1) + 7) = 7;
     int val = 42;
     if(DS_ArrayIndex(arr, 0, 4, &val) != -1) failed++;
-    if(DS_ArrayIndex(arr, 2, 6, &val) != -1) failed++;
-    if(DS_ArrayIndex(arr, 4, 8, &val) != -1) failed++;
+    if(DS_ArrayIndex(arr, 2, 4, &val) != -1) failed++;
+    if(DS_ArrayIndex(arr, 4, 4, &val) != -1) failed++;
     if(DS_ArrayIndex(arr, 0, 8, &val) != -1) failed++;
     if(*((int*) (arr + 1) + 0) != 0) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
@@ -635,8 +635,8 @@ int Index() {
     *((int*) (arr + 1) + 7) = 42;
     int val = 42;
     if(DS_ArrayIndex(arr, 0, 4, &val) != 0) failed++;
-    if(DS_ArrayIndex(arr, 2, 6, &val) != 3) failed++;
-    if(DS_ArrayIndex(arr, 4, 8, &val) != 7) failed++;
+    if(DS_ArrayIndex(arr, 2, 4, &val) != 3) failed++;
+    if(DS_ArrayIndex(arr, 4, 4, &val) != 7) failed++;
     if(DS_ArrayIndex(arr, 0, 8, &val) != 0) failed++;
     if(*((int*) (arr + 1) + 0) != 42) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
@@ -704,7 +704,7 @@ int MaxNone() {
     *((int*) (arr + 1) + 1) = 1;
     *((int*) (arr + 1) + 2) = 2;
     *((int*) (arr + 1) + 3) = 3;
-    if(DS_ArrayMax(arr, 2, 2) != 0) failed++;
+    if(DS_ArrayMax(arr, 2, 0) != 0) failed++;
     if(*((int*) (arr + 1) + 0) != 0) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
     if(*((int*) (arr + 1) + 2) != 2) failed++;
@@ -726,8 +726,8 @@ int Max() {
     *((int*) (arr + 1) + 6) = 8;
     *((int*) (arr + 1) + 7) = 64;
     if(*((int*) DS_ArrayMax(arr, 0, 4)) != 16) failed++;
-    if(*((int*) DS_ArrayMax(arr, 4, 8)) != 64) failed++;
-    if(*((int*) DS_ArrayMax(arr, 2, 6)) != 32) failed++;
+    if(*((int*) DS_ArrayMax(arr, 4, 4)) != 64) failed++;
+    if(*((int*) DS_ArrayMax(arr, 2, 4)) != 32) failed++;
     if(*((int*) DS_ArrayMax(arr, 0, 8)) != 64) failed++;
     if(*((int*) (arr + 1) + 0) != 16) failed++;
     if(*((int*) (arr + 1) + 1) != 0) failed++;
@@ -780,7 +780,7 @@ int MinNone() {
     *((int*) (arr + 1) + 1) = 1;
     *((int*) (arr + 1) + 2) = 2;
     *((int*) (arr + 1) + 3) = 3;
-    if(DS_ArrayMin(arr, 2, 2) != 0) failed++;
+    if(DS_ArrayMin(arr, 2, 0) != 0) failed++;
     if(*((int*) (arr + 1) + 0) != 0) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
     if(*((int*) (arr + 1) + 2) != 2) failed++;
@@ -802,8 +802,8 @@ int Min() {
     *((int*) (arr + 1) + 6) = 64;
     *((int*) (arr + 1) + 7) = 0;
     if(*((int*) DS_ArrayMin(arr, 0, 4)) != 2) failed++;
-    if(*((int*) DS_ArrayMin(arr, 4, 8)) != 0) failed++;
-    if(*((int*) DS_ArrayMin(arr, 2, 6)) != 1) failed++;
+    if(*((int*) DS_ArrayMin(arr, 4, 4)) != 0) failed++;
+    if(*((int*) DS_ArrayMin(arr, 2, 4)) != 1) failed++;
     if(*((int*) DS_ArrayMin(arr, 0, 8)) != 0) failed++;
     if(*((int*) (arr + 1) + 0) != 2) failed++;
     if(*((int*) (arr + 1) + 1) != 4) failed++;
@@ -856,7 +856,7 @@ int SortNone() {
     *((int*) (arr + 1) + 1) = 1;
     *((int*) (arr + 1) + 2) = 2;
     *((int*) (arr + 1) + 3) = 3;
-    if(DS_ArraySort(arr, 2, 2) != arr) failed++;
+    if(DS_ArraySort(arr, 2, 0) != arr) failed++;
     if(*((int*) (arr + 1) + 0) != 0) failed++;
     if(*((int*) (arr + 1) + 1) != 1) failed++;
     if(*((int*) (arr + 1) + 2) != 2) failed++;
@@ -877,7 +877,7 @@ int Sort() {
     *((int*) (arr + 1) + 5) = 64;
     *((int*) (arr + 1) + 6) = 32;
     *((int*) (arr + 1) + 7) = 0;
-    if(DS_ArraySort(arr, 2, 6) != arr) failed++;
+    if(DS_ArraySort(arr, 2, 4) != arr) failed++;
     if(*((int*) (arr + 1) + 0) != 8) failed++;
     if(*((int*) (arr + 1) + 1) != 4) failed++;
     if(*((int*) (arr + 1) + 2) != 1) failed++;
@@ -895,7 +895,7 @@ int Sort() {
     if(*((int*) (arr + 1) + 5) != 64) failed++;
     if(*((int*) (arr + 1) + 6) != 32) failed++;
     if(*((int*) (arr + 1) + 7) != 0) failed++;
-    if(DS_ArraySort(arr, 4, 8) != arr) failed++;
+    if(DS_ArraySort(arr, 4, 4) != arr) failed++;
     if(*((int*) (arr + 1) + 0) != 1) failed++;
     if(*((int*) (arr + 1) + 1) != 2) failed++;
     if(*((int*) (arr + 1) + 2) != 4) failed++;

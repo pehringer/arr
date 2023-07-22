@@ -18,22 +18,22 @@ struct DS_Array* DS_ArrayRestruct(struct DS_Array *a, int length);
 
 void* DS_ArrayAt(struct DS_Array *a, int index);
 
-int DS_ArrayCount(struct DS_Array *a, int start, int end, const void *value);
+int DS_ArrayCount(struct DS_Array *a, int index, int length, const void *target);
 
-struct DS_Array* DS_ArrayFill(struct DS_Array *a, int start, int end, const void *value);
+struct DS_Array* DS_ArrayFill(struct DS_Array *a, int index, int length, const void *source);
 
-struct DS_Array* DS_ArrayFrom(struct DS_Array *a, int start, int end, const void *array);
+struct DS_Array* DS_ArrayFrom(struct DS_Array *a, int index, int length, const void *source);
 
-int DS_ArrayIndex(struct DS_Array *a, int start, int end, const void *value);
+int DS_ArrayIndex(struct DS_Array *a, int index, int length, const void *target);
 
 int DS_ArrayLen(struct DS_Array *a);
 
-void* DS_ArrayMax(struct DS_Array *a, int start, int end);
+void* DS_ArrayMax(struct DS_Array *a, int index, int length);
 
-void* DS_ArrayMin(struct DS_Array *a, int start, int end);
+void* DS_ArrayMin(struct DS_Array *a, int index, int length);
 
-struct DS_Array* DS_ArraySort(struct DS_Array *a, int start, int end);
+struct DS_Array* DS_ArraySort(struct DS_Array *a, int index, int length);
 
-struct DS_Array* DS_ArrayTo(struct DS_Array *a, int start, int end, void *array);
+struct DS_Array* DS_ArrayTo(struct DS_Array *a, int index, int length, void *destination);
 
 #endif
