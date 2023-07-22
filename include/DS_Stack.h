@@ -21,18 +21,18 @@ int DS_StackCap(struct DS_Stack *s);
 
 int DS_StackEmpty(struct DS_Stack *s);
 
-struct DS_Stack* DS_StackFrom(struct DS_Stack *s, int length, void *array);
+struct DS_Stack* DS_StackFrom(struct DS_Stack *s, int length, void *source);
 
 int DS_StackFull(struct DS_Stack *s);
 
 int DS_StackLen(struct DS_Stack *s);
 
-void* DS_StackPop(struct DS_Stack *s, void *value);
+void* DS_StackPop(struct DS_Stack *s, void *destination);
 
-struct DS_Stack* DS_StackPush(struct DS_Stack *s, void *value);
+struct DS_Stack* DS_StackPush(struct DS_Stack *s, void *source);
 
-struct DS_Stack* DS_StackTo(struct DS_Stack *s, int length, void *array);
+struct DS_Stack* DS_StackTo(struct DS_Stack *s, int length, void *destination);
 
-void* DS_StackTop(struct DS_Stack *s, void *value);
+void* DS_StackTop(struct DS_Stack *s, void *destination);
 
 #endif
