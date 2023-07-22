@@ -1,11 +1,10 @@
 #include "DS_Array.h"
 
-struct DS_Array* DS_ArrayConstruct(size_t size, int length, int (*compare)(const void*, const void*)) {
+struct DS_Array* DS_ArrayConstruct(size_t size, int length) {
     struct DS_Array *a = malloc(sizeof(struct DS_Array) + length * size);
     if(a == 0) {
         return 0;
     }
-    a->compare = compare;
     a->length = length;
     a->size = size;
     return a;
@@ -28,12 +27,12 @@ void* DS_ArrayAt(struct DS_Array *a, int index) {
     return (void*) (a + 1) + index * a->size;
 }
 
-int DS_ArrayCount(struct DS_Array *a, int index, int length, const void *target) {
+int DS_ArrayCount(struct DS_Array *a, int index, int length, const void *target, int (*compare)(const void*, const void*)) {
     void *element = a + 1;
     element += index * a->size;
     int count = 0;
     while(length > 0) {
-        if(a->compare(element, target) == 0) {
+        if(compare(element, target) == 0) {
             count++;
         }
         element += a->size;
@@ -65,11 +64,11 @@ struct DS_Array* DS_ArrayFrom(struct DS_Array *a, int index, int length, const v
     return a;
 }
 
-int DS_ArrayIndex(struct DS_Array *a, int index, int length, const void *target) {
+int DS_ArrayIndex(struct DS_Array *a, int index, int length, const void *target, int (*compare)(const void*, const void*)) {
     void *element = a + 1;
     element += index * a->size;
     while(length > 0) {
-        if(a->compare(element, target) == 0) {
+        if(compare(element, target) == 0) {
             return index;
         }
         element += a->size;
@@ -83,12 +82,12 @@ int DS_ArrayLen(struct DS_Array *a) {
     return a->length;
 }
 
-void* DS_ArrayMax(struct DS_Array *a, int index, int length) {
+void* DS_ArrayMax(struct DS_Array *a, int index, int length, int (*compare)(const void*, const void*)) {
     void *element = a + 1;
     element += index * a->size;
     void *max = 0;
     while(length > 0) {
-        if(max == 0 || a->compare(element, max) > 0) {
+        if(max == 0 || compare(element, max) > 0) {
             max = element;
         }
         element += a->size;
@@ -97,12 +96,12 @@ void* DS_ArrayMax(struct DS_Array *a, int index, int length) {
     return max;
 }
 
-void* DS_ArrayMin(struct DS_Array *a, int index, int length) {
+void* DS_ArrayMin(struct DS_Array *a, int index, int length, int (*compare)(const void*, const void*)) {
     void *element = a + 1;
     element += index * a->size;
     void *min = 0;
     while(length > 0) {
-        if(min == 0 || a->compare(element, min) < 0) {
+        if(min == 0 || compare(element, min) < 0) {
             min = element;
         }
         element += a->size;
@@ -111,10 +110,10 @@ void* DS_ArrayMin(struct DS_Array *a, int index, int length) {
     return min;
 }
 
-struct DS_Array* DS_ArraySort(struct DS_Array *a, int index, int length) {
+struct DS_Array* DS_ArraySort(struct DS_Array *a, int index, int length, int (*compare)(const void*, const void*)) {
     void *base = a + 1;
     base += index * a->size;
-    qsort(base, length, a->size, a->compare);
+    qsort(base, length, a->size, compare);
     return a;
 
 }

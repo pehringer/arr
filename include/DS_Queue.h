@@ -25,8 +25,6 @@ int DS_QueueCap(struct DS_Queue *q);
 
 int DS_QueueEmpty(struct DS_Queue *q);
 
-struct DS_Queue* DS_QueueFrom(struct DS_Queue *q, int length, void *source);
-
 void* DS_QueueFront(struct DS_Queue *q, void *destination);
 
 int DS_QueueFull(struct DS_Queue *q);
@@ -36,7 +34,5 @@ int DS_QueueLen(struct DS_Queue *q);
 void* DS_QueuePop(struct DS_Queue *q, void *destination);
 
 struct DS_Queue* DS_QueuePush(struct DS_Queue *q, void *source);
-
-struct DS_Queue* DS_QueueTo(struct DS_Queue *q, int length, void *destination);
 
 #endif
