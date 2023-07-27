@@ -51,13 +51,7 @@ struct DS_Array* DS_ArrayFill(struct DS_Array *a, int index, int length, const v
 }
 
 struct DS_Array* DS_ArrayFrom(struct DS_Array *a, int index, int length, const void *source) {
-    void *element = (void*) (a + 1) + index * a->size;
-    while(length > 0) {
-        memcpy(element, source, a->size);
-        element += a->size;
-        source += a->size;
-        length--;
-    }
+    memcpy((void*) (a + 1) + index * a->size, source, length * a->size);
     return a;
 }
 

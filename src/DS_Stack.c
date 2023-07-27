@@ -8,7 +8,7 @@ struct DS_Stack* DS_StackConstruct(int size, int capacity) {
     s->capacity = capacity;
     s->length = 0;
     s->size = size;
-    s->top = -size;
+    s->top = sizeof(struct DS_Stack) - size;
     return s;
 }
 
@@ -24,7 +24,7 @@ struct DS_Stack* DS_StackRestruct(struct DS_Stack *s, int capacity) {
     s->capacity = capacity;
     if(s->length > capacity) {
         s->length = capacity;
-        s->top = (capacity - 1) * s->size;
+        s->top = sizeof(struct DS_Stack) + (capacity - 1) * s->size;
     }
     return s;
 }
@@ -46,7 +46,7 @@ int DS_StackLen(struct DS_Stack *s) {
 }
 
 void* DS_StackPop(struct DS_Stack *s, void *destination) {
-    memcpy(destination, (void*) (s + 1) + s->top, s->size);
+    memcpy(destination, (void*) s + s->top, s->size);
     s->length--;
     s->top -= s->size;
     return destination;
@@ -55,12 +55,12 @@ void* DS_StackPop(struct DS_Stack *s, void *destination) {
 struct DS_Stack* DS_StackPush(struct DS_Stack *s, void *source) {
     s->length++;
     s->top += s->size;
-    memcpy((void*) (s + 1) + s->top, source, s->size);
+    memcpy((void*) s + s->top, source, s->size);
     return s;
 }
 
 void* DS_StackTop(struct DS_Stack *s, void *destination) {
-    memcpy(destination, (void*) (s + 1) + s->top, s->size);
+    memcpy(destination, (void*) s + s->top, s->size);
     return destination;
 }
 
