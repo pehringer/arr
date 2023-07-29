@@ -10,7 +10,6 @@ struct DS_Queue* DS_QueueConstruct(int size, int capacity) {
     q->front = sizeof(struct DS_Queue);
     q->length = 0;
     q->size = size;
-    q->top = sizeof(struct DS_Stack) - size;
     q->wrap = sizeof(struct DS_Queue) + capacity * size;
     return s;
 }
@@ -19,7 +18,42 @@ void DS_QueueDestruct(struct DS_Queue *q) {
     free(q);
 }
 
-struct DS_Queue* DS_QueueRestruct(struct DS_Queue *q, int capacity);
+struct DS_Queue* DS_QueueRestruct(struct DS_Queue *q, int capacity) {
+    // Shift elements so front is zeroth element.
+    void *start = (void*) q + sizeof(struct DS_Queue);
+    void *middle = (void*) q + q->front;
+    void *end = (void*) q + q->wrap;
+    void *next = middle;
+    while(start != next) {
+        // XOR swap elements. Increment start and next.
+        for(int byte = 0; byte < q->size; byte++) {
+            *((char*) start) = *((char*) start) ^ *((char*) next);
+            *((char*) next) = *((char*) start) ^ *((char*) next);
+            *((char*) start) = *((char*) start) ^ *((char*) next);
+            start++;
+            next++;
+        }
+        // Shift logic.
+        if(next == end) {
+            next = middle;
+        } else if(start == middle) {
+            middle = next;
+        }
+    }
+    // Now reallocate queue.
+    q = realloc(q, sizeof(struct DS_Queue) + capacity * q->size);
+    if(q == 0) {
+        return 0;
+    }
+    q->capacity = capacity;
+    q->front = sizeof(struct DS_Queue);
+    if(q->length > capacity) {
+        q->length = capacity;
+    }
+    q->back = sizeof(struct DS_Queue) + (q->length - 1) * q->size;
+    q->wrap = sizeof(struct DS_Queue) + capacity * q->size;
+    return q;
+}
 
 void* DS_QueueBack(struct DS_Queue *q, void *destination) {
     memcpy(destination, (void*) q + q->back, q->size);

@@ -24,8 +24,8 @@ struct DS_Stack* DS_StackRestruct(struct DS_Stack *s, int capacity) {
     s->capacity = capacity;
     if(s->length > capacity) {
         s->length = capacity;
-        s->top = sizeof(struct DS_Stack) + (capacity - 1) * s->size;
     }
+    s->top = sizeof(struct DS_Stack) + (s->length - 1) * s->size;
     return s;
 }
 
