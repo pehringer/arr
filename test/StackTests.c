@@ -154,6 +154,7 @@ int ResizeBiggerFull() {
     val = 7;
     DS_StackPush(stk, &val);
     if(*((int*) DS_StackTop(stk, &val)) != 7) failed++;
+    failed += StkChk(stk, sizeof(int), 8, 8);
     DS_StackDestruct(stk);
     return failed;
 }
@@ -186,7 +187,62 @@ int ResizeSmallerFull() {
     failed += StkChk(stk, sizeof(int), 0, 0);
     DS_StackDestruct(stk);
     return failed;
+}
 
+int ResizeBiggerNonEmpty() {
+    int val, failed = 0;
+    struct DS_Stack *stk = DS_StackConstruct(sizeof(int), 0);
+    stk = DS_StackRestruct(stk, 4);
+    if(stk == 0) return ++failed;
+    failed += StkChk(stk, sizeof(int), 0, 4);
+    val = 0;
+    DS_StackPush(stk, &val);
+    val = 1;
+    DS_StackPush(stk, &val);
+    val = 2;
+    DS_StackPush(stk, &val);
+    stk = DS_StackRestruct(stk, 8);
+    if(stk == 0) return ++failed;
+    if(*((int*) DS_StackTop(stk, &val)) != 2) failed++;
+    failed += StkChk(stk, sizeof(int), 3, 8);
+    val = 3;
+    DS_StackPush(stk, &val);
+    val = 4;
+    DS_StackPush(stk, &val);
+    val = 5;
+    DS_StackPush(stk, &val);
+    if(*((int*) DS_StackTop(stk, &val)) != 5) failed++;
+    failed += StkChk(stk, sizeof(int), 6, 8);
+    DS_StackDestruct(stk);
+    return failed;
+}
+
+int ResizeSmallerNonEmpty() {
+    int val, failed = 0;
+    struct DS_Stack *stk = DS_StackConstruct(sizeof(int), 8);
+    val = 0;
+    DS_StackPush(stk, &val);
+    val = 1;
+    DS_StackPush(stk, &val);
+    val = 2;
+    DS_StackPush(stk, &val);
+    val = 3;
+    DS_StackPush(stk, &val);
+    val = 4;
+    DS_StackPush(stk, &val);
+    val = 5;
+    DS_StackPush(stk, &val);
+    stk = DS_StackRestruct(stk, 4);
+    if(stk == 0) return ++failed;
+    failed += StkChk(stk, sizeof(int), 4, 4);
+    if(*((int*) DS_StackTop(stk, &val)) != 3) failed++;
+    DS_StackPop(stk, &val);
+    DS_StackPop(stk, &val);
+    stk = DS_StackRestruct(stk, 0);
+    if(stk == 0) return ++failed;
+    failed += StkChk(stk, sizeof(int), 0, 0);
+    DS_StackDestruct(stk);
+    return failed;
 }
 
 int Empty() {
@@ -268,7 +324,7 @@ int Length() {
 }
 
 int main() {
-    RunTests(10, (struct Test[11]) {
+    RunTests(13, (struct Test[13]) {
         (struct Test) {NewDeleteZero, "NewDeleteZero"},
         (struct Test) {NewDeleteMany, "NewDeleteMany"},
         (struct Test) {ResizeBiggerEmpty, "ResizeBiggerEmpty"},
@@ -277,6 +333,8 @@ int main() {
         (struct Test) {PushTopPop, "PushTopPop"},
         (struct Test) {ResizeBiggerFull, "ResizeBiggerFull"},
         (struct Test) {ResizeSmallerFull, "ResizeSmallerFull"},
+        (struct Test) {ResizeBiggerNonEmpty, "ResizeBiggerNonEmpty"},
+        (struct Test) {ResizeSmallerNonEmpty, "ResizeSmallerNonEmpty"},
         (struct Test) {Empty, "Empty"},
         (struct Test) {Full, "Full"},
         (struct Test) {Length, "Length"},
