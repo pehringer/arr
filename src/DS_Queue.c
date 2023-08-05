@@ -57,7 +57,7 @@ struct DS_Queue* DS_QueueRestruct(struct DS_Queue *q, int capacity) {
 
 void* DS_QueueBack(struct DS_Queue *q, void *destination) {
     memcpy(destination, (void*) (q + 1) + q->back, q->size);
-    return q;
+    return destination;
 }
 
 int DS_QueueCap(struct DS_Queue *q) {
@@ -70,7 +70,7 @@ int DS_QueueEmpty(struct DS_Queue *q) {
 
 void* DS_QueueFront(struct DS_Queue *q, void *destination) {
     memcpy(destination, (void*) (q + 1) + q->front, q->size);
-    return q;
+    return destination;
 }
 
 int DS_QueueFull(struct DS_Queue *q) {
