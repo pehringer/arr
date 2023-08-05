@@ -11,7 +11,7 @@ struct DS_Queue {
     int length;
     size_t size;
     int wrap;
-}
+};
 
 struct DS_Queue* DS_QueueConstruct(int size, int capacity);
 

@@ -11,7 +11,7 @@ struct DS_Queue* DS_QueueConstruct(int size, int capacity) {
     q->length = 0;
     q->size = size;
     q->wrap = capacity * size;
-    return s;
+    return q;
 }
 
 void DS_QueueDestruct(struct DS_Queue *q) {
@@ -85,7 +85,7 @@ void* DS_QueuePop(struct DS_Queue *q, void *destination) {
     memcpy(destination, (void*) (q + 1) + q->front, q->size);
     q->front += q->size;
     if(q->front == q->wrap) {
-        a->front = 0;
+        q->front = 0;
     }
     q->length--;
     return destination;
@@ -94,7 +94,7 @@ void* DS_QueuePop(struct DS_Queue *q, void *destination) {
 struct DS_Queue* DS_QueuePush(struct DS_Queue *q, void *source) {
     q->back += q->size;
     if(q->back == q->wrap) {
-        a->back = 0;
+        q->back = 0;
     }
     q->length++;
     memcpy((void*) (q + 1) + q->back, source, q->size);

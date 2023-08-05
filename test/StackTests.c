@@ -85,21 +85,6 @@ int ResizeSmallerEmpty() {
     return failed;
 }
 
-int Capacity() {
-    int failed = 0;
-    struct DS_Stack *stk = DS_StackConstruct(sizeof(int), 0);
-    if(DS_StackCap(stk) != 0) failed++;
-    failed += StkChk(stk, sizeof(int), 0, 0);
-    stk = DS_StackRestruct(stk, 4);
-    if(DS_StackCap(stk) != 4) failed++;
-    failed += StkChk(stk, sizeof(int), 0, 4);
-    stk = DS_StackRestruct(stk, 8);
-    if(DS_StackCap(stk) != 8) failed++;
-    failed += StkChk(stk, sizeof(int), 0, 8);
-    DS_StackDestruct(stk);
-    return failed;
-}
-
 int PushTopPop() {
     int val, failed = 0;
     struct DS_Stack *stk = DS_StackConstruct(sizeof(int), 4);
@@ -122,6 +107,99 @@ int PushTopPop() {
     if(*((int*) DS_StackPop(stk, &val)) != 2) failed++;
     if(*((int*) DS_StackTop(stk, &val)) != 1) failed++;
     if(*((int*) DS_StackPop(stk, &val)) != 1) failed++;
+    failed += StkChk(stk, sizeof(int), 0, 4);
+    DS_StackDestruct(stk);
+    return failed;
+}
+
+int Capacity() {
+    int failed = 0;
+    struct DS_Stack *stk = DS_StackConstruct(sizeof(int), 0);
+    if(DS_StackCap(stk) != 0) failed++;
+    failed += StkChk(stk, sizeof(int), 0, 0);
+    stk = DS_StackRestruct(stk, 4);
+    if(DS_StackCap(stk) != 4) failed++;
+    failed += StkChk(stk, sizeof(int), 0, 4);
+    stk = DS_StackRestruct(stk, 8);
+    if(DS_StackCap(stk) != 8) failed++;
+    failed += StkChk(stk, sizeof(int), 0, 8);
+    DS_StackDestruct(stk);
+    return failed;
+}
+
+int Empty() {
+    int val, failed = 0;
+    struct DS_Stack *stk = DS_StackConstruct(sizeof(int), 4);
+    if(DS_StackEmpty(stk) == 0) failed++;
+    val = 42;
+    DS_StackPush(stk, &val);
+    if(DS_StackEmpty(stk) != 0) failed++;
+    DS_StackPush(stk, &val);
+    if(DS_StackEmpty(stk) != 0) failed++;
+    DS_StackPush(stk, &val);
+    if(DS_StackEmpty(stk) != 0) failed++;
+    DS_StackPush(stk, &val);
+    if(DS_StackEmpty(stk) != 0) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackEmpty(stk) != 0) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackEmpty(stk) != 0) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackEmpty(stk) != 0) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackEmpty(stk) == 0) failed++;
+    failed += StkChk(stk, sizeof(int), 0, 4);
+    DS_StackDestruct(stk);
+    return failed;
+}
+
+int Full() {
+    int val, failed = 0;
+    struct DS_Stack *stk = DS_StackConstruct(sizeof(int), 4);
+    if(DS_StackFull(stk) != 0) failed++;
+    val = 42;
+    DS_StackPush(stk, &val);
+    if(DS_StackFull(stk) != 0) failed++;
+    DS_StackPush(stk, &val);
+    if(DS_StackFull(stk) != 0) failed++;
+    DS_StackPush(stk, &val);
+    if(DS_StackFull(stk) != 0) failed++;
+    DS_StackPush(stk, &val);
+    if(DS_StackFull(stk) == 0) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackFull(stk) != 0) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackFull(stk) != 0) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackFull(stk) != 0) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackFull(stk) != 0) failed++;
+    failed += StkChk(stk, sizeof(int), 0, 4);
+    DS_StackDestruct(stk);
+    return failed;
+}
+
+int Length() {
+    int val, failed = 0;
+    struct DS_Stack *stk = DS_StackConstruct(sizeof(int), 4);
+    if(DS_StackLen(stk) != 0) failed++;
+    val = 42;
+    DS_StackPush(stk, &val);
+    if(DS_StackLen(stk) != 1) failed++;
+    DS_StackPush(stk, &val);
+    if(DS_StackLen(stk) != 2) failed++;
+    DS_StackPush(stk, &val);
+    if(DS_StackLen(stk) != 3) failed++;
+    DS_StackPush(stk, &val);
+    if(DS_StackLen(stk) != 4) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackLen(stk) != 3) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackLen(stk) != 2) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackLen(stk) != 1) failed++;
+    DS_StackPop(stk, &val);
+    if(DS_StackLen(stk) != 0) failed++;
     failed += StkChk(stk, sizeof(int), 0, 4);
     DS_StackDestruct(stk);
     return failed;
@@ -245,99 +323,21 @@ int ResizeSmallerNonEmpty() {
     return failed;
 }
 
-int Empty() {
-    int val, failed = 0;
-    struct DS_Stack *stk = DS_StackConstruct(sizeof(int), 4);
-    if(DS_StackEmpty(stk) == 0) failed++;
-    val = 42;
-    DS_StackPush(stk, &val);
-    if(DS_StackEmpty(stk) != 0) failed++;
-    DS_StackPush(stk, &val);
-    if(DS_StackEmpty(stk) != 0) failed++;
-    DS_StackPush(stk, &val);
-    if(DS_StackEmpty(stk) != 0) failed++;
-    DS_StackPush(stk, &val);
-    if(DS_StackEmpty(stk) != 0) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackEmpty(stk) != 0) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackEmpty(stk) != 0) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackEmpty(stk) != 0) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackEmpty(stk) == 0) failed++;
-    failed += StkChk(stk, sizeof(int), 0, 4);
-    DS_StackDestruct(stk);
-    return failed;
-}
-
-int Full() {
-    int val, failed = 0;
-    struct DS_Stack *stk = DS_StackConstruct(sizeof(int), 4);
-    if(DS_StackFull(stk) != 0) failed++;
-    val = 42;
-    DS_StackPush(stk, &val);
-    if(DS_StackFull(stk) != 0) failed++;
-    DS_StackPush(stk, &val);
-    if(DS_StackFull(stk) != 0) failed++;
-    DS_StackPush(stk, &val);
-    if(DS_StackFull(stk) != 0) failed++;
-    DS_StackPush(stk, &val);
-    if(DS_StackFull(stk) == 0) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackFull(stk) != 0) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackFull(stk) != 0) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackFull(stk) != 0) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackFull(stk) != 0) failed++;
-    failed += StkChk(stk, sizeof(int), 0, 4);
-    DS_StackDestruct(stk);
-    return failed;
-}
-
-int Length() {
-    int val, failed = 0;
-    struct DS_Stack *stk = DS_StackConstruct(sizeof(int), 4);
-    if(DS_StackLen(stk) != 0) failed++;
-    val = 42;
-    DS_StackPush(stk, &val);
-    if(DS_StackLen(stk) != 1) failed++;
-    DS_StackPush(stk, &val);
-    if(DS_StackLen(stk) != 2) failed++;
-    DS_StackPush(stk, &val);
-    if(DS_StackLen(stk) != 3) failed++;
-    DS_StackPush(stk, &val);
-    if(DS_StackLen(stk) != 4) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackLen(stk) != 3) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackLen(stk) != 2) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackLen(stk) != 1) failed++;
-    DS_StackPop(stk, &val);
-    if(DS_StackLen(stk) != 0) failed++;
-    failed += StkChk(stk, sizeof(int), 0, 4);
-    DS_StackDestruct(stk);
-    return failed;
-}
-
 int main() {
     RunTests(13, (struct Test[13]) {
         (struct Test) {NewDeleteZero, "NewDeleteZero"},
         (struct Test) {NewDeleteMany, "NewDeleteMany"},
         (struct Test) {ResizeBiggerEmpty, "ResizeBiggerEmpty"},
         (struct Test) {ResizeSmallerEmpty, "ResizeSmallerEmpty"},
-        (struct Test) {Capacity, "Capacity"},
         (struct Test) {PushTopPop, "PushTopPop"},
+        (struct Test) {Capacity, "Capacity"},
+        (struct Test) {Empty, "Empty"},
+        (struct Test) {Full, "Full"},
+        (struct Test) {Length, "Length"},
         (struct Test) {ResizeBiggerFull, "ResizeBiggerFull"},
         (struct Test) {ResizeSmallerFull, "ResizeSmallerFull"},
         (struct Test) {ResizeBiggerNonEmpty, "ResizeBiggerNonEmpty"},
         (struct Test) {ResizeSmallerNonEmpty, "ResizeSmallerNonEmpty"},
-        (struct Test) {Empty, "Empty"},
-        (struct Test) {Full, "Full"},
-        (struct Test) {Length, "Length"},
     });
     return 0;
 }
