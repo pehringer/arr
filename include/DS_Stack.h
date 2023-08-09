@@ -35,11 +35,11 @@ struct DS_Stack {
     int top;
 };
 
-struct DS_Stack* DS_StackConstruct(int size, int capacity);
+struct DS_Stack* DS_StackAlloc(int size, int capacity);
 
-void DS_StackDestruct(struct DS_Stack *s);
+void DS_StackDealloc(struct DS_Stack *s);
 
-struct DS_Stack* DS_StackRestruct(struct DS_Stack *s, int capacity);
+struct DS_Stack* DS_StackRealloc(struct DS_Stack *s, int capacity);
 
 int DS_StackCap(struct DS_Stack *s);
 

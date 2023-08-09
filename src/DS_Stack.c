@@ -1,6 +1,6 @@
 #include "DS_Stack.h"
 
-struct DS_Stack* DS_StackConstruct(int size, int capacity) {
+struct DS_Stack* DS_StackAlloc(int size, int capacity) {
     struct DS_Stack *s = malloc(sizeof(struct DS_Stack) + capacity * size);
     if(s == 0) {
         return 0;
@@ -12,11 +12,11 @@ struct DS_Stack* DS_StackConstruct(int size, int capacity) {
     return s;
 }
 
-void DS_StackDestruct(struct DS_Stack *s) {
+void DS_StackDealloc(struct DS_Stack *s) {
     free(s);
 }
 
-struct DS_Stack* DS_StackRestruct(struct DS_Stack *s, int capacity) {
+struct DS_Stack* DS_StackRealloc(struct DS_Stack *s, int capacity) {
     s = realloc(s, sizeof(struct DS_Stack) + capacity * s->size);
     if(s == 0) {
         return 0;
