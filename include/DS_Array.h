@@ -4,59 +4,30 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
-Memory Allocation Format
-========================
-
-+-------+ <-- Header is located at the start of the allocation (pointer to
-|DS     |     struct is retured by construct and restruct functions).
-|Struct |
-|       |
-+-------+ <-- Data is located after header in the allocation.
-|Index 0|
-+-------+
-|Index 1|
-+-------+
-|Index 2|
-+-------+
-|Index 3|
-+-------+
-| ...   |
-+-------+
-|Index N|
-+-------+
-
-*/
-
 struct DS_Array {
-    int length;
+    void *array;
+    int (*compare)(const void*, const void*);
     size_t size;
 };
 
-struct DS_Array* DS_ArrayConstruct(size_t size, int length);
+struct DS_Array DS_ArrayInit(void* array, int (*compare)(const void*, const void*), size_t size);
 
-void DS_ArrayDestruct(struct DS_Array *a);
+void DS_ArrayFill(struct DS_Array a, int start, int stop, const void *source);
 
-struct DS_Array* DS_ArrayRestruct(struct DS_Array *a, int length);
+void DS_ArraySet(struct DS_Array a, int start, int stop, const void *source);
 
-void* DS_ArrayAt(struct DS_Array *a, int index);
+void DS_ArrayGet(struct DS_Array a, int start, int stop, void *destination);
 
-int DS_ArrayCount(struct DS_Array *a, int index, int length, const void *target, int (*compare)(const void*, const void*));
+int DS_ArrayCount(struct DS_Array a, int start, int stop, const void *target);
 
-struct DS_Array* DS_ArrayFill(struct DS_Array *a, int index, int length, const void *source);
+int DS_ArrayFirst(struct DS_Array a, int start, int stop, const void *target);
 
-struct DS_Array* DS_ArrayFrom(struct DS_Array *a, int index, int length, const void *source);
+int DS_ArrayLast(struct DS_Array a, int start, int stop, const void *target);
 
-int DS_ArrayIndex(struct DS_Array *a, int index, int length, const void *target, int (*compare)(const void*, const void*));
+int DS_ArrayMax(struct DS_Array a, int start, int stop);
 
-int DS_ArrayLen(struct DS_Array *a);
+int DS_ArrayMin(struct DS_Array a, int start, int stop);
 
-void* DS_ArrayMax(struct DS_Array *a, int index, int length, int (*compare)(const void*, const void*));
-
-void* DS_ArrayMin(struct DS_Array *a, int index, int length, int (*compare)(const void*, const void*));
-
-struct DS_Array* DS_ArraySort(struct DS_Array *a, int index, int length, int (*compare)(const void*, const void*));
-
-struct DS_Array* DS_ArrayTo(struct DS_Array *a, int index, int length, void *destination);
+void DS_ArraySort(struct DS_Array a, int start, int stop);
 
 #endif
