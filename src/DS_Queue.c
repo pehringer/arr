@@ -1,6 +1,6 @@
 #include "DS_Queue.h"
 
-struct DS_Queue* DS_QueueConstruct(int size, int capacity) {
+struct DS_Queue* DS_QueueAlloc(int size, int capacity) {
     struct DS_Queue *q = malloc(sizeof(struct DS_Queue) + capacity * size);
     if(q == 0) {
         return 0;
@@ -14,11 +14,11 @@ struct DS_Queue* DS_QueueConstruct(int size, int capacity) {
     return q;
 }
 
-void DS_QueueDestruct(struct DS_Queue *q) {
+void DS_QueueDealloc(struct DS_Queue *q) {
     free(q);
 }
 
-struct DS_Queue* DS_QueueRestruct(struct DS_Queue *q, int capacity) {
+struct DS_Queue* DS_QueueRealloc(struct DS_Queue *q, int capacity) {
     // Shift elements so front is zeroth element.
     void *start = (void*) (q + 1);
     void *middle = (void*) (q + 1) + q->front;

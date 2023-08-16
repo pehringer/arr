@@ -9,7 +9,7 @@ Memory Allocation Format
 ========================
 
 +-------+ <-- Header is located at the start of the allocation (pointer to
-|DS     |     struct is retured by construct and restruct functions).
+|DS     |     struct is retured by Alloc and Realloc functions).
 |Struct |
 |       |
 +-------+ <-- Data is located after header in the allocation.
@@ -25,7 +25,6 @@ Memory Allocation Format
 +-------+
 |Index N|
 +-------+
-
 */
 
 struct DS_Stack {

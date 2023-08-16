@@ -4,6 +4,29 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
+Memory Allocation Format
+========================
+
++-------+ <-- Header is located at the start of the allocation (pointer to
+|DS     |     struct is retured by Alloc and Realloc functions).
+|Struct |
+|       |
++-------+ <-- Data is located after header in the allocation.
+|Index 0|
++-------+
+|Index 1|
++-------+
+|Index 2|
++-------+
+|Index 3|
++-------+
+| ...   |
++-------+
+|Index N|
++-------+
+*/
+
 struct DS_Queue {
     int back;
     int capacity;
@@ -13,11 +36,11 @@ struct DS_Queue {
     int wrap;
 };
 
-struct DS_Queue* DS_QueueConstruct(int size, int capacity);
+struct DS_Queue* DS_QueueAlloc(int size, int capacity);
 
-void DS_QueueDestruct(struct DS_Queue *q);
+void DS_QueueDealloc(struct DS_Queue *q);
 
-struct DS_Queue* DS_QueueRestruct(struct DS_Queue *q, int capacity);
+struct DS_Queue* DS_QueueRealloc(struct DS_Queue *q, int capacity);
 
 void* DS_QueueBack(struct DS_Queue *q, void *destination);
 
