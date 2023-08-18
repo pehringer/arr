@@ -305,10 +305,156 @@ int ResizeBiggerFull() {
     return failed;
 }
 
-int ResizeSmallerFull();
+int ResizeSmallerFull() {
+    int val, failed = 0;
+    struct DS_Queue *que = DS_QueueAlloc(sizeof(int), 6);
+    if(que == 0) return failed++;
+    failed += QueChk(que, sizeof(int), 0, 6);
+    val = 0;
+    DS_QueuePush(que, &val);
+    val = 1;
+    DS_QueuePush(que, &val);
+    if(*((int*) DS_QueuePop(que, &val)) != 0) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 1) failed++;
+    val = 2;
+    DS_QueuePush(que, &val);
+    val = 3;
+    DS_QueuePush(que, &val);
+    val = 4;
+    DS_QueuePush(que, &val);
+    val = 5;
+    DS_QueuePush(que, &val);
+    val = 6;
+    DS_QueuePush(que, &val);
+    val = 7;
+    DS_QueuePush(que, &val);
+    que = DS_QueueRealloc(que, 4);
+    if(que == 0) return failed++;
+    failed += QueChk(que, sizeof(int), 4, 4);
+    if(*((int*) DS_QueuePop(que, &val)) != 2) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 3) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 4) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 5) failed++;
+    val = 8;
+    DS_QueuePush(que, &val);
+    val = 9;
+    DS_QueuePush(que, &val);
+    if(*((int*) DS_QueuePop(que, &val)) != 8) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 9) failed++;
+    val = 10;
+    DS_QueuePush(que, &val);
+    val = 11;
+    DS_QueuePush(que, &val);
+    val = 12;
+    DS_QueuePush(que, &val);
+    val = 13;
+    DS_QueuePush(que, &val);
+    que = DS_QueueRealloc(que, 2);
+    if(que == 0) return failed++;
+    failed += QueChk(que, sizeof(int), 2, 2);
+    if(*((int*) DS_QueuePop(que, &val)) != 10) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 11) failed++;
+    val = 14;
+    DS_QueuePush(que, &val);
+    val = 15;
+    DS_QueuePush(que, &val);
+    que = DS_QueueRealloc(que, 0);
+    if(que == 0) return failed++;
+    failed += QueChk(que, sizeof(int), 0, 0);
+    DS_QueueDealloc(que);
+    return failed;
+}
+
+int ResizeHalfFullBigger() {
+    int val, failed = 0;
+    struct DS_Queue *que = DS_QueueAlloc(sizeof(int), 0);
+    que = DS_QueueRealloc(que, 2);
+    if(que == 0) return ++failed;
+    failed += QueChk(que, sizeof(int), 0, 2);
+    val = 0;
+    DS_QueuePush(que, &val);
+    que = DS_QueueRealloc(que, 4);
+    if(que == 0) return ++failed;
+    failed += QueChk(que, sizeof(int), 1, 4);
+    val = 1;
+    DS_QueuePush(que, &val);
+    val = 2;
+    DS_QueuePush(que, &val);
+    if(*((int*) DS_QueuePop(que, &val)) != 0) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 1) failed++;
+    val = 3;
+    DS_QueuePush(que, &val);
+    que = DS_QueueRealloc(que, 6);
+    if(que == 0) return ++failed;
+    failed += QueChk(que, sizeof(int), 2, 6);
+    val = 4;
+    DS_QueuePush(que, &val);
+    val = 5;
+    DS_QueuePush(que, &val);
+    if(*((int*) DS_QueuePop(que, &val)) != 2) failed++;
+    que = DS_QueueRealloc(que, 8);
+    if(que == 0) return ++failed;
+    failed += QueChk(que, sizeof(int), 3, 8);
+    if(*((int*) DS_QueuePop(que, &val)) != 3) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 4) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 5) failed++;
+    failed += QueChk(que, sizeof(int), 0, 8);
+    DS_QueueDealloc(que);
+    return failed;
+}
+
+int ResizeHalfFullSmaller() {
+    int val, failed = 0;
+    struct DS_Queue *que = DS_QueueAlloc(sizeof(int), 6);
+    if(que == 0) return failed++;
+    failed += QueChk(que, sizeof(int), 0, 6);
+    val = 0;
+    DS_QueuePush(que, &val);
+    val = 1;
+    DS_QueuePush(que, &val);
+    if(*((int*) DS_QueuePop(que, &val)) != 0) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 1) failed++;
+    val = 2;
+    DS_QueuePush(que, &val);
+    val = 3;
+    DS_QueuePush(que, &val);
+    val = 4;
+    DS_QueuePush(que, &val);
+    que = DS_QueueRealloc(que, 4);
+    if(que == 0) return failed++;
+    failed += QueChk(que, sizeof(int), 3, 4);
+    if(*((int*) DS_QueuePop(que, &val)) != 2) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 3) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 4) failed++;
+    val = 8;
+    DS_QueuePush(que, &val);
+    val = 9;
+    DS_QueuePush(que, &val);
+    val = 10;
+    DS_QueuePush(que, &val);
+    if(*((int*) DS_QueuePop(que, &val)) != 8) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 9) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 10) failed++;
+    val = 11;
+    DS_QueuePush(que, &val);
+    val = 12;
+    DS_QueuePush(que, &val);
+    que = DS_QueueRealloc(que, 2);
+    if(que == 0) return failed++;
+    failed += QueChk(que, sizeof(int), 2, 2);
+    if(*((int*) DS_QueuePop(que, &val)) != 11) failed++;
+    if(*((int*) DS_QueuePop(que, &val)) != 12) failed++;
+    val = 14;
+    DS_QueuePush(que, &val);
+    que = DS_QueueRealloc(que, 0);
+    if(que == 0) return failed++;
+    failed += QueChk(que, sizeof(int), 0, 0);
+    DS_QueueDealloc(que);
+    return failed;
+}
 
 int main() {
-    RunTests(10, (struct Test[10]) {
+    RunTests(13, (struct Test[13]) {
         (struct Test) {NewDeleteZero, "NewDeleteZero"},
         (struct Test) {NewDeleteMany, "NewDeleteMany"},
         (struct Test) {ResizeBiggerEmpty, "ResizeBiggerEmpty"},
@@ -319,5 +465,8 @@ int main() {
         (struct Test) {Full, "Full"},
         (struct Test) {Length, "Length"},
         (struct Test) {ResizeBiggerFull, "ResizeBiggerFull"},
+        (struct Test) {ResizeSmallerFull, "ResizeSmallerFull"},
+        (struct Test) {ResizeHalfFullBigger, "ResizeHalfFullBigger"},
+        (struct Test) {ResizeHalfFullSmaller, "ResizeHalfFullSmaller"},
     });
 }
