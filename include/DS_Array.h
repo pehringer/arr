@@ -5,9 +5,9 @@
 #include <string.h>
 
 struct DS_Array {
-    void *array;
-    int (*compare)(const void*, const void*);
-    size_t size;
+    void *array;                              // Existing array.
+    int (*compare)(const void*, const void*); // Compare two elements.
+    size_t size;                              // Size of element.
 };
 
 struct DS_Array DS_ArrayInit(void* array, int (*compare)(const void*, const void*), size_t size);

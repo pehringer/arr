@@ -28,12 +28,12 @@ Memory Allocation Format
 */
 
 struct DS_Queue {
-    int back;
-    int capacity;
-    int front;
-    int length;
-    size_t size;
-    int wrap;
+    int back;     // Offset from end of header to start of back element.
+    int capacity; // Number of elements in allocation.
+    int front;    // Offset from end of header to start of front element.
+    int length;   // Elements being used in allocation.
+    size_t size;  // Size of element.
+    int wrap;     // Offset from end of header to end of allocation.
 };
 
 struct DS_Queue* DS_QueueAlloc(int size, int capacity);

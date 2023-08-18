@@ -28,10 +28,10 @@ Memory Allocation Format
 */
 
 struct DS_Stack {
-    int capacity;
-    int length;
-    size_t size;
-    int top;
+    int capacity; // Number of elements in allocation.
+    int length;   // Elements being used in allocation.
+    size_t size;  // Size of element.
+    int top;      // Offset from end of header to start of top element.
 };
 
 struct DS_Stack* DS_StackAlloc(int size, int capacity);
