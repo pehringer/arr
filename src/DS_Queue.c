@@ -56,6 +56,11 @@ struct DS_Queue* DS_QueueRealloc(struct DS_Queue *q, int capacity) {
 }
 
 void* DS_QueueBack(struct DS_Queue *q, void *destination) {
+    //REMOVE if block to remove out of bounds check.
+    if(q->length == 0) {
+        return 0;
+    }
+    // ^^^^^^^^
     memcpy(destination, (void*) (q + 1) + q->back, q->size);
     return destination;
 }
@@ -69,6 +74,11 @@ int DS_QueueEmpty(struct DS_Queue *q) {
 }
 
 void* DS_QueueFront(struct DS_Queue *q, void *destination) {
+    //REMOVE if block to remove out of bounds check.
+    if(q->length == 0) {
+        return 0;
+    }
+    // ^^^^^^^^
     memcpy(destination, (void*) (q + 1) + q->front, q->size);
     return destination;
 }
@@ -82,6 +92,11 @@ int DS_QueueLen(struct DS_Queue *q) {
 }
 
 void* DS_QueuePop(struct DS_Queue *q, void *destination) {
+    //REMOVE if block to remove out of bounds check.
+    if(q->length == 0) {
+        return 0;
+    }
+    // ^^^^^^^^
     memcpy(destination, (void*) (q + 1) + q->front, q->size);
     q->front += q->size;
     if(q->front == q->wrap) {
@@ -92,6 +107,11 @@ void* DS_QueuePop(struct DS_Queue *q, void *destination) {
 }
 
 struct DS_Queue* DS_QueuePush(struct DS_Queue *q, void *source) {
+    // REMOVE if block to remove auto reallocation.
+    if(q->length == q->capacity) {
+        q = DS_QueueRealloc(q, q->length * 2);
+    }
+    // REMOVE ^^^^^^^^
     q->back += q->size;
     if(q->back == q->wrap) {
         q->back = 0;

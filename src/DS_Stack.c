@@ -46,6 +46,11 @@ int DS_StackLen(struct DS_Stack *s) {
 }
 
 void* DS_StackPop(struct DS_Stack *s, void *destination) {
+    //REMOVE if block to remove out of bounds check.
+    if(s->length == 0) {
+        return 0;
+    }
+    // REMOVE ^^^^^^^^
     memcpy(destination, (void*) (s + 1) + s->top, s->size);
     s->length--;
     s->top -= s->size;
@@ -53,6 +58,11 @@ void* DS_StackPop(struct DS_Stack *s, void *destination) {
 }
 
 struct DS_Stack* DS_StackPush(struct DS_Stack *s, void *source) {
+    // REMOVE if block to remove auto reallocation.
+    if(s->length == s->capacity) {
+        s = DS_StackRealloc(s, s->length * 2);
+    }
+    // REMOVE ^^^^^^^^
     s->length++;
     s->top += s->size;
     memcpy((void*) (s + 1) + s->top, source, s->size);
@@ -60,6 +70,11 @@ struct DS_Stack* DS_StackPush(struct DS_Stack *s, void *source) {
 }
 
 void* DS_StackTop(struct DS_Stack *s, void *destination) {
+    //REMOVE if block to remove out of bounds check.
+    if(s->length == 0) {
+        return 0;
+    }
+    // REMOVE ^^^^^^^^
     memcpy(destination, (void*) (s + 1) + s->top, s->size);
     return destination;
 }
