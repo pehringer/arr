@@ -1,23 +1,27 @@
-#! /bin/bash
+build: build_array build_stack build_queue
 
-if [ $# -eq 0 ]; then
-	echo "No argument supplied."
-	echo "./test.sh [DATA_STRUCTURE_NAME]"
-	exit 1
-fi
+build_array:
+	gcc -shared -lm -I ./include ./src/DS_Array.c -o ./bin/DS_Array.so
 
-if [ $1 = 'Array' ]; then
+build_stack:
+	gcc -shared -lm -I ./include ./src/DS_Stack.c -o ./bin/DS_Stack.so
+
+build_queue:
+	gcc -shared -lm -I ./include ./src/DS_Queue.c -o ./bin/DS_Queue.so
+
+test: test_array test_stack test_queue
+
+test_array:
 	gcc -fsanitize=undefined -I ./include ./src/DS_Array.c ./test/Test.c ./test/ArrayTests.c -o ./bin/ArrayTests
 	./bin/ArrayTests
 	rm ./bin/ArrayTests
-elif [ $1 = 'Stack' ]; then
+
+test_stack:
 	gcc -fsanitize=undefined -I ./include ./src/DS_Stack.c ./test/Test.c ./test/StackTests.c -o ./bin/StackTests
 	./bin/StackTests
 	rm ./bin/StackTests
-elif [ $1 = 'Queue' ]; then
+
+test_queue:
 	gcc -fsanitize=undefined -I ./include ./src/DS_Queue.c ./test/Test.c ./test/QueueTests.c -o ./bin/QueueTests
 	./bin/QueueTests
 	rm ./bin/QueueTests
-else
-	echo "Unknow command: $1"
-fi
