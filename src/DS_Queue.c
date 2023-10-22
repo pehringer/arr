@@ -1,6 +1,41 @@
 #include "DS_Queue.h"
 
-struct DS_Queue* DS_QueueAlloc(int size, int capacity) {
+/*
+Memory Allocation Format
+========================
+
++---------+ <- Allocation start.
+|Struct   |
+|DS_Queue |
+|         |
++---------+ <- Pointer retured by DS_QueueAllocate() and DS_QueueRealloc() functions.
+|Element 0|
++---------+
+|Element 1|
++---------+
+|Element 2|
++---------+
+|Elemant 3|
++---------+
+| ...     |
++---------+
+|Element N|
++---------+ <- Allocation end.
+
+
+
+struct DS_Queue {
+    int back;     // Offset from end of header to start of back element.
+    int capacity; // Number of elements in allocation.
+    int front;    // Offset from end of header to start of front element.
+    int length;   // Elements being used in allocation.
+    size_t size;  // Size of element.
+    int wrap;     // Offset from end of header to end of allocation.
+};
+
+*/
+
+struct DS_Queue* DS_QueueAllocate(int size, int capacity) {
     struct DS_Queue *q = malloc(sizeof(struct DS_Queue) + capacity * size);
     if(q == 0) {
         return 0;
@@ -14,11 +49,11 @@ struct DS_Queue* DS_QueueAlloc(int size, int capacity) {
     return q;
 }
 
-void DS_QueueDealloc(struct DS_Queue *q) {
+void DS_QueueDeallocate(struct DS_Queue *q) {
     free(q);
 }
 
-struct DS_Queue* DS_QueueRealloc(struct DS_Queue *q, int capacity) {
+struct DS_Queue* DS_QueueReallocate(struct DS_Queue *q, int capacity) {
     // Shift elements so front is zeroth element.
     void *start = (void*) (q + 1);
     void *middle = (void*) (q + 1) + q->front;
@@ -65,7 +100,7 @@ void* DS_QueueBack(struct DS_Queue *q, void *destination) {
     return destination;
 }
 
-int DS_QueueCap(struct DS_Queue *q) {
+int DS_QueueCapacity(struct DS_Queue *q) {
     return q->capacity;
 }
 
@@ -87,7 +122,7 @@ int DS_QueueFull(struct DS_Queue *q) {
     return q->length == q->capacity;
 }
 
-int DS_QueueLen(struct DS_Queue *q) {
+int DS_QueueLength(struct DS_Queue *q) {
     return q->length;
 }
 
@@ -109,7 +144,7 @@ void* DS_QueuePop(struct DS_Queue *q, void *destination) {
 struct DS_Queue* DS_QueuePush(struct DS_Queue *q, void *source) {
     // REMOVE if block to remove auto reallocation.
     if(q->length == q->capacity) {
-        q = DS_QueueRealloc(q, q->length * 2);
+        q = DS_QueueReallocate(q, q->length * 2);
     }
     // REMOVE ^^^^^^^^
     q->back += q->size;

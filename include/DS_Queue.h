@@ -8,23 +8,24 @@
 Memory Allocation Format
 ========================
 
-+-------+ <-- Header is located at the start of the allocation (pointer to
-|DS     |     struct is retured by Alloc and Realloc functions).
-|Struct |
-|       |
-+-------+ <-- Data is located after header in the allocation.
-|Index 0|
-+-------+
-|Index 1|
-+-------+
-|Index 2|
-+-------+
-|Index 3|
-+-------+
-| ...   |
-+-------+
-|Index N|
-+-------+
++---------+ <- Allocation start.
+|Struct   |
+|DS_Queue |
+|         |
++---------+ <- Pointer retured by DS_QueueAllocate() and DS_QueueDeallocate() functions.
+|Element 0|
++---------+
+|Element 1|
++---------+
+|Element 2|
++---------+
+|Elemant 3|
++---------+
+| ...     |
++---------+
+|Element N|
++---------+ <- Allocation end.
+
 */
 
 struct DS_Queue {
@@ -36,15 +37,15 @@ struct DS_Queue {
     int wrap;     // Offset from end of header to end of allocation.
 };
 
-struct DS_Queue* DS_QueueAlloc(int size, int capacity);
+struct DS_Queue* DS_QueueAllocate(int size, int capacity);
 
-void DS_QueueDealloc(struct DS_Queue *q);
+void DS_QueueDeallocate(struct DS_Queue *q);
 
-struct DS_Queue* DS_QueueRealloc(struct DS_Queue *q, int capacity);
+struct DS_Queue* DS_QueueReallocate(struct DS_Queue *q, int capacity);
 
 void* DS_QueueBack(struct DS_Queue *q, void *destination);
 
-int DS_QueueCap(struct DS_Queue *q);
+int DS_QueueCapacity(struct DS_Queue *q);
 
 int DS_QueueEmpty(struct DS_Queue *q);
 
@@ -52,7 +53,7 @@ void* DS_QueueFront(struct DS_Queue *q, void *destination);
 
 int DS_QueueFull(struct DS_Queue *q);
 
-int DS_QueueLen(struct DS_Queue *q);
+int DS_QueueLength(struct DS_Queue *q);
 
 void* DS_QueuePop(struct DS_Queue *q, void *destination);
 
