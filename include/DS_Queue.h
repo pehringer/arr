@@ -12,8 +12,8 @@ Memory Allocation Format
 |Struct   |
 |DS_Queue |
 |         |
-+---------+ <- Pointer retured by DS_QueueAllocate() and DS_QueueDeallocate() functions.
-|Element 0|
++---------+ <- Pointer retured by DS_QueueAllocate(), DS_QueueDeallocate(),
+|Element 0|    and DS_QueuePush() functions.
 +---------+
 |Element 1|
 +---------+

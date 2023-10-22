@@ -8,8 +8,8 @@ Memory Allocation Format
 |Struct   |
 |DS_Stack |
 |         |
-+---------+ <- Pointer retured by DS_StackAllocate() and DS_StackReallocate() functions.
-|Element 0|
++---------+ <- Pointer retured by DS_StackAllocate(), DS_StackReallocate(),
+|Element 0|    and DS_StackPush() functions.
 +---------+
 |Element 1|
 +---------+
