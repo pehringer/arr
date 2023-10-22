@@ -6,13 +6,15 @@
 
 //Allocation And Configuration
 
-void* DS_ArrayNew(size_t size, int length, int (*compare)(const void*, const void*));
+void* DS_ArrayAllocate(size_t size, int length, int (*compare)(const void*, const void*));
 
-void DS_ArrayDelete(void *array);
+void DS_ArrayDeallocate(void *array);
 
 int DS_ArrayLength(void *array);
 
-void* DS_ArrayResize(void *array, int length);
+void* DS_ArrayReallocate(void *array, int length);
+
+size_t DS_ArraySize(void *array);
 
 //Accessors
 

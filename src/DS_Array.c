@@ -8,7 +8,7 @@ Memory Allocation Format
 |Struct   |
 |DS_Array |
 |         |
-+---------+ <- Pointer retured by DS_ArrayNew() and DS_ArrayResize() functions.
++---------+ <- Pointer retured by DS_ArrayAllocate() and DS_ArrayReallocate() functions.
 |Element 0|
 +---------+
 |Element 1|
@@ -30,7 +30,7 @@ struct DS_Array {
     size_t size;                              // Size of element.
 };
 
-void* DS_ArrayNew(size_t size, int length, int (*compare)(const void*, const void*)) {
+void* DS_ArrayAllocate(size_t size, int length, int (*compare)(const void*, const void*)) {
     struct DS_Array *a = malloc(sizeof(struct DS_Array) + length * size);
     if(a == 0) {
         return 0;
@@ -41,7 +41,7 @@ void* DS_ArrayNew(size_t size, int length, int (*compare)(const void*, const voi
     return a + 1;
 }
 
-void DS_ArrayDelete(void* array) {
+void DS_ArrayDeallocate(void* array) {
     struct DS_Array *a = (struct DS_Array*) array - 1;
     free(a);
 }
@@ -51,7 +51,7 @@ int DS_ArrayLength(void* array) {
     return a->length;
 }
 
-void* DS_ArrayResize(void *array, int length) {
+void* DS_ArrayReallocate(void *array, int length) {
     struct DS_Array *a = (struct DS_Array*) array - 1;
     a = realloc(a, sizeof(struct DS_Array) + length * a->size);
     if(a == 0) {
@@ -59,6 +59,11 @@ void* DS_ArrayResize(void *array, int length) {
     }
     a->length = length;
     return a + 1;
+}
+
+size_t DS_ArraySize(void *array) {
+    struct DS_Array *a = (struct DS_Array*) array - 1;
+    return a->size;
 }
 
 void DS_ArrayCopy(void *array, int start, int stop, const void *source) {

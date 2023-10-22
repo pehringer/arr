@@ -6,29 +6,31 @@ int IntCmp(const void *l, const void *r) {
     return *((int*) l) - *((int*) r);
 }
 
-int NewDeleteLength(void) {
+int NewDeleteLengthSize(void) {
     int failed = 0;
-    int *test = DS_ArrayNew(sizeof(int), 0, IntCmp);
+    int *test = DS_ArrayAllocate(sizeof(int), 0, IntCmp);
     if(test == 0) failed++;
+    if(DS_ArraySize(test) != sizeof(int)) failed++;
     if(DS_ArrayLength(test) != 0) failed++;
-    DS_ArrayDelete(test);
-    test = DS_ArrayNew(sizeof(int), 4, IntCmp);
+    DS_ArrayDeallocate(test);
+    test = DS_ArrayAllocate(sizeof(int), 4, IntCmp);
     if(test == 0) failed++;
+    if(DS_ArraySize(test) != sizeof(int)) failed++;
     if(DS_ArrayLength(test) != 4) failed++;
-    DS_ArrayDelete(test);
+    DS_ArrayDeallocate(test);
     return failed;
 }
 
 int Resize(void) {
     int failed = 0;
-    int *test = DS_ArrayNew(sizeof(int), 0, IntCmp);
-    test = DS_ArrayResize(test, 4);
+    int *test = DS_ArrayAllocate(sizeof(int), 0, IntCmp);
+    test = DS_ArrayReallocate(test, 4);
     if(test == 0) failed++;
     test[0] = 3;
     test[1] = 2;
     test[2] = 1;
     test[3] = 0;
-    test = DS_ArrayResize(test, 8);
+    test = DS_ArrayReallocate(test, 8);
     if(test == 0) failed++;
     test[4] = 7;
     test[5] = 6;
@@ -43,21 +45,21 @@ int Resize(void) {
     if(test[6] != 5) failed++;
     if(test[7] != 4) failed++;
     if(DS_ArrayLength(test) != 8) failed++;
-    test = DS_ArrayResize(test, 4);
+    test = DS_ArrayReallocate(test, 4);
     if(test == 0) failed++;
     if(test[0] != 3) failed++;
     if(test[1] != 2) failed++;
     if(test[2] != 1) failed++;
     if(test[3] != 0) failed++;
     if(DS_ArrayLength(test) != 4) failed++;
-    DS_ArrayDelete(test);
+    DS_ArrayDeallocate(test);
     return failed;
 }
 
 int Copy(void) {
     int array[8] = {7, 6, 5, 4, 3, 2, 1, 0};
     int failed = 0;
-    int *test = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    int *test = DS_ArrayAllocate(sizeof(int), 8, IntCmp);
     DS_ArrayCopy(test, 4, 8, array);
     DS_ArrayCopy(test, 0, 4, array + 4);
     if(test[0] != 3) failed++;
@@ -79,7 +81,7 @@ int Copy(void) {
     if(test[6] != 5) failed++;
     if(test[7] != 4) failed++;
     if(DS_ArrayLength(test) != 8) failed++;
-    DS_ArrayDelete(test);
+    DS_ArrayDeallocate(test);
     return failed;
 }
 
@@ -87,7 +89,7 @@ int Copy(void) {
 int Fill(void) {
     int value = 0;
     int failed = 0;
-    int *test = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    int *test = DS_ArrayAllocate(sizeof(int), 8, IntCmp);
     value = 5;
     DS_ArrayFill(test, 4, 8, &value);
     value = 6;
@@ -112,14 +114,14 @@ int Fill(void) {
     if(test[6] != 5) failed++;
     if(test[7] != 5) failed++;
     if(DS_ArrayLength(test) != 8) failed++;
-    DS_ArrayDelete(test);
+    DS_ArrayDeallocate(test);
     return failed;
 }
 
 int Max(void) {
     int array[8] = {2, 4, 3, 1, 0, 5, 7, 6};
     int failed = 0;
-    int *test = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    int *test = DS_ArrayAllocate(sizeof(int), 8, IntCmp);
     DS_ArrayCopy(test, 0, 8, array);
     if(DS_ArrayMax(test, 0, 0) != -1) failed++;
     if(DS_ArrayMax(test, 0, 1) != 0) failed++;
@@ -136,14 +138,14 @@ int Max(void) {
     if(DS_ArrayMax(test, 8, 8) != -1) failed++;
     if(DS_ArrayMax(test, 0, 8) != 6) failed++;
     if(DS_ArrayLength(test) != 8) failed++;
-    DS_ArrayDelete(test);
+    DS_ArrayDeallocate(test);
     return failed;
 }
 
 int Min(void) {
     int array[8] = {2, 4, 3, 1, 0, 5, 7, 6};
     int failed = 0;
-    int *test = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    int *test = DS_ArrayAllocate(sizeof(int), 8, IntCmp);
     DS_ArrayCopy(test, 0, 8, array);
     if(DS_ArrayMin(test, 0, 0) != -1) failed++;
     if(DS_ArrayMin(test, 0, 1) != 0) failed++;
@@ -160,7 +162,7 @@ int Min(void) {
     if(DS_ArrayMin(test, 8, 8) != -1) failed++;
     if(DS_ArrayMin(test, 0, 8) != 4) failed++;
     if(DS_ArrayLength(test) != 8) failed++;
-    DS_ArrayDelete(test);
+    DS_ArrayDeallocate(test);
     return failed;
 }
 
@@ -168,7 +170,7 @@ int Count(void) {
     int array[8] = {1, 2, 0, 0, 2, 1, 0, 1};
     int target = -1;
     int failed = 0;
-    int *test = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    int *test = DS_ArrayAllocate(sizeof(int), 8, IntCmp);
     DS_ArrayCopy(test, 0, 8, array);
     target = 0;
     if(DS_ArrayCount(test, 0, 4, &target) != 2) failed++;
@@ -191,7 +193,7 @@ int Count(void) {
     if(DS_ArrayCount(test, 2, 6, &target) != 0) failed++;
     if(DS_ArrayCount(test, 0, 8, &target) != 0) failed++;
     if(DS_ArrayLength(test) != 8) failed++;
-    DS_ArrayDelete(test);
+    DS_ArrayDeallocate(test);
     return failed;
 }
 
@@ -199,7 +201,7 @@ int Index(void) {
     int array[8] = {1, 2, 0, 0, 2, 1, 0, 1};
     int target = -1;
     int failed = 0;
-    int *test = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    int *test = DS_ArrayAllocate(sizeof(int), 8, IntCmp);
     DS_ArrayCopy(test, 0, 8, array);
     target = 0;
     if(DS_ArrayIndex(test, 0, 4, &target) != 2) failed++;
@@ -222,14 +224,14 @@ int Index(void) {
     if(DS_ArrayIndex(test, 2, 6, &target) != -1) failed++;
     if(DS_ArrayIndex(test, 0, 8, &target) != -1) failed++;
     if(DS_ArrayLength(test) != 8) failed++;
-    DS_ArrayDelete(test);
+    DS_ArrayDeallocate(test);
     return failed;
 }
 
 int Sort(void) {
    int array[8] = {7, 6, 5, 4, 3, 2, 1, 0};
     int failed = 0;
-    int *test = DS_ArrayNew(sizeof(int), 8, IntCmp);
+    int *test = DS_ArrayAllocate(sizeof(int), 8, IntCmp);
     DS_ArrayCopy(test, 0, 8, array);
     DS_ArraySort(test, 0, 4);
     if(test[0] != 4) failed++;
@@ -271,13 +273,13 @@ int Sort(void) {
     if(test[6] != 6) failed++;
     if(test[7] != 7) failed++;
     if(DS_ArrayLength(test) != 8) failed++;
-    DS_ArrayDelete(test);
+    DS_ArrayDeallocate(test);
     return failed;
 }
 
 int main() {
     RunTests(9, (struct Test[9]) {
-        (struct Test) {NewDeleteLength, "NewDeleteLength"},
+        (struct Test) {NewDeleteLengthSize, "NewDeleteLengthSize"},
         (struct Test) {Resize, "Resize"},
         (struct Test) {Copy, "Copy"},
         (struct Test) {Fill, "Fill"},
