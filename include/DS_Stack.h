@@ -4,54 +4,24 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
-Memory Allocation Format
-========================
+void* DS_StackAllocate(int size, int capacity);
 
-+-------+ <-- Header is located at the start of the allocation (pointer to
-|DS     |     struct is retured by Alloc and Realloc functions).
-|Struct |
-|       |
-+-------+ <-- Data is located after header in the allocation.
-|Index 0|
-+-------+
-|Index 1|
-+-------+
-|Index 2|
-+-------+
-|Index 3|
-+-------+
-| ...   |
-+-------+
-|Index N|
-+-------+
-*/
+void DS_StackDeallocate(void *stack);
 
-struct DS_Stack {
-    int capacity; // Number of elements in allocation.
-    int length;   // Elements being used in allocation.
-    size_t size;  // Size of element.
-    int top;      // Offset from end of header to start of top element.
-};
+void* DS_StackReallocate(void *stack, int capacity);
 
-struct DS_Stack* DS_StackAlloc(int size, int capacity);
+int DS_StackCapacity(void *stack);
 
-void DS_StackDealloc(struct DS_Stack *s);
+int DS_StackEmpty(void *stack);
 
-struct DS_Stack* DS_StackRealloc(struct DS_Stack *s, int capacity);
+int DS_StackFull(void *stack);
 
-int DS_StackCap(struct DS_Stack *s);
+int DS_StackLength(void *stack);
 
-int DS_StackEmpty(struct DS_Stack *s);
+void* DS_StackPop(void *stack, void *destination);
 
-int DS_StackFull(struct DS_Stack *s);
+void* DS_StackPush(void *stack, void *source);
 
-int DS_StackLen(struct DS_Stack *s);
-
-void* DS_StackPop(struct DS_Stack *s, void *destination);
-
-struct DS_Stack* DS_StackPush(struct DS_Stack *s, void *source);
-
-void* DS_StackTop(struct DS_Stack *s, void *destination);
+void* DS_StackTop(void *stack, void *destination);
 
 #endif
