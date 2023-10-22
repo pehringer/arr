@@ -99,8 +99,8 @@ void* DS_StackPush(void *stack, void *source) {
     struct DS_Stack *s = (struct DS_Stack*) stack - 1;
     // REMOVE if block to remove auto reallocation.
     if(s->length == s->capacity) {
-        stack = DS_StackReallocate(s, s->length * 2);
-        s = (struct DS_Stack*) stack - 1;
+        s = DS_StackReallocate(s, s->length * 2);
+        stack = s + 1;
     }
     // REMOVE ^^^^^^^^
     s->length++;
