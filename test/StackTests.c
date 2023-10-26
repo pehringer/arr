@@ -292,8 +292,36 @@ int ResizeSmallerNonEmpty() {
     return failed;
 }
 
+int AutoResize() {
+    int val, failed = 0;
+    int *stk = DS_StackAllocate(sizeof(int), 2);
+    val = 0;
+    stk = DS_StackPush(stk, &val);
+    val = 1;
+    stk = DS_StackPush(stk, &val);
+    val = 2;
+    stk = DS_StackPush(stk, &val);
+    val = 3;
+    stk = DS_StackPush(stk, &val);
+    val = 4;
+    stk = DS_StackPush(stk, &val);
+    val = 5;
+    stk = DS_StackPush(stk, &val);
+    if(DS_StackLength(stk) != 6) failed++;
+    if(DS_StackCapacity(stk) != 8) failed++;
+    if(stk[0] != 0) failed++;
+    if(stk[1] != 1) failed++;
+    if(stk[2] != 2) failed++;
+    if(stk[3] != 3) failed++;
+    if(stk[4] != 4) failed++;
+    if(stk[5] != 5) failed++;
+    if(*((int*) DS_StackTop(stk, &val)) != 5) failed++;
+    DS_StackDeallocate(stk);
+    return failed;
+}
+
 int main() {
-    RunTests(13, (struct Test[13]) {
+    RunTests(14, (struct Test[14]) {
         (struct Test) {NewDeleteZero, "NewDeleteZero"},
         (struct Test) {NewDeleteMany, "NewDeleteMany"},
         (struct Test) {ResizeBiggerEmpty, "ResizeBiggerEmpty"},
@@ -307,6 +335,7 @@ int main() {
         (struct Test) {ResizeSmallerFull, "ResizeSmallerFull"},
         (struct Test) {ResizeBiggerNonEmpty, "ResizeBiggerNonEmpty"},
         (struct Test) {ResizeSmallerNonEmpty, "ResizeSmallerNonEmpty"},
+        (struct Test) {AutoResize, "AutoResize"},
     });
     return 0;
 }

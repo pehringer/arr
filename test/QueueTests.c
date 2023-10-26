@@ -415,8 +415,38 @@ int ResizeHalfFullSmaller() {
     return failed;
 }
 
+int AutoResize() {
+    int val, failed = 0;
+    int *que = DS_QueueAllocate(sizeof(int), 2);
+    val = 0;
+    que = DS_QueuePush(que, &val);
+    val = 1;
+    que = DS_QueuePush(que, &val);
+    val = 2;
+    que = DS_QueuePush(que, &val);
+    val = 3;
+    que = DS_QueuePush(que, &val);
+    val = 4;
+    que = DS_QueuePush(que, &val);
+    val = 5;
+    que = DS_QueuePush(que, &val);
+    if(DS_QueueLength(que) != 6) failed++;
+    if(DS_QueueCapacity(que) != 8) failed++;
+    if(que[0] != 0) failed++;
+    if(que[1] != 1) failed++;
+    if(que[2] != 2) failed++;
+    if(que[3] != 3) failed++;
+    if(que[4] != 4) failed++;
+    if(que[5] != 5) failed++;
+    if(*((int*) DS_QueueFront(que, &val)) != 0) failed++;
+    if(*((int*) DS_QueueBack(que, &val)) != 5) failed++;
+    DS_QueueDeallocate(que);
+    return failed;
+}
+
+
 int main() {
-    RunTests(13, (struct Test[13]) {
+    RunTests(14, (struct Test[14]) {
         (struct Test) {NewDeleteZero, "NewDeleteZero"},
         (struct Test) {NewDeleteMany, "NewDeleteMany"},
         (struct Test) {ResizeBiggerEmpty, "ResizeBiggerEmpty"},
@@ -430,5 +460,6 @@ int main() {
         (struct Test) {ResizeSmallerFull, "ResizeSmallerFull"},
         (struct Test) {ResizeHalfFullBigger, "ResizeHalfFullBigger"},
         (struct Test) {ResizeHalfFullSmaller, "ResizeHalfFullSmaller"},
+        (struct Test) {AutoResize, "AutoResize"},
     });
 }

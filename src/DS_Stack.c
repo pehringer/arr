@@ -99,14 +99,14 @@ void* DS_StackPush(void *stack, void *source) {
     struct DS_Stack *s = (struct DS_Stack*) stack - 1;
     // REMOVE if block to remove auto reallocation.
     if(s->length == s->capacity) {
-        s = DS_StackReallocate(s, s->length * 2);
-        stack = s + 1;
+        stack = DS_StackReallocate(stack, s->length * 2);
+        s = (struct DS_Stack*) stack - 1;
     }
     // REMOVE ^^^^^^^^
     s->length++;
     s->top += s->size;
     memcpy(stack + s->top, source, s->size);
-    return s;
+    return stack;
 }
 
 void* DS_StackTop(void *stack, void *destination) {

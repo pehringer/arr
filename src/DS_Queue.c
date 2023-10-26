@@ -153,8 +153,8 @@ void* DS_QueuePush(void *queue, void *source) {
     struct DS_Queue *q = (struct DS_Queue*) queue - 1;
     // REMOVE if block to remove auto reallocation.
     if(q->length == q->capacity) {
-        q = DS_QueueReallocate(q, q->length * 2);
-        queue = q + 1;
+        queue = DS_QueueReallocate(queue, q->length * 2);
+        q = (struct DS_Queue*) queue - 1;
     }
     // REMOVE ^^^^^^^^
     q->back += q->size;
@@ -163,5 +163,5 @@ void* DS_QueuePush(void *queue, void *source) {
     }
     q->length++;
     memcpy(queue + q->back, source, q->size);
-    return q;
+    return queue;
 }
