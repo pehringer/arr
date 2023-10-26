@@ -61,11 +61,6 @@ void* DS_ArrayReallocate(void *array, int length) {
     return a + 1;
 }
 
-size_t DS_ArraySize(void *array) {
-    struct DS_Array *a = (struct DS_Array*) array - 1;
-    return a->size;
-}
-
 void DS_ArrayCopy(void *array, int start, int stop, const void *source) {
     struct DS_Array *a = (struct DS_Array*) array - 1;
     array = array + start * a->size;

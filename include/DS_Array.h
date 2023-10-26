@@ -14,8 +14,6 @@ int DS_ArrayLength(void *array);
 
 void* DS_ArrayReallocate(void *array, int length);
 
-size_t DS_ArraySize(void *array);
-
 //Accessors
 
 void DS_ArrayCopy(void *array, int start, int stop, const void *source);

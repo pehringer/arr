@@ -6,16 +6,14 @@ int IntCmp(const void *l, const void *r) {
     return *((int*) l) - *((int*) r);
 }
 
-int NewDeleteLengthSize(void) {
+int NewDeleteLength(void) {
     int failed = 0;
     int *test = DS_ArrayAllocate(sizeof(int), 0, IntCmp);
     if(test == 0) failed++;
-    if(DS_ArraySize(test) != sizeof(int)) failed++;
     if(DS_ArrayLength(test) != 0) failed++;
     DS_ArrayDeallocate(test);
     test = DS_ArrayAllocate(sizeof(int), 4, IntCmp);
     if(test == 0) failed++;
-    if(DS_ArraySize(test) != sizeof(int)) failed++;
     if(DS_ArrayLength(test) != 4) failed++;
     DS_ArrayDeallocate(test);
     return failed;
@@ -279,7 +277,7 @@ int Sort(void) {
 
 int main() {
     RunTests(9, (struct Test[9]) {
-        (struct Test) {NewDeleteLengthSize, "NewDeleteLengthSize"},
+        (struct Test) {NewDeleteLength, "NewDeleteLength"},
         (struct Test) {Resize, "Resize"},
         (struct Test) {Copy, "Copy"},
         (struct Test) {Fill, "Fill"},
