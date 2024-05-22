@@ -292,30 +292,26 @@ int ResizeSmallerNonEmpty() {
     return failed;
 }
 
-int AutoResize() {
+int PushPopTopNull() {
     int val, failed = 0;
     int *stk = DS_StackAllocate(sizeof(int), 2);
     val = 0;
-    stk = DS_StackPush(stk, &val);
+    DS_StackPush(stk, &val);
     val = 1;
-    stk = DS_StackPush(stk, &val);
+    DS_StackPush(stk, &val);
     val = 2;
-    stk = DS_StackPush(stk, &val);
-    val = 3;
-    stk = DS_StackPush(stk, &val);
-    val = 4;
-    stk = DS_StackPush(stk, &val);
-    val = 5;
-    stk = DS_StackPush(stk, &val);
-    if(DS_StackLength(stk) != 6) failed++;
-    if(DS_StackCapacity(stk) != 8) failed++;
+    if(DS_StackPush(stk, &val) != 0) ++failed;
+    if(DS_StackLength(stk) != 2) failed++;
+    if(DS_StackCapacity(stk) != 2) failed++;
+    if(*((int*) DS_StackTop(stk, &val)) != 1) failed++;
     if(stk[0] != 0) failed++;
     if(stk[1] != 1) failed++;
-    if(stk[2] != 2) failed++;
-    if(stk[3] != 3) failed++;
-    if(stk[4] != 4) failed++;
-    if(stk[5] != 5) failed++;
-    if(*((int*) DS_StackTop(stk, &val)) != 5) failed++;
+    DS_StackPop(stk, &val);
+    DS_StackPop(stk, &val);
+    if(DS_StackPop(stk, &val) != 0) ++failed;
+    if(DS_StackLength(stk) != 0) failed++;
+    if(DS_StackCapacity(stk) != 2) failed++;
+    if(DS_StackTop(stk, &val) != 0) failed++;
     DS_StackDeallocate(stk);
     return failed;
 }
@@ -335,7 +331,7 @@ int main() {
         (struct Test) {ResizeSmallerFull, "ResizeSmallerFull"},
         (struct Test) {ResizeBiggerNonEmpty, "ResizeBiggerNonEmpty"},
         (struct Test) {ResizeSmallerNonEmpty, "ResizeSmallerNonEmpty"},
-        (struct Test) {AutoResize, "AutoResize"},
+        (struct Test) {PushPopTopNull, "PushPopTopNull"},
     });
     return 0;
 }

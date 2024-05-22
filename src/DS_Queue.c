@@ -151,10 +151,9 @@ void* DS_QueuePop(void *queue, void *destination) {
 
 void* DS_QueuePush(void *queue, void *source) {
     struct DS_Queue *q = (struct DS_Queue*) queue - 1;
-    // REMOVE if block to remove auto reallocation.
+    //REMOVE if block to remove out of bounds check.
     if(q->length == q->capacity) {
-        queue = DS_QueueReallocate(queue, q->length * 2);
-        q = (struct DS_Queue*) queue - 1;
+        return 0;
     }
     // REMOVE ^^^^^^^^
     q->back += q->size;

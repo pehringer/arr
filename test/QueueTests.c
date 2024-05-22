@@ -415,7 +415,7 @@ int ResizeHalfFullSmaller() {
     return failed;
 }
 
-int AutoResize() {
+int PushPopFrontBackNull() {
     int val, failed = 0;
     int *que = DS_QueueAllocate(sizeof(int), 2);
     val = 0;
@@ -423,23 +423,20 @@ int AutoResize() {
     val = 1;
     que = DS_QueuePush(que, &val);
     val = 2;
-    que = DS_QueuePush(que, &val);
-    val = 3;
-    que = DS_QueuePush(que, &val);
-    val = 4;
-    que = DS_QueuePush(que, &val);
-    val = 5;
-    que = DS_QueuePush(que, &val);
-    if(DS_QueueLength(que) != 6) failed++;
-    if(DS_QueueCapacity(que) != 8) failed++;
+    if(DS_QueuePush(que, &val) != 0) ++failed;
+    if(DS_QueueLength(que) != 2) failed++;
+    if(DS_QueueCapacity(que) != 2) failed++;
+    if(*((int*) DS_QueueFront(que, &val)) != 0) failed++;
+    if(*((int*) DS_QueueBack(que, &val)) != 1) failed++;
     if(que[0] != 0) failed++;
     if(que[1] != 1) failed++;
-    if(que[2] != 2) failed++;
-    if(que[3] != 3) failed++;
-    if(que[4] != 4) failed++;
-    if(que[5] != 5) failed++;
-    if(*((int*) DS_QueueFront(que, &val)) != 0) failed++;
-    if(*((int*) DS_QueueBack(que, &val)) != 5) failed++;
+    DS_QueuePop(que, &val);
+    DS_QueuePop(que, &val);
+    if(DS_QueuePop(que, &val) != 0) ++failed;
+    if(DS_QueueLength(que) != 0) failed++;
+    if(DS_QueueCapacity(que) != 2) failed++;
+    if(DS_QueueFront(que, &val) != 0) failed++;
+    if(DS_QueueBack(que, &val) != 0) failed++;
     DS_QueueDeallocate(que);
     return failed;
 }
@@ -460,6 +457,6 @@ int main() {
         (struct Test) {ResizeSmallerFull, "ResizeSmallerFull"},
         (struct Test) {ResizeHalfFullBigger, "ResizeHalfFullBigger"},
         (struct Test) {ResizeHalfFullSmaller, "ResizeHalfFullSmaller"},
-        (struct Test) {AutoResize, "AutoResize"},
+        (struct Test) {PushPopFrontBackNull, "PushPopFrontBackNull"},
     });
 }

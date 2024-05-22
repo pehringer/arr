@@ -97,10 +97,9 @@ void* DS_StackPop(void* stack, void *destination) {
 
 void* DS_StackPush(void *stack, void *source) {
     struct DS_Stack *s = (struct DS_Stack*) stack - 1;
-    // REMOVE if block to remove auto reallocation.
+    //REMOVE if block to remove out of bounds check.
     if(s->length == s->capacity) {
-        stack = DS_StackReallocate(stack, s->length * 2);
-        s = (struct DS_Stack*) stack - 1;
+        return 0;
     }
     // REMOVE ^^^^^^^^
     s->length++;
