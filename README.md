@@ -1,6 +1,6 @@
 Library builds on top of the C Standared Library to provide generic data structures.
 
-[here](#ds_arrayallocate)
+[```DS_ArrayAllocate(size_t size, int length, int (*compare)(const void*, const void*))```](#ds_arrayallocate)
 
 # DS_ArrayAllocate
 ```
