@@ -1,7 +1,16 @@
 Library builds on top of the C Standared Library to provide generic data structures.
-
-[```DS_ArrayAllocate(size_t size, int length, int (*compare)(const void*, const void*))```](#ds_arrayallocate)
-
+#### DS_Array  
+[```void* DS_ArrayAllocate(size_t size, int length, int (*compare)(const void*, const void*))```](#ds_arrayallocate)  
+[```void  DS_ArrayDeallocate(void *array)```](#ds_arraydeallocate)  
+[```int   DS_ArrayLength(void *array)```](#ds_arraylength)  
+[```void* DS_ArrayReallocate(void *array, int length)```](#ds_arrayreallocate)  
+[```void  DS_ArrayCopy(void *array, int start, int stop, const void *source)```](#ds_arraycopy)  
+[```void  DS_ArrayFill(void *array, int start, int stop, const void *source)```](#ds_arrayfill)  
+[```int   DS_ArrayMax(void *array, int start, int stop)```](#ds_arraymax)  
+[```int   DS_ArrayMin(void *array, int start, int stop)```](#ds_arraymin)  
+[```int   DS_ArrayCount(void *array, int start, int stop, const void *target)```](#ds_arraycount)  
+[```int   DS_ArrayIndex(void *array, int start, int stop, const void *target)```](#ds_arrayindex)  
+[```void  DS_ArraySort(void *array, int start, int stop)```](#ds_arraysort)  
 # DS_ArrayAllocate
 ```
 void* DS_ArrayAllocate(size_t size, int length, int (*compare)(const void*, const void*))
@@ -12,7 +21,7 @@ void DS_ArrayDeallocate(void *array)
 ```
 # DS_ArrayLength
 ```
-int DS_ArrayLength(void *array);
+int DS_ArrayLength(void *array)
 ```
 # DS_ArrayReallocate
 ```
