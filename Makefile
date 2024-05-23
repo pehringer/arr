@@ -1,10 +1,10 @@
 make: build test
 
 build:
-	gcc -shared -lm -I ./include ./src/arr.c -o ./bin/arr.so
+	gcc -shared -lm -I include src/arr.c -o arr.so
 
 test:
-	gcc -fsanitize=undefined -I ./include ./src/arr.c ./src/test.c ./src/testArr.c -o ./bin/testArr
-	./bin/testArr
-	rm ./bin/testArr
+	gcc -fsanitize=undefined -I include src/arr.c src/test.c src/testArr.c -o testArr.bin
+	./testArr.bin
+	rm testArr.bin
 
