@@ -1,4 +1,4 @@
-#include "Test.h"
+#include "test.h"
 
 void RunTests(int number, struct Test *tests) {
     int failed = 0;

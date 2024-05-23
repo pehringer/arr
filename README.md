@@ -1,57 +1,57 @@
 Library builds on top of the C Standared Library to provide generic data structures.
-#### DS_Array  
-[```void* DS_ArrayAllocate(size_t size, int length, int (*compare)(const void*, const void*))```](#ds_arrayallocate)  
-[```void  DS_ArrayDeallocate(void *array)```](#ds_arraydeallocate)  
-[```int   DS_ArrayLength(void *array)```](#ds_arraylength)  
-[```void* DS_ArrayReallocate(void *array, int length)```](#ds_arrayreallocate)  
-[```void  DS_ArrayCopy(void *array, int start, int stop, const void *source)```](#ds_arraycopy)  
-[```void  DS_ArrayFill(void *array, int start, int stop, const void *source)```](#ds_arrayfill)  
-[```int   DS_ArrayMax(void *array, int start, int stop)```](#ds_arraymax)  
-[```int   DS_ArrayMin(void *array, int start, int stop)```](#ds_arraymin)  
-[```int   DS_ArrayCount(void *array, int start, int stop, const void *target)```](#ds_arraycount)  
-[```int   DS_ArrayIndex(void *array, int start, int stop, const void *target)```](#ds_arrayindex)  
-[```void  DS_ArraySort(void *array, int start, int stop)```](#ds_arraysort)  
-# DS_ArrayAllocate
+  
+[```void* arr_New(size_t size, int length, int (*compare)(const void*, const void*))```](#arr_New)  
+[```void  arr_Delete(void *array)```](#arr_Delete)  
+[```int   arr_Length(void *array)```](#arr_Length)  
+[```void* arr_Resize(void *array, int length)```](#arr_Resize)  
+[```void  arr_Copy(void *array, int start, int stop, const void *source)```](#arr_Copy)  
+[```void  arr_Fill(void *array, int start, int stop, const void *source)```](#arr_Fill)  
+[```int   arr_Max(void *array, int start, int stop)```](#arr_Max)  
+[```int   arr_Min(void *array, int start, int stop)```](#arr_Min)  
+[```int   arr_Count(void *array, int start, int stop, const void *target)```](#arr_Count)  
+[```int   arr_Index(void *array, int start, int stop, const void *target)```](#arr_Index)  
+[```void  arr_Sort(void *array, int start, int stop)```](#arr_Sort)  
+# arr_New
 ```
-void* DS_ArrayAllocate(size_t size, int length, int (*compare)(const void*, const void*))
+void* arr_New(size_t size, int length, int (*compare)(const void*, const void*))
 ```
-# DS_ArrayDeallocate
+# arr_Delete
 ```
-void DS_ArrayDeallocate(void *array)
+void arr_Delete(void *array)
 ```
-# DS_ArrayLength
+# arr_Length
 ```
-int DS_ArrayLength(void *array)
+int arr_Length(void *array)
 ```
-# DS_ArrayReallocate
+# arr_Resize
 ```
-void* DS_ArrayReallocate(void *array, int length)
+void* arr_Resize(void *array, int length)
 ```
-# DS_ArrayCopy
+# arr_Copy
 ```
-void DS_ArrayCopy(void *array, int start, int stop, const void *source)
+void arr_Copy(void *array, int start, int stop, const void *source)
 ```
-# DS_ArrayFill
+# arr_Fill
 ```
-void DS_ArrayFill(void *array, int start, int stop, const void *source)
+void arr_Fill(void *array, int start, int stop, const void *source)
 ```
-# DS_ArrayMax
+# arr_Max
 ```
-int DS_ArrayMax(void *array, int start, int stop)
+int arr_Max(void *array, int start, int stop)
 ```
-# DS_ArrayMin
+# arr_Min
 ```
-int DS_ArrayMin(void *array, int start, int stop)
+int arr_Min(void *array, int start, int stop)
 ```
-# DS_ArrayCount
+# arr_Count
 ```
-int DS_ArrayCount(void *array, int start, int stop, const void *target)
+int arr_Count(void *array, int start, int stop, const void *target)
 ```
-# DS_ArrayIndex
+# arr_Index
 ```
-int DS_ArrayIndex(void *array, int start, int stop, const void *target)
+int arr_Index(void *array, int start, int stop, const void *target)
 ```
-# DS_ArraySort
+# arr_Sort
 ```
-void DS_ArraySort(void *array, int start, int stop)
+void arr_Sort(void *array, int start, int stop)
 ```
