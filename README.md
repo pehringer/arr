@@ -1,4 +1,4 @@
-Library builds on top of the C Standared Library to provide generic data structures.
+Library that builds on top of the C Standared Library to provide generic resizable arrays.
   
 [```void* arr_New(size_t size, int length, int (*compare)(const void*, const void*))```](#arr_New)  
 [```void  arr_Delete(void *array)```](#arr_Delete)  
