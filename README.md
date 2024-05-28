@@ -1,57 +1,27 @@
 Library that builds on top of the C Standared Library to provide generic resizable arrays.
   
-[```void* arr_New(size_t size, int length, int (*compare)(const void*, const void*))```](#arr_New)  
-[```void  arr_Delete(void *array)```](#arr_Delete)  
-[```int   arr_Length(void *array)```](#arr_Length)  
-[```void* arr_Resize(void *array, int length)```](#arr_Resize)  
-[```void  arr_Copy(void *array, int start, int stop, const void *source)```](#arr_Copy)  
-[```void  arr_Fill(void *array, int start, int stop, const void *source)```](#arr_Fill)  
-[```int   arr_Max(void *array, int start, int stop)```](#arr_Max)  
-[```int   arr_Min(void *array, int start, int stop)```](#arr_Min)  
-[```int   arr_Count(void *array, int start, int stop, const void *target)```](#arr_Count)  
-[```int   arr_Index(void *array, int start, int stop, const void *target)```](#arr_Index)  
-[```void  arr_Sort(void *array, int start, int stop)```](#arr_Sort)  
-# arr_New
+[```void* arr_Init(size_t len, size_t size)```](#arr_Init)  
+[```void arr_Free(void *arr)```](#arr_Free)  
+[```size_t arr_Len(const void *arr)```](#arr_Len)  
+[```size_t arr_Size(const void *arr)```](#arr_Size)  
+[```void* arr_App(void *arr, const void *src, size_t len)```](#arr_App)   
+# arr_Init
 ```
-void* arr_New(size_t size, int length, int (*compare)(const void*, const void*))
+void* arr_Init(size_t len, size_t size)
 ```
-# arr_Delete
+# arr_Free
 ```
-void arr_Delete(void *array)
+void arr_Free(void *arr)
 ```
-# arr_Length
+# arr_Len
 ```
-int arr_Length(void *array)
+size_t arr_Len(const void *arr)
 ```
-# arr_Resize
+# arr_Size
 ```
-void* arr_Resize(void *array, int length)
+size_t arr_Size(const void *arr)
 ```
-# arr_Copy
+# arr_App
 ```
-void arr_Copy(void *array, int start, int stop, const void *source)
-```
-# arr_Fill
-```
-void arr_Fill(void *array, int start, int stop, const void *source)
-```
-# arr_Max
-```
-int arr_Max(void *array, int start, int stop)
-```
-# arr_Min
-```
-int arr_Min(void *array, int start, int stop)
-```
-# arr_Count
-```
-int arr_Count(void *array, int start, int stop, const void *target)
-```
-# arr_Index
-```
-int arr_Index(void *array, int start, int stop, const void *target)
-```
-# arr_Sort
-```
-void arr_Sort(void *array, int start, int stop)
+void* arr_App(void *arr, const void *src, size_t len)
 ```
