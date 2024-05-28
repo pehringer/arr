@@ -1,37 +1,22 @@
 #ifndef ARR_H
 #define ARR_H
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
+#include <stddef.h>
 
-//Allocation And Configuration
+void* arr_Init(size_t len, size_t size);
 
-void* arr_New(size_t size, int length, int (*compare)(const void*, const void*));
+void arr_Free(void *arr);
 
-void arr_Delete(void *array);
+size_t arr_Len(const void *arr);
 
-int arr_Length(void *array);
+size_t arr_Size(const void *arr);
 
-void* arr_Resize(void *array, int length);
+void* arr_App(void *arr, const void *src, size_t len);
 
-//Setters
-
-void arr_Copy(void *array, int start, int stop, const void *source);
-
-void arr_Fill(void *array, int start, int stop, const void *source);
-
-//Search
-
-int arr_Max(void *array, int start, int stop);
-
-int arr_Min(void *array, int start, int stop);
-
-int arr_Count(void *array, int start, int stop, const void *target);
-
-int arr_Index(void *array, int start, int stop, const void *target);
-
-//Sort
-
-void arr_Sort(void *array, int start, int stop);
+int arr_Find(const void *arr, const void *src);
 
 #endif

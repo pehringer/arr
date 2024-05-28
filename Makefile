@@ -1,10 +1,8 @@
-make: build test
-
 build:
-	gcc -shared -lm -I include src/arr.c -o arr.so
+	gcc -fPIC -shared -I include src/arr.c -o arr.so
 
-test:
-	gcc -fsanitize=undefined -I include src/arr.c src/test.c src/testArr.c -o testArr.bin
-	./testArr.bin
-	rm testArr.bin
+test: build
+	gcc -Wl,-rpath=. -I include -L . src/arr.c tests/tests.c -o tests.bin
+	./tests.bin
+	rm tests.bin
 
