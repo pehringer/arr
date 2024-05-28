@@ -17,6 +17,4 @@ size_t arr_Size(const void *arr);
 
 void* arr_App(void *arr, const void *src, size_t len);
 
-int arr_Find(const void *arr, const void *src);
-
 #endif

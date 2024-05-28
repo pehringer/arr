@@ -48,19 +48,6 @@ void* arr_App(void *arr, const void *src, size_t len) {
     return data;
 }
 
-int arr_Find(const void *arr, const void *src) {
-    size_t *head = (size_t*) ((char*) arr - ARR_SIZE);
-    char *end = (char*) arr + head[0] * head[1];
-    char *cur = (char*) arr;
-    while (cur < end && memcmp(cur, src, head[1])) {
-        cur += head[1];
-    }
-    if (cur == end) {
-        return -1;
-    }
-    return (cur - (char*) arr) / head[1];
-}
-
 
 
 
