@@ -6,7 +6,7 @@ This library offers simple dynamic arrays that are:
 - Lightweight (less than 50 lines of source code) 
 - Generic (can hold any kind of data)
 - Portable (only uses the C standard library)
-- Performant (memory aligned elements and small headers)
+- Performant (memory aligned elements and small header)
 
 # arr_Init
 ```
