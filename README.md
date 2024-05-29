@@ -1,4 +1,13 @@
-Library that builds on top of the C Standared Library to provide generic resizable arrays.
+Tired of writing the same old allocation and reallocation code whenever you want a dynamic array in C?
+Sick of having a separate variable to keep track of your array's length?
+This library offers simple dynamic arrays that are:
+- Easy to use (behaves like normal a array)
+- Intuitive (library only has five functions)
+- Lightweight (less than 40 lines of source code) 
+- Generic (can hold any kind of data)
+- Portable (only uses the C standard library)
+- Performant (memory aligned elements and small headers)
+
   
 [```void* arr_Init(size_t len, size_t size)```](#arr_Init)  
 [```void arr_Free(void *arr)```](#arr_Free)  
