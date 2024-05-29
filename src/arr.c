@@ -3,8 +3,7 @@
 //Malloc will always return a pointer that is aligned for any data type. Since
 //The header is stored at the beginning of the allocation we want to keep this
 //universal alignment.
-const size_t ARR_HEAD_SIZE =
-    ceil((sizeof(size_t) * 2.0) / sizeof(max_align_t)) * sizeof(max_align_t);
+const size_t ARR_HEAD_SIZE = ceil((sizeof(size_t) * 2.0) / sizeof(max_align_t)) * sizeof(max_align_t);
 
 void* arr_Init(size_t len, size_t size) {
     size_t *head = (size_t*) malloc(ARR_HEAD_SIZE + len * size);
