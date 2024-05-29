@@ -3,7 +3,7 @@ Sick of having a separate variable to keep track of your array's length?
 This library offers simple dynamic arrays that are:
 - Easy to use (behaves like normal a array)
 - Intuitive (library only has five functions)
-- Lightweight (less than 40 lines of source code) 
+- Lightweight (less than 50 lines of source code) 
 - Generic (can hold any kind of data)
 - Portable (only uses the C standard library)
 - Performant (memory aligned elements and small headers)
