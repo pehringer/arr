@@ -7,18 +7,13 @@ This library offers simple dynamic arrays that are:
 - Generic (can hold any kind of data)
 - Portable (only uses the C standard library)
 - Performant (memory aligned elements and small header)
-### Contents
-- [```void* arr_Init(size_t len, size_t size)```](#void-arr_initsize_t-len-size_t-size)
-- [```void arr_Free(void *arr)```](#void-arr_freevoid-arr)
-- [```size_t arr_Len(const void *arr)```](#size_t-arr_lenconst-void-arr)
-- [```size_t arr_Size(const void *arr)```](#size_t-arr_sizeconst-void-arr)
-- [```void* arr_App(void *arr, const void *src, size_t len)```](#void-arr_appvoid-arr-const-void-src-size_t-len)
 ## ```void* arr_Init(size_t len, size_t size)```
-
+Allocates and returns array
 ## ```void arr_Free(void *arr)```
-
+Deallocated array (arr).
 ## ```size_t arr_Len(const void *arr)```
- 
+Returns arrays (arr) number of elements.
 ## ```size_t arr_Size(const void *arr)```
- 
+Returns arrays (arr) individual element size.
 ## ```void* arr_App(void *arr, const void *src, size_t len)```
+Reallocates array (arr)
