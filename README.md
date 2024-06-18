@@ -1,30 +1,24 @@
 Tired of writing the same old allocation and reallocation code whenever you want a dynamic array in C?
 Sick of having a separate variable to keep track of your array's length?
 This library offers simple dynamic arrays that are:
-- Easy to use (behaves like normal a array)
-- Intuitive (library only has five functions)
+- Easy to use  (library only has five functions)
+- Intuitive (behaves like normal a array)
 - Lightweight (less than 50 lines of source code) 
 - Generic (can hold any kind of data)
 - Portable (only uses the C standard library)
 - Performant (memory aligned elements and small header)
+### Contents
+- [```void* arr_Init(size_t len, size_t size)```](#void-arr_initsize_t-len-size_t-size)
+- [```void arr_Free(void *arr)```](#void-arr_freevoid-arr)
+- [```size_t arr_Len(const void *arr)```](#size_t-arr_lenconst-void-arr)
+- [```size_t arr_Size(const void *arr)```](#size_t-arr_sizeconst-void-arr)
+- [```void* arr_App(void *arr, const void *src, size_t len)```](#void-arr_appvoid-arr-const-void-src-size_t-len)
+## ```void* arr_Init(size_t len, size_t size)```
 
-# arr_Init
-```
-void* arr_Init(size_t len, size_t size)
-```
-# arr_Free
-```
-void arr_Free(void *arr)
-```
-# arr_Len
-```
-size_t arr_Len(const void *arr)
-```
-# arr_Size
-```
-size_t arr_Size(const void *arr)
-```
-# arr_App
-```
-void* arr_App(void *arr, const void *src, size_t len)
-```
+## ```void arr_Free(void *arr)```
+
+## ```size_t arr_Len(const void *arr)```
+ 
+## ```size_t arr_Size(const void *arr)```
+ 
+## ```void* arr_App(void *arr, const void *src, size_t len)```
