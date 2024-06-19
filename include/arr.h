@@ -1,11 +1,10 @@
 #ifndef ARR_H
 #define ARR_H
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include <string.h>
 #include <math.h>
-#include <stddef.h>
 
 extern const size_t ARR_HEAD_SIZE;
 
