@@ -40,7 +40,7 @@ void* arr_App(void *arr, const void *src, size_t len) {
         return 0;
     }
     char *data = (char*) head + ARR_HEAD_SIZE;
-    memcpy(data + (head[0] - len) * head[1], src, head[0] * head[1]);
+    memcpy(data + (head[0] - len) * head[1], src, len * head[1]);
     return data;
 }
 
