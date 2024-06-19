@@ -1,12 +1,25 @@
+# arr - Array
 Tired of writing the same old allocation and reallocation code whenever you want a dynamic array in C?
 Sick of having a separate variable to keep track of your array's length?
 This library offers simple dynamic arrays that are:
 - Easy to use  (library only has five functions)
+  + 1
+  + 2
+  + 3
+  + 4
+  + 5
 - Intuitive (behaves like normal a array)
 - Lightweight (less than 50 lines of source code) 
 - Generic (can hold any kind of data)
 - Portable (only uses the C standard library)
 - Performant (memory aligned elements and small header)
+  + Memory Diagram:
+    ```
+    ________________________________________________________
+    | HEADER | ALIGNMENT PADDING | 0 | 1 | 2 |  . . .  | N |
+    |________|___________________|___|___|___|_________|___|
+    
+    ```
 ## Example Code
 Compute factorial using a dynamic array:
 ```
@@ -28,7 +41,7 @@ int factorial(int number) {
 }
 
 int main(void) {
-  printf("12! = %d\n", factorial(12));
+  printf("%d\n", factorial(12));
   return 0;
 }
 ```
