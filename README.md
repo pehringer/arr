@@ -22,7 +22,9 @@ This library offers simple dynamic arrays that are:
     ________________________________________________________
     | HEADER | ALIGNMENT PADDING | 0 | 1 | 2 |  . . .  | N |
     |________|___________________|___|___|___|_________|___|
-    
+                                 ^
+                                 |
+    arr_Init / arr_App return a pointer to the first element
     ```
 # Example Code
 Compute factorial using a dynamic array:
