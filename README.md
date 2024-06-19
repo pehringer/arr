@@ -3,11 +3,11 @@ Tired of writing the same old allocation and reallocation code whenever you want
 Sick of having a separate variable to keep track of your array's length?
 This library offers simple dynamic arrays that are:
 - Easy to use  (library only has five functions)
-  + 1
-  + 2
-  + 3
-  + 4
-  + 5
+  + [```void* arr_Init(size_t len, size_t size)```](#void-arr_initsize_t-len-size_t-size)
+  + [```void arr_Free(void *arr)```](#void-arr_freevoid-arr)
+  + [```size_t arr_Len(const void *arr)```](#size_t-arr_lenconst-void-arr)
+  + [```size_t arr_Size(const void *arr)```](#size_t-arr_sizeconst-void-arr)
+  + [```void* arr_App(void *arr, const void *src, size_t len)```](#void-arr_appvoid-arr-const-void-src-size_t-len)
 - Intuitive (behaves like normal a array)
 - Lightweight (less than 50 lines of source code) 
 - Generic (can hold any kind of data)
