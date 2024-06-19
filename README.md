@@ -24,7 +24,7 @@ This library offers simple dynamic arrays that are:
     |________|___________________|___|___|___|_________|___|
     
     ```
-## Example Code
+# Example Code
 Compute factorial using a dynamic array:
 ```
 #include <stdio.h>
@@ -49,24 +49,30 @@ int main(void) {
   return 0;
 }
 ```
-## ```void* arr_Init(size_t len, size_t size)```
+# Library Functions
+---
+### ```void* arr_Init(size_t len, size_t size)```
 Allocates and returns array.
 NULL returned if failed to allocate. 
 - ```len``` length of array.
 - ```size``` size of data type.
-## ```void arr_Free(void *arr)```
+---
+### ```void arr_Free(void *arr)```
 Deallocates array.
 - ```arr``` array returned by arr_Init
-## ```size_t arr_Len(const void *arr)```
+---
+### ```size_t arr_Len(const void *arr)```
 Returns arrays length.
 - ```arr``` array returned by arr_Init
-## ```size_t arr_Size(const void *arr)```
+---
+### ```size_t arr_Size(const void *arr)```
 Returns arrays data type size.
 - ```arr``` array returned by arr_Init
-## ```void* arr_App(void *arr, const void *src, size_t len)```
+---
+### ```void* arr_App(void *arr, const void *src, size_t len)```
 Reallocates and returns array with source elements appended.
 NULL returned if failed to reallocate.
 - ```arr``` array returned by arr_Init
 - ```src``` source array to be copied
 - ```len``` length of src
-
+---
