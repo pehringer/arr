@@ -49,6 +49,13 @@ int main(void) {
   return 0;
 }
 ```
+Compile and execute:
+```
+$ gcc -I ./arr/include ./arr/arr.so main.c
+$ ./a.out
+(bytes used: 44)
+479001600
+```
 # Library Functions
 ---
 ### ```void* arr_Init(size_t len, size_t size)```
