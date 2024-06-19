@@ -7,9 +7,30 @@ This library offers simple dynamic arrays that are:
 - Generic (can hold any kind of data)
 - Portable (only uses the C standard library)
 - Performant (memory aligned elements and small header)
-## Example code
+## Example Code
+Compute factorial using a dynamic array:
 ```
+#include <stdio.h>
+#include "arr.h"
 
+int factorial(int number) {
+  int *n = arr_Init(0, sizeof(int));
+  for(int i = 2; i <= number; i++) {
+    n = arr_App(n, &i, 1);
+  }
+  number = 1;
+  for(int i = 0; i < arr_Len(n); i++) {
+    number *= n[i];
+  }
+  printf("(bytes used: %d)\n", arr_Len(n) * arr_Size(n));
+  arr_Free(n);
+  return number;
+}
+
+int main(void) {
+  printf("12! = %d\n", factorial(12));
+  return 0;
+}
 ```
 ## ```void* arr_Init(size_t len, size_t size)```
 Allocates and returns array.
