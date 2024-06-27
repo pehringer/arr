@@ -1,7 +1,7 @@
 # arr - Array
-Tired of writing the same old allocation and reallocation code whenever you want a dynamic array in C?
-Sick of having a separate variable to keep track of your array's length?
-This library offers simple dynamic arrays that are:
+Tired of writing the same old allocation and reallocation code whenever you want to resize arrays in C?
+Sick of having separate variables to keep track of your array's length?
+This library offers arrays that are:
 - Easy to use  (library only has five functions)
   + [```void* arr_Init(size_t len, size_t size)```](#void-arr_initsize_t-len-size_t-size)
   + [```void arr_Free(void *arr)```](#void-arr_freevoid-arr)
@@ -11,6 +11,7 @@ This library offers simple dynamic arrays that are:
 - Intuitive (behaves like normal a array)
 - Lightweight (less than 50 lines of source code) 
 - Generic (can hold any kind of data)
+- Resizable (can grow in length)
 - Portable (only uses the C standard library)
   + ```stdlib.h```
   + ```stddef.h```
