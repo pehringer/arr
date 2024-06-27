@@ -1,4 +1,4 @@
-# arr - Array
+# ***arr*** - ***ARR***ay
 Tired of writing the same old allocation and reallocation code whenever you want to resize arrays in C?
 Sick of having separate variables to keep track of your array's length?
 This library offers arrays that are:
