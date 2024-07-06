@@ -2,21 +2,15 @@
 Tired of writing the same old allocation and reallocation code whenever you want to resize arrays in C?
 Sick of having separate variables to keep track of your array's length?
 This library offers arrays that are:
-- Easy to use  (library only has five functions)
+- Easy to use (library only has five functions)
   + [```void* arr_Init(size_t len, size_t size)```](#void-arr_initsize_t-len-size_t-size)
   + [```void arr_Free(void *arr)```](#void-arr_freevoid-arr)
   + [```size_t arr_Len(const void *arr)```](#size_t-arr_lenconst-void-arr)
   + [```size_t arr_Size(const void *arr)```](#size_t-arr_sizeconst-void-arr)
   + [```void* arr_App(void *arr, const void *src, size_t len)```](#void-arr_appvoid-arr-const-void-src-size_t-len)
+- Generic (can hold any kind of data)
 - Intuitive (behaves like normal a array)
 - Lightweight (less than 50 lines of source code) 
-- Generic (can hold any kind of data)
-- Resizable (can grow in length)
-- Portable (only uses the C standard library)
-  + ```stdlib.h```
-  + ```stddef.h```
-  + ```string.h```
-  + ```math.h```
 - Performant (memory aligned elements and small header)
   + Memory Diagram:
     ```
@@ -27,6 +21,12 @@ This library offers arrays that are:
                                  |
     arr_Init / arr_App return a pointer to the first element
     ```
+- Portable (only uses the C standard library)
+  + ```stdlib.h```
+  + ```stddef.h```
+  + ```string.h```
+  + ```math.h```
+- Resizable (can grow in length)
 # Example Code
 Compute factorial using a dynamic array:
 ```
