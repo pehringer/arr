@@ -13,9 +13,9 @@ This library offers arrays that are:
 - Performant (memory aligned elements and small header)
   + Memory Diagram:
     ```
-    ________________________________________________________
-    | HEADER | ALIGNMENT PADDING | 0 | 1 | 2 |  . . .  | N |
-    |________|___________________|___|___|___|_________|___|
+    ____________________________________________________________
+    | HEADER | ALIGNMENT PADDING | element 0 | ... | element N |
+    |________|___________________|___________|_____|___________|
                                  ^
                                  |
     arr_Init / arr_App return a pointer to the first element
