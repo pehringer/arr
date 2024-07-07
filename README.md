@@ -3,7 +3,7 @@ Tired of writing the same old allocation and reallocation code whenever you want
 Sick of having separate variables to keep track of your array's length?
 This library offers arrays that are:
 - Easy to use (library only has four functions)
-  + [```void* arr_Init(size_t len, size_t size)```](#void-arr_initsize_t-len-size_t-size)
+  + [```void* arr_Init(size_t len, size_t ele)```](#void-arr_initsize_t-len-size_t-ele)
   + [```void arr_Free(void *arr)```](#void-arr_freevoid-arr)
   + [```size_t arr_Len(const void *arr)```](#size_t-arr_lenconst-void-arr)
   + [```void* arr_App(void *arr, const void *src, size_t len)```](#void-arr_appvoid-arr-const-void-src-size_t-len)
@@ -41,7 +41,6 @@ int factorial(int number) {
   for(int i = 0; i < arr_Len(n); i++) {
     number *= n[i];
   }
-  printf("(bytes used: %d)\n", arr_Len(n) * arr_Size(n));
   arr_Free(n);
   return number;
 }
@@ -55,16 +54,15 @@ Compile and execute:
 ```
 $ gcc -I ./arr/include ./arr/arr.so main.c
 $ ./a.out
-(bytes used: 44)
 479001600
 ```
 # Library Functions
 ---
-### ```void* arr_Init(size_t len, size_t size)```
+### ```void* arr_Init(size_t len, size_t ele)```
 Allocates and returns array.
 NULL returned if failed to allocate. 
 - ```len``` length of array.
-- ```size``` size of data type.
+- ```ele``` size of each element.
 ---
 ### ```void arr_Free(void *arr)```
 Deallocates array.
