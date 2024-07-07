@@ -13,11 +13,12 @@ This library offers arrays that are:
 - Performant (memory aligned elements and small header)
   + Memory Diagram:
     ```
-    ____________________________________________________________
-    | HEADER | ALIGNMENT PADDING | element 0 | ... | element N |
-    |________|___________________|___________|_____|___________|
-                                 ^
-                                 |
+    ________________________________________________
+    | ARR    | PADDING   | ELEMENT | ... | ELEMENT |       
+    | HEADER | ALIGNMENT | 0       |     | N       |
+    |________|___________|_________|_____|_________|
+                         ^
+                         |
     arr_Init / arr_App return a pointer to the first element
     ```
 - Portable (only uses the C standard library)
