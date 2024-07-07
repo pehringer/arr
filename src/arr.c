@@ -27,11 +27,6 @@ size_t arr_Len(const void *arr) {
     return head[0];
 }
 
-size_t arr_Size(const void *arr) {
-    size_t *head = (size_t*) ((char*) arr - ARR_HEAD_SIZE);
-    return head[1];
-}
-
 void* arr_App(void *arr, const void *src, size_t len) {
     size_t *head = (size_t*) ((char*) arr - ARR_HEAD_SIZE);
     head[0] += len;

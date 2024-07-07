@@ -14,8 +14,6 @@ void arr_Free(void *arr);
 
 size_t arr_Len(const void *arr);
 
-size_t arr_Size(const void *arr);
-
 void* arr_App(void *arr, const void *src, size_t len);
 
 #endif

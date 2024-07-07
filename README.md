@@ -2,11 +2,10 @@
 Tired of writing the same old allocation and reallocation code whenever you want to resize arrays in C?
 Sick of having separate variables to keep track of your array's length?
 This library offers arrays that are:
-- Easy to use (library only has five functions)
+- Easy to use (library only has four functions)
   + [```void* arr_Init(size_t len, size_t size)```](#void-arr_initsize_t-len-size_t-size)
   + [```void arr_Free(void *arr)```](#void-arr_freevoid-arr)
   + [```size_t arr_Len(const void *arr)```](#size_t-arr_lenconst-void-arr)
-  + [```size_t arr_Size(const void *arr)```](#size_t-arr_sizeconst-void-arr)
   + [```void* arr_App(void *arr, const void *src, size_t len)```](#void-arr_appvoid-arr-const-void-src-size_t-len)
 - Generic (can hold any kind of data)
 - Intuitive (behaves like normal a array)
@@ -73,10 +72,6 @@ Deallocates array.
 ---
 ### ```size_t arr_Len(const void *arr)```
 Returns arrays length.
-- ```arr``` array returned by arr_Init
----
-### ```size_t arr_Size(const void *arr)```
-Returns arrays data type size.
 - ```arr``` array returned by arr_Init
 ---
 ### ```void* arr_App(void *arr, const void *src, size_t len)```
