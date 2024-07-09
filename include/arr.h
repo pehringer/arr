@@ -16,8 +16,4 @@ size_t arr_Len(const void *arr);
 
 void* arr_App(void *arr, const void *src, const size_t len);
 
-/*
-size_t arr_Cpy(void *arr, const void *src, const size_t len);
-*/
-
 #endif

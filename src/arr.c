@@ -38,21 +38,3 @@ void* arr_App(void *arr, const void *src, const size_t len) {
     memcpy(dat + (hdr[0] - len) * hdr[1], src, len * hdr[1]);
     return dat;
 }
-
-/*
-size_t arr_Cpy(void *arr, const void *src, const size_t len) {
-    size_t *hdr = (size_t*) ((char*) arr - SIZEOF_HDR);
-    size_t cpy = len;
-    if(hdr[0] < len) {
-        cpy = hdr[0];
-    }
-    if(cpy > 0) {
-        memcpy(arr, src, cpy * hdr[1]);
-    }
-    return cpy;
-}
-*/
-
-
-
-
