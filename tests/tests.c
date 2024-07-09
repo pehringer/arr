@@ -66,6 +66,15 @@ int zero_len_app_zero(void) {
     a = arr_App(a, v, 0);
     if(arr_Len(a) != 0) return 1;
     arr_Free(a);
+    if(v[0] != 9) return 1;
+    if(v[1] != 8) return 1;
+    if(v[2] != 7) return 1;
+    if(v[3] != 6) return 1;
+    if(v[4] != 5) return 1;
+    if(v[5] != 4) return 1;
+    if(v[6] != 3) return 1;
+    if(v[7] != 2) return 1;
+    if(v[8] != 1) return 1;
     return 0;
 }
 
@@ -85,6 +94,15 @@ int non_zero_len_app_zero(void) {
     if(a[1] != 3) return 1;
     if(a[2] != 5) return 1;
     arr_Free(a);
+    if(v[0] != 9) return 1;
+    if(v[1] != 8) return 1;
+    if(v[2] != 7) return 1;
+    if(v[3] != 6) return 1;
+    if(v[4] != 5) return 1;
+    if(v[5] != 4) return 1;
+    if(v[6] != 3) return 1;
+    if(v[7] != 2) return 1;
+    if(v[8] != 1) return 1;
     return 0;
 }
 
@@ -102,6 +120,15 @@ int zero_len_app_non_zero(void) {
     if(a[2] != 2) return 1;
     if(a[3] != 1) return 1;
     arr_Free(a);
+    if(v[0] != 9) return 1;
+    if(v[1] != 8) return 1;
+    if(v[2] != 7) return 1;
+    if(v[3] != 6) return 1;
+    if(v[4] != 5) return 1;
+    if(v[5] != 4) return 1;
+    if(v[6] != 3) return 1;
+    if(v[7] != 2) return 1;
+    if(v[8] != 1) return 1;
     return 0;
 }
 
@@ -125,8 +152,151 @@ int non_zero_len_app_non_zero(void) {
     if(a[5] != 2) return 1;
     if(a[6] != 1) return 1;
     arr_Free(a);
+    if(v[0] != 9) return 1;
+    if(v[1] != 8) return 1;
+    if(v[2] != 7) return 1;
+    if(v[3] != 6) return 1;
+    if(v[4] != 5) return 1;
+    if(v[5] != 4) return 1;
+    if(v[6] != 3) return 1;
+    if(v[7] != 2) return 1;
+    if(v[8] != 1) return 1;
     return 0;
 }
+
+/*
+int zero_len_cpy_zero(void) {
+    int v[9] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int *a = arr_Init(0, 0);
+    if(arr_Cpy(a, v, 0) != 0) return 1;
+    if(arr_Len(a) != 0) return 1;
+    arr_Free(a);
+    a = arr_Init(0, sizeof(int));
+    if(arr_Cpy(a, v, 0) != 0) return 1;
+    if(arr_Len(a) != 0) return 1;
+    arr_Free(a);
+    if(v[0] != 9) return 1;
+    if(v[1] != 8) return 1;
+    if(v[2] != 7) return 1;
+    if(v[3] != 6) return 1;
+    if(v[4] != 5) return 1;
+    if(v[5] != 4) return 1;
+    if(v[6] != 3) return 1;
+    if(v[7] != 2) return 1;
+    if(v[8] != 1) return 1;
+    return 0;
+}
+
+int non_zero_len_cpy_zero(void) {
+    int v[9] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int *a = arr_Init(9, 0);
+    if(arr_Cpy(a, v, 0) != 0) return 1;
+    if(arr_Len(a) != 9) return 1;
+    arr_Free(a);
+    a = arr_Init(3, sizeof(int));
+    a[0] = 2;
+    a[1] = 3;
+    a[2] = 5;
+    if(arr_Cpy(a, v, 0) != 0) return 1;
+    if(arr_Len(a) != 3) return 1;
+    if(a[0] != 2) return 1;
+    if(a[1] != 3) return 1;
+    if(a[2] != 5) return 1;
+    arr_Free(a);
+    if(v[0] != 9) return 1;
+    if(v[1] != 8) return 1;
+    if(v[2] != 7) return 1;
+    if(v[3] != 6) return 1;
+    if(v[4] != 5) return 1;
+    if(v[5] != 4) return 1;
+    if(v[6] != 3) return 1;
+    if(v[7] != 2) return 1;
+    if(v[8] != 1) return 1;
+    return 0;
+}
+
+int zero_len_cpy_non_zero(void) {
+    int v[9] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int *a = arr_Init(0, 0);
+    if(arr_Cpy(a, v, 9) != 0) return 1;
+    if(arr_Len(a) != 0) return 1;
+    arr_Free(a);
+    a = arr_Init(0, sizeof(int));
+    if(arr_Cpy(a, v, 9) != 0) return 1;
+    if(arr_Len(a) != 0) return 1;
+    arr_Free(a);
+    if(v[0] != 9) return 1;
+    if(v[1] != 8) return 1;
+    if(v[2] != 7) return 1;
+    if(v[3] != 6) return 1;
+    if(v[4] != 5) return 1;
+    if(v[5] != 4) return 1;
+    if(v[6] != 3) return 1;
+    if(v[7] != 2) return 1;
+    if(v[8] != 1) return 1;
+    return 0;
+}
+
+int non_zero_len_cpy_non_zero(void) {
+    int v[9] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int *a = arr_Init(9, 0);
+    if(arr_Cpy(a, v, 9) != 9) return 1;
+    if(arr_Len(a) != 9) return 1;
+    arr_Free(a);
+    a = arr_Init(1, sizeof(int));
+    if(arr_Cpy(a, v, 9) != 1) return 1;
+    if(arr_Len(a) != 1) return 1;
+    if(a[0] != 9) return 1;
+    arr_Free(a);
+    a = arr_Init(5, sizeof(int));
+    if(arr_Cpy(a, v, 9) != 5) return 1;
+    if(arr_Len(a) != 5) return 1;
+    if(a[0] != 9) return 1;
+    if(a[1] != 8) return 1;
+    if(a[2] != 7) return 1;
+    if(a[3] != 6) return 1;
+    if(a[4] != 5) return 1;
+    arr_Free(a);
+    a = arr_Init(9, sizeof(int));
+    if(arr_Cpy(a, v, 9) != 9) return 1;
+    if(arr_Len(a) != 9) return 1;
+    if(a[0] != 9) return 1;
+    if(a[1] != 8) return 1;
+    if(a[2] != 7) return 1;
+    if(a[3] != 6) return 1;
+    if(a[4] != 5) return 1;
+    if(a[5] != 4) return 1;
+    if(a[6] != 3) return 1;
+    if(a[7] != 2) return 1;
+    if(a[8] != 1) return 1;
+    arr_Free(a);
+    a = arr_Init(11, sizeof(int));
+    if(arr_Cpy(a, v, 9) != 9) return 1;
+    if(arr_Len(a) != 11) return 1;
+    if(a[0] != 9) return 1;
+    if(a[1] != 8) return 1;
+    if(a[2] != 7) return 1;
+    if(a[3] != 6) return 1;
+    if(a[4] != 5) return 1;
+    if(a[5] != 4) return 1;
+    if(a[6] != 3) return 1;
+    if(a[7] != 2) return 1;
+    if(a[8] != 1) return 1;
+    if(a[9] != 0) return 1;
+    if(a[10] != 0) return 1;
+    arr_Free(a);
+    if(v[0] != 9) return 1;
+    if(v[1] != 8) return 1;
+    if(v[2] != 7) return 1;
+    if(v[3] != 6) return 1;
+    if(v[4] != 5) return 1;
+    if(v[5] != 4) return 1;
+    if(v[6] != 3) return 1;
+    if(v[7] != 2) return 1;
+    if(v[8] != 1) return 1;
+    return 0;
+}
+*/
 
 int main() {
     RunTests(6, (struct Test[6]) {
@@ -136,6 +306,13 @@ int main() {
         (struct Test) {non_zero_len_app_zero, "non_zero_len_app_zero"},
         (struct Test) {zero_len_app_non_zero, "zero_len_app_non_zero"},
         (struct Test) {non_zero_len_app_non_zero, "non_zero_len_app_non_zero"},
+        /*
+        (struct Test) {zero_len_cpy_zero, "zero_len_cpy_zero"},
+        (struct Test) {non_zero_len_cpy_zero, "non_zero_len_cpy_zero"},
+        (struct Test) {zero_len_cpy_non_zero, "zero_len_cpy_non_zero"},
+        (struct Test) {non_zero_len_cpy_non_zero, "non_zero_len_cpy_non_zero"},
+        */
     });
     return 0;
 }
+

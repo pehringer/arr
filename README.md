@@ -3,10 +3,10 @@ Tired of writing the same old allocation and reallocation code whenever you want
 Sick of having separate variables to keep track of your array's length?
 This library offers arrays that are:
 - Easy to use (library only has four functions)
-  + [```void* arr_Init(size_t len, size_t ele)```](#void-arr_initsize_t-len-size_t-ele)
+  + [```void* arr_Init(const size_t len, const size_t typ)```](#void-arr_initconst-size_t-len-const-size_t-typ)
   + [```void arr_Free(void *arr)```](#void-arr_freevoid-arr)
   + [```size_t arr_Len(const void *arr)```](#size_t-arr_lenconst-void-arr)
-  + [```void* arr_App(void *arr, const void *src, size_t len)```](#void-arr_appvoid-arr-const-void-src-size_t-len)
+  + [```void* arr_App(void *arr, const void *src, size_t len)```](#void-arr_appvoid-arr-const-void-src-const-size_t-len)
 - Generic (can hold any kind of data)
 - Intuitive (behaves like normal a array)
 - Lightweight (less than 50 lines of source code) 
@@ -59,11 +59,11 @@ $ ./a.out
 ```
 # Library Functions
 ---
-### ```void* arr_Init(size_t len, size_t ele)```
+### ```void* arr_Init(const size_t len, const size_t typ)```
 Allocates and returns array.
 NULL returned if failed to allocate. 
 - ```len``` length of array.
-- ```ele``` size of each element.
+- ```typ``` size of element type.
 ---
 ### ```void arr_Free(void *arr)```
 Deallocates array.
@@ -73,7 +73,7 @@ Deallocates array.
 Returns arrays length.
 - ```arr``` array returned by arr_Init
 ---
-### ```void* arr_App(void *arr, const void *src, size_t len)```
+### ```void* arr_App(void *arr, const void *src, const size_t len)```
 Reallocates and returns array with source elements appended.
 NULL returned if failed to reallocate.
 - ```arr``` array returned by arr_Init

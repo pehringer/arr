@@ -8,12 +8,16 @@
 
 extern const size_t ARR_HEAD_SIZE;
 
-void* arr_Init(size_t len, size_t size);
+void* arr_Init(const size_t len, const size_t typ);
 
 void arr_Free(void *arr);
 
 size_t arr_Len(const void *arr);
 
-void* arr_App(void *arr, const void *src, size_t len);
+void* arr_App(void *arr, const void *src, const size_t len);
+
+/*
+size_t arr_Cpy(void *arr, const void *src, const size_t len);
+*/
 
 #endif
