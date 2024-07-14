@@ -6,9 +6,7 @@
 #include <string.h>
 #include <math.h>
 
-extern const size_t ARR_HEAD_SIZE;
-
-void* arr_Init(const size_t len, const size_t typ);
+void* arr_Init(const size_t ele, const size_t len);
 
 void arr_Free(void *arr);
 

@@ -30,17 +30,17 @@ int zero_len_init(void) {
     int *a = arr_Init(0, 0);
     if(arr_Len(a) != 0) return 1;
     arr_Free(a);
-    a = arr_Init(0, sizeof(int));
+    a = arr_Init(sizeof(int), 0);
     if(arr_Len(a) != 0) return 1;
     arr_Free(a);
     return 0;
 }
 
 int non_zero_len_init(void) {
-    int *a = arr_Init(9, 0);
+    int *a = arr_Init(0, 9);
     if(arr_Len(a) != 9) return 1;
     arr_Free(a);
-    a = arr_Init(3, sizeof(int));
+    a = arr_Init(sizeof(int), 3);
     if(arr_Len(a) != 3) return 1;
     if(a[0] != 0) return 1;
     if(a[1] != 0) return 1;
@@ -62,7 +62,7 @@ int zero_len_app_zero(void) {
     a = arr_App(a, 0, 0);
     if(arr_Len(a) != 0) return 1;
     arr_Free(a);
-    a = arr_Init(0, sizeof(int));
+    a = arr_Init(sizeof(int), 0);
     a = arr_App(a, v, 0);
     if(arr_Len(a) != 0) return 1;
     arr_Free(a);
@@ -80,11 +80,11 @@ int zero_len_app_zero(void) {
 
 int non_zero_len_app_zero(void) {
     int v[9] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
-    int *a = arr_Init(9, 0);
+    int *a = arr_Init(0, 9);
     a = arr_App(a, 0, 0);
     if(arr_Len(a) != 9) return 1;
     arr_Free(a);
-    a = arr_Init(3, sizeof(int));
+    a = arr_Init(sizeof(int), 3);
     a[0] = 2;
     a[1] = 3;
     a[2] = 5;
@@ -112,7 +112,7 @@ int zero_len_app_non_zero(void) {
     a = arr_App(a, 0, 9);
     if(arr_Len(a) != 9) return 1;
     arr_Free(a);
-    a = arr_Init(0, sizeof(int));
+    a = arr_Init(sizeof(int), 0);
     a = arr_App(a, v + 5, 4);
     if(arr_Len(a) != 4) return 1;
     if(a[0] != 4) return 1;
@@ -134,11 +134,11 @@ int zero_len_app_non_zero(void) {
 
 int non_zero_len_app_non_zero(void) {
     int v[9] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
-    int *a = arr_Init(9, 0);
+    int *a = arr_Init(0, 9);
     a = arr_App(a, 0, 7);
     if(arr_Len(a) != 16) return 1;
     arr_Free(a);
-    a = arr_Init(3, sizeof(int));
+    a = arr_Init(sizeof(int), 3);
     a[0] = 2;
     a[1] = 3;
     a[2] = 5;

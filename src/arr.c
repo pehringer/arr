@@ -5,15 +5,15 @@
 //universal alignment.
 const size_t SIZEOF_HDR = ceil((sizeof(size_t) * 2.0) / sizeof(max_align_t)) * sizeof(max_align_t);
 
-void* arr_Init(const size_t len, const size_t typ) {
-    size_t *hdr = malloc(SIZEOF_HDR + len * typ);
+void* arr_Init(const size_t ele, const size_t len) {
+    size_t *hdr = malloc(SIZEOF_HDR + len * ele);
     if(hdr == 0) {
         return 0;
     }
     hdr[0] = len;
-    hdr[1] = typ;
+    hdr[1] = ele;
     char *dat = (char*) hdr + SIZEOF_HDR;
-    memset(dat, 0, len * typ);
+    memset(dat, 0, len * ele);
     return dat;
 }
 
