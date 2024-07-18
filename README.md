@@ -1,7 +1,5 @@
 # ***arr*** - ***ARR***ay
-Tired of writing the same old allocation and reallocation code whenever you want to resize arrays in C?
-Sick of having separate variables to keep track of your array's length?
-This library offers arrays that are:
+Tired of writing the same old allocation and reallocation code whenever you want to resize arrays in C? Sick of having separate variables to keep track of your array's length? This library offers arrays with a few extra features bolted on.
 - Easy to use (library only has four functions)
   + [```void* arr_Init(const size_t len, const size_t typ)```](#void-arr_initconst-size_t-len-const-size_t-typ)
   + [```void arr_Free(void *arr)```](#void-arr_freevoid-arr)
@@ -60,22 +58,22 @@ $ ./a.out
 # Library Functions
 ---
 ### ```void* arr_Init(const size_t len, const size_t typ)```
-Allocates and returns array.
-NULL returned if failed to allocate. 
+Allocates and returns array.  
+Returns NULL if allocation failed.  
 - ```len``` length of array.
 - ```typ``` size of element type.
 ---
 ### ```void arr_Free(void *arr)```
-Deallocates array.
+Deallocates array.  
 - ```arr``` array returned by arr_Init
 ---
 ### ```size_t arr_Len(const void *arr)```
-Returns arrays length.
+Returns arrays length.  
 - ```arr``` array returned by arr_Init
 ---
 ### ```void* arr_App(void *arr, const void *src, const size_t len)```
-Reallocates and returns array with source elements appended.
-NULL returned if failed to reallocate.
+Reallocates and returns array with source elements appended.  
+Returns NULL if reallocation failed.  
 - ```arr``` array returned by arr_Init
 - ```src``` source array to be copied
 - ```len``` length of src
