@@ -12,7 +12,7 @@ Tired of writing the same old allocation and reallocation code whenever you want
   + Memory Diagram:
     ```
     ________________________________________________
-    | ARR    | PADDING   | ELEMENT | ... | ELEMENT |       
+    | ARR    | PADDING   | ELEMENT | ... | ELEMENT |
     | STRUCT | ALIGNMENT | 0       |     | N       |
     |________|___________|_________|_____|_________|
                          ^
