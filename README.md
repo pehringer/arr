@@ -8,12 +8,12 @@ Tired of writing the same old allocation and reallocation code whenever you want
 - Generic (can hold any kind of data)
 - Intuitive (behaves like normal a array)
 - Lightweight (less than 50 lines of source code) 
-- Performant (memory aligned elements and small header)
+- Performant (memory aligned elements)
   + Memory Diagram:
     ```
     ________________________________________________
     | ARR    | PADDING   | ELEMENT | ... | ELEMENT |       
-    | HEADER | ALIGNMENT | 0       |     | N       |
+    | STRUCT | ALIGNMENT | 0       |     | N       |
     |________|___________|_________|_____|_________|
                          ^
                          |

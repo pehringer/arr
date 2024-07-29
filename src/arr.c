@@ -1,40 +1,45 @@
 #include "arr.h"
 
+struct Arr {
+    size_t ele;
+    size_t len;
+};
+
 //Malloc will always return a pointer that is aligned for any data type. Since
-//The header is stored at the beginning of the allocation we want to keep this
+//The struct is stored at the beginning of the allocation we want to keep this
 //universal alignment.
-const size_t SIZEOF_HDR = ceil((sizeof(size_t) * 2.0) / sizeof(max_align_t)) * sizeof(max_align_t);
+const size_t PADDED = ceil((float) sizeof(struct Arr) / (float) sizeof(max_align_t)) * sizeof(max_align_t);
 
 void* arr_Init(const size_t ele, const size_t len) {
-    size_t *hdr = malloc(SIZEOF_HDR + len * ele);
-    if(hdr == 0) {
+    struct Arr *a = malloc(PADDED + len * ele);
+    if(a == 0) {
         return 0;
     }
-    hdr[0] = ele;
-    hdr[1] = len;
-    char *dat = (char*) hdr + SIZEOF_HDR;
+    a->ele = ele;
+    a->len = len;
+    char *dat = (char*) a + PADDED;
     memset(dat, 0, len * ele);
     return dat;
 }
 
 void arr_Free(void *arr) {
-    size_t *hdr = (size_t*) ((char*) arr - SIZEOF_HDR);
-    free(hdr);
+    struct Arr *a = (struct Arr*) ((char*) arr - PADDED);
+    free(a);
 }
 
 size_t arr_Len(const void *arr) {
-    size_t *hdr = (size_t*) ((char*) arr - SIZEOF_HDR);
-    return hdr[1];
+    struct Arr *a = (struct Arr*) ((char*) arr - PADDED);
+    return a->len;
 }
 
 void* arr_App(void *arr, const void *src, const size_t len) {
-    size_t *hdr = (size_t*) ((char*) arr - SIZEOF_HDR);
-    hdr[1] += len;
-    hdr = realloc(hdr, SIZEOF_HDR + hdr[1] * hdr[0]);
-    if(hdr == 0) {
+    struct Arr *a = (struct Arr*) ((char*) arr - PADDED);
+    a->len += len;
+    a = realloc(a, PADDED + a->len * a->ele);
+    if(a == 0) {
         return 0;
     }
-    char *dat = (char*) hdr + SIZEOF_HDR;
-    memcpy(dat + (hdr[1] - len) * hdr[0], src, len * hdr[0]);
+    char *dat = (char*) a + PADDED;
+    memcpy(dat + (a->len - len) * a->ele, src, len * a->ele);
     return dat;
 }
