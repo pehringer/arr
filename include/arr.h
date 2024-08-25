@@ -6,12 +6,12 @@
 #include <string.h>
 #include <math.h>
 
-void* arr_Init(const size_t ele, const size_t len);
+void* arr_Create(size_t length, size_t size);
 
-void arr_Free(void *arr);
+void arr_Destroy(void *array);
 
-size_t arr_Len(const void *arr);
+size_t arr_Length(const void *array);
 
-void* arr_App(void *arr, const void *src, const size_t len);
+void* arr_Append(void *array, const void *source, size_t length);
 
 #endif

@@ -1,45 +1,45 @@
 #include "arr.h"
 
-struct Arr {
-    size_t ele;
-    size_t len;
+struct Array {
+    size_t length;
+    size_t size;
 };
 
 //Malloc will always return a pointer that is aligned for any data type. Since
 //The struct is stored at the beginning of the allocation we want to keep this
 //universal alignment.
-const size_t PADDED = ceil((float) sizeof(struct Arr) / (float) sizeof(max_align_t)) * sizeof(max_align_t);
+const size_t PADDED = ceil((float) sizeof(struct Array) / (float) sizeof(max_align_t)) * sizeof(max_align_t);
 
-void* arr_Init(const size_t ele, const size_t len) {
-    struct Arr *a = malloc(PADDED + len * ele);
+void* arr_Create(size_t length, size_t size) {
+    struct Array *a = malloc(PADDED + length * size);
     if(a == 0) {
         return 0;
     }
-    a->ele = ele;
-    a->len = len;
-    char *dat = (char*) a + PADDED;
-    memset(dat, 0, len * ele);
-    return dat;
+    a->length = length;
+    a->size = size;
+    char *d = (char*) a + PADDED;
+    memset(d, 0, length * size);
+    return d;
 }
 
-void arr_Free(void *arr) {
-    struct Arr *a = (struct Arr*) ((char*) arr - PADDED);
+void arr_Destroy(void *array) {
+    struct Array *a = (struct Array*) ((char*) array - PADDED);
     free(a);
 }
 
-size_t arr_Len(const void *arr) {
-    struct Arr *a = (struct Arr*) ((char*) arr - PADDED);
-    return a->len;
+size_t arr_Length(const void *array) {
+    struct Array *a = (struct Array*) ((char*) array - PADDED);
+    return a->length;
 }
 
-void* arr_App(void *arr, const void *src, const size_t len) {
-    struct Arr *a = (struct Arr*) ((char*) arr - PADDED);
-    a->len += len;
-    a = realloc(a, PADDED + a->len * a->ele);
+void* arr_Append(void *array, const void *source, size_t length) {
+    struct Array *a = (struct Array*) ((char*) array - PADDED);
+    a->length += length;
+    a = realloc(a, PADDED + a->length * a->size);
     if(a == 0) {
         return 0;
     }
-    char *dat = (char*) a + PADDED;
-    memcpy(dat + (a->len - len) * a->ele, src, len * a->ele);
-    return dat;
+    char *d = (char*) a + PADDED;
+    memcpy(d + (a->length - length) * a->size, source, length * a->size);
+    return d;
 }
