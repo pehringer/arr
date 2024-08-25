@@ -1,5 +1,5 @@
 # ***arr*** - ***ARR***ay
-Tired of writing the same old allocation and reallocation code whenever you want to resize arrays in C? Sick of having separate variables to keep track of your array's length? This library offers arrays with a few extra features bolted on.
+Tired of writing the same old allocation and reallocation code whenever you want to resize arrays in C? Sick of having separate variables to keep track of your array's length? Or initalizing its elements to zero? This library offers arrays with a few extra features bolted on.
 - Easy to Use (library only has four functions)
   + [```void* arr_Create(size_t length, size_t size)```](#void-arr_createsize_t-length-size_t-size)
   + [```void arr_Destory(void *array)```](#void-arr_destroyvoid-array)
@@ -7,7 +7,7 @@ Tired of writing the same old allocation and reallocation code whenever you want
   + [```void* arr_Append(void *array, const void *source, size_t length)```](#void-arr_appendvoid-array-const-void-source-size_t-length)
 - Generic (can hold any kind of data)
 - Intuitive (behaves like normal a array)
-- Lightweight (less than 50 lines of source code) 
+- Lightweight (less than 50 lines of source code)
 - Performant (memory aligned elements)
   + Memory Diagram:
     ```
