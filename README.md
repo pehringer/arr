@@ -2,9 +2,9 @@
 Tired of writing the same old allocation and reallocation code whenever you want to resize arrays in C? Sick of having separate variables to keep track of your array's length? This library offers arrays with a few extra features bolted on.
 - Easy to Use (library only has four functions)
   + [```void* arr_Create(size_t length, size_t size)```](#void-arr_createsize_t-length-size_t-size)
-  + [```void arr_Destory(void *a)```](#void-arr_destroyvoid-a)
-  + [```size_t arr_Length(const void *a)```](#size_t-arr_lengthconst-void-a)
-  + [```void* arr_Append(void *a, const void *source, size_t length)```](#void-arr_appendvoid-a-const-void-source-size_t-length)
+  + [```void arr_Destory(void *array)```](#void-arr_destroyvoid-array)
+  + [```size_t arr_Length(const void *array)```](#size_t-arr_lengthconst-void-array)
+  + [```void* arr_Append(void *array, const void *source, size_t length)```](#void-arr_appendvoid-array-const-void-source-size_t-length)
 - Generic (can hold any kind of data)
 - Intuitive (behaves like normal a array)
 - Lightweight (less than 50 lines of source code) 
@@ -63,18 +63,18 @@ Returns NULL if allocation failed.
 - ```length``` length of array.
 - ```size``` size of element type.
 ---
-### ```void arr_Destroy(void *a)```
+### ```void arr_Destroy(void *array)```
 Deallocates array.  
-- ```a``` array returned by arr_Create.
+- ```array``` array returned by arr_Create.
 ---
-### ```size_t arr_Length(const void *a)```
+### ```size_t arr_Length(const void *array)```
 Returns arrays length.  
-- ```a``` array returned by arr_Create.
+- ```array``` array returned by arr_Create.
 ---
-### ```void* arr_Append(void *a, const void *source, size_t length)```
+### ```void* arr_Append(void *array, const void *source, size_t length)```
 Reallocates and returns array with source elements appended.  
 Returns NULL if reallocation failed.  
-- ```a``` array returned by arr_Create.
+- ```array``` array returned by arr_Create.
 - ```source``` source array to be copied.
 - ```length``` length of source.
 ---
