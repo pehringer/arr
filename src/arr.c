@@ -1,17 +1,17 @@
 #include "arr.h"
 
-struct Array {
+typedef struct arr_t {
     size_t length;
     size_t size;
-};
+} arr_t;
 
 //Malloc will always return a pointer that is aligned for any data type. Since
 //The struct is stored at the beginning of the allocation we want to keep this
 //universal alignment.
-const size_t PADDED = ceil((float) sizeof(struct Array) / (float) sizeof(max_align_t)) * sizeof(max_align_t);
+const size_t PADDED = ceil((float) sizeof(arr_t) / (float) sizeof(max_align_t)) * sizeof(max_align_t);
 
 void* arr_Create(size_t length, size_t size) {
-    struct Array *a = malloc(PADDED + length * size);
+    arr_t *a = malloc(PADDED + length * size);
     if(a == 0) {
         return 0;
     }
@@ -23,17 +23,17 @@ void* arr_Create(size_t length, size_t size) {
 }
 
 void arr_Destroy(void *array) {
-    struct Array *a = (struct Array*) ((char*) array - PADDED);
+    arr_t *a = (arr_t*) ((char*) array - PADDED);
     free(a);
 }
 
 size_t arr_Length(const void *array) {
-    struct Array *a = (struct Array*) ((char*) array - PADDED);
+    arr_t *a = (arr_t*) ((char*) array - PADDED);
     return a->length;
 }
 
 void* arr_Append(void *array, const void *source, size_t length) {
-    struct Array *a = (struct Array*) ((char*) array - PADDED);
+    arr_t *a = (arr_t*) ((char*) array - PADDED);
     a->length += length;
     a = realloc(a, PADDED + a->length * a->size);
     if(a == 0) {
