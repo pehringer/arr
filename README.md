@@ -43,7 +43,7 @@ int factorial(int number) {
 }
 ```
 ```
-$ make factorial
+arr$ make factorial 
 gcc -fPIC -shared -I ./include ./src/arr.c -o ./arr.so
 gcc -I ./include ./arr.so ./examples/factorial.c -o ./factorial.bin
 ./factorial.bin
