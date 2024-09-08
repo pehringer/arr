@@ -1,4 +1,4 @@
-# ***arr*** - ***ARR***ay
+# ***arr***
 Tired of writing the same old allocation and reallocation code whenever you want to resize arrays in C? Sick of having separate variables to keep track of your array's length? Or initalizing its elements to zero? This library offers arrays with a few extra features bolted on.
 - Easy to Use (library only has four functions)
   + [```void* arr_Create(size_t length, size_t size)```](#void-arr_createsize_t-length-size_t-size)
