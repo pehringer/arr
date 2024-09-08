@@ -26,35 +26,39 @@ Tired of writing the same old allocation and reallocation code whenever you want
   + ```math.h```
 - Resizable (can grow in length)
 # Example Code
+---
+### factorial.c
 Compute factorial using a dynamic array:
 ```
 #include <stdio.h>
 #include "arr.h"
 
-int factorial(int number) {
+int main(void) {
+  int factorial = 12;
   int *n = arr_Create(0, sizeof(int));
-  for(int i = 2; i <= number; i++) {
+
+  for(int i = 2; i <= factorial; i++) {
     n = arr_Append(n, &i, 1);
   }
-  number = 1;
+  factorial = 1;
   for(int i = 0; i < arr_Length(n); i++) {
-    number *= n[i];
+    factorial *= n[i];
   }
-  arr_Destroy(n);
-  return number;
-}
 
-int main(void) {
-  printf("%d\n", factorial(12));
+  arr_Destroy(n);
+  printf("%d\n", factorial);
   return 0;
 }
 ```
-Compile and execute:
 ```
-$ gcc -I ./arr/include ./arr/arr.so main.c
-$ ./a.out
+$ make factorial
+gcc -fPIC -shared -I ./include ./src/arr.c -o arr.so
+gcc -I ./include ./arr.so ./examples/factorial.c -o factorial.bin
+./factorial.bin
 479001600
+rm factorial.bin
 ```
+---
 # Library Functions
 ---
 ### ```void* arr_Create(size_t length, size_t size)```
