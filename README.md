@@ -33,30 +33,41 @@ Compute factorial using a dynamic array:
 #include <stdio.h>
 #include "arr.h"
 
-int main(void) {
-  int factorial = 12;
+int factorial(int number) {
   int *n = arr_Create(0, sizeof(int));
-
-  for(int i = 2; i <= factorial; i++) {
+  for(int i = 2; i <= number; i++) {
     n = arr_Append(n, &i, 1);
   }
-  factorial = 1;
+  number = 1;
   for(int i = 0; i < arr_Length(n); i++) {
-    factorial *= n[i];
+    number *= n[i];
   }
-
   arr_Destroy(n);
-  printf("%d\n", factorial);
+  return number;
+}
+
+int main(void) {
+  printf("1! = %d\n", factorial(1));
+  printf("2! = %d\n", factorial(2));
+  printf("3! = %d\n", factorial(3));
+  printf("4! = %d\n", factorial(4));
+  printf("5! = %d\n", factorial(5));
+  printf("6! = %d\n", factorial(6));
   return 0;
 }
 ```
 ```
 $ make factorial
-gcc -fPIC -shared -I ./include ./src/arr.c -o arr.so
-gcc -I ./include ./arr.so ./examples/factorial.c -o factorial.bin
+gcc -fPIC -shared -I ./include ./src/arr.c -o ./arr.so
+gcc -I ./include ./arr.so ./examples/factorial.c -o ./factorial.bin
 ./factorial.bin
-479001600
-rm factorial.bin
+1! = 1
+2! = 2
+3! = 6
+4! = 24
+5! = 120
+6! = 720
+rm ./factorial.bin
 ```
 ---
 # Library Functions
