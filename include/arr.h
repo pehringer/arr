@@ -1,8 +1,8 @@
 #ifndef ARR_H
 #define ARR_H
 
-#include <stdlib.h>
 #include <stddef.h>
+#include <stdlib.h>
 #include <string.h>
 
 void* arr_Create(size_t length, size_t size);

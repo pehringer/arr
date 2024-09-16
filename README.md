@@ -23,8 +23,8 @@ This library offers arrays with a few extra features bolted on.
     arr_Create / arr_Append return a pointer to the first element
     ```
 - Portable (only uses the C standard library)
-  + ```stdlib.h```
   + ```stddef.h```
+  + ```stdlib.h```
   + ```string.h```
 - Resizable (can grow in length)
 # Example Code
