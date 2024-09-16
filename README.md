@@ -26,7 +26,6 @@ This library offers arrays with a few extra features bolted on.
   + ```stdlib.h```
   + ```stddef.h```
   + ```string.h```
-  + ```math.h```
 - Resizable (can grow in length)
 # Example Code
 ---

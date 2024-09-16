@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
-#include <math.h>
 
 void* arr_Create(size_t length, size_t size);
 
