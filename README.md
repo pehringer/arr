@@ -12,16 +12,6 @@ This library offers arrays with a few extra features bolted on.
 - Intuitive (behaves like normal a array)
 - Lightweight (less than 50 lines of source code)
 - Performant (memory aligned elements)
-  + Memory Diagram:
-    ```
-    ________________________________________________
-    | ARR    | PADDING   | ELEMENT | ... | ELEMENT |
-    | STRUCT | ALIGNMENT | 0       |     | N       |
-    |________|___________|_________|_____|_________|
-                         ^
-                         |
-    arr_Create / arr_Append return a pointer to the first element
-    ```
 - Portable (only uses the C standard library)
   + ```stddef.h```
   + ```stdlib.h```

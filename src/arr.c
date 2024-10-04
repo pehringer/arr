@@ -1,5 +1,18 @@
 #include "arr.h"
 
+/*
+
+Arr memory layout:
+
+                    pointer returned by arr_Create / arr_Append
+                   /
+_____________________________________________
+| arr_t | padding | element | ... | element |
+|       |         | 0       |     | n       |
+|_______|_________|_________|_____|_________|
+
+*/
+
 typedef struct arr_t {
     size_t length;
     size_t size;
