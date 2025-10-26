@@ -47,12 +47,12 @@ size_t arr_Length(const void *array) {
 
 void* arr_Append(void *array, const void *source, size_t length) {
     arr_t *a = (arr_t*) ((unsigned char*) array - PADDED);
-    a->length += length;
-    a = realloc(a, PADDED + a->length * a->size);
+    a = realloc(a, PADDED + (a->length + length) * a->size);
     if(a == 0) {
         return 0;
     }
     unsigned char *d = (unsigned char*) a + PADDED;
-    memcpy(d + (a->length - length) * a->size, source, length * a->size);
+    memcpy(d + a->length * a->size, source, length * a->size);
+    a->length += length;
     return d;
 }
