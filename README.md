@@ -9,7 +9,7 @@ This library offers arrays with a few extra features bolted on.
   + [```size_t arr_Length(const void *array)```](#size_t-arr_lengthconst-void-array)
   + [```void* arr_Append(void *array, const void *source, size_t length)```](#void-arr_appendvoid-array-const-void-source-size_t-length)
 - Generic (can hold any kind of data)
-- Intuitive (behaves like normal a array)
+- Intuitive (behaves like a normal array with indexing e.g. arr[i])
 - Lightweight (less than 50 lines of source code)
 - Performant (memory aligned elements)
 - Portable (only uses the C standard library)
@@ -51,22 +51,22 @@ rm ./factorial.bin
 # Library Functions
 ---
 ### ```void* arr_Create(size_t length, size_t size)```
-Allocates and returns array.  
-Returns NULL if allocation failed.  
+Allocates and returns array.
+Returns NULL if allocation failed.
 - ```length``` length of array.
 - ```size``` size of element type.
 ---
 ### ```void arr_Destroy(void *array)```
-Deallocates array.  
+Deallocates array.
 - ```array``` array returned by arr_Create.
 ---
 ### ```size_t arr_Length(const void *array)```
-Returns arrays length.  
+Returns arrays length.
 - ```array``` array returned by arr_Create.
 ---
 ### ```void* arr_Append(void *array, const void *source, size_t length)```
-Reallocates and returns array with source elements appended.  
-Returns NULL if reallocation failed.  
+Reallocates and returns array with source elements appended.
+Returns NULL if reallocation failed.
 - ```array``` array returned by arr_Create.
 - ```source``` source array to be copied.
 - ```length``` length of source.
