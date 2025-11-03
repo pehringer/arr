@@ -18,9 +18,9 @@ typedef struct arr_t {
     size_t size;
 } arr_t;
 
-//Malloc will always return a pointer that is aligned for any data type. Since
-//The struct is stored at the beginning of the allocation we want to keep this
-//universal alignment.
+// Malloc will always return a pointer that is aligned for any data type. Since
+// The struct is stored at the beginning of the allocation we want to keep this
+// universal alignment.
 const size_t PADDED = (sizeof(arr_t) / sizeof(max_align_t) + 1) * sizeof(max_align_t);
 
 void* arr_Create(size_t length, size_t size) {
