@@ -51,7 +51,7 @@ rm ./factorial.bin
 # Library Functions
 ---
 ### ```void* arr_Create(size_t length, size_t size)```
-Returns the allocated array with specified length and element size.
+Returns a allocated array with the specified length and element size.
 Returns null if the allocation failed.
 - ```length``` number of element in the array.
 - ```size``` size of each element.
