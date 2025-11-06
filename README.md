@@ -51,23 +51,23 @@ rm ./factorial.bin
 # Library Functions
 ---
 ### ```void* arr_Create(size_t length, size_t size)```
-Allocates and returns array.
-Returns NULL if allocation failed.
-- ```length``` length of array.
-- ```size``` size of element type.
+Returns the allocated set for the specified length and element size.
+Returns null if the allocation failed.
+- ```length``` number of element in the array.
+- ```size``` size of each element.
 ---
 ### ```void arr_Destroy(void *array)```
 Deallocates array.
-- ```array``` array returned by arr_Create.
+- ```array``` array returned by arr_Create. Non null value.
 ---
 ### ```size_t arr_Length(const void *array)```
-Returns arrays length.
-- ```array``` array returned by arr_Create.
+Returns the number of elments in the array.
+- ```array``` array returned by arr_Create. Non null value
 ---
 ### ```void* arr_Append(void *array, const void *source, size_t length)```
-Reallocates and returns array with source elements appended.
-Returns NULL if reallocation failed.
-- ```array``` array returned by arr_Create.
-- ```source``` source array to be copied.
-- ```length``` length of source.
+Returns the reallocated array with source elements appended.
+Returns null if the reallocation failed.
+- ```array``` array returned by arr_Create. Non null value.
+- ```source``` source array to be copied. Non null value.
+- ```length``` length of the source array.
 ---
